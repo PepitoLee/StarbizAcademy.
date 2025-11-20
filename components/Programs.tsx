@@ -90,6 +90,8 @@ const Programs: React.FC = () => {
                                 <img 
                                     src="/images/programs-bg.png" 
                                     alt="Ascending platforms" 
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-cover opacity-60 mix-blend-screen hover:scale-105 transition-transform duration-1000" 
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A10] via-transparent to-transparent"></div>
@@ -176,11 +178,13 @@ const Programs: React.FC = () => {
                         </a>
                     </div>
 
-                    <div className="lg:col-span-5 relative h-[300px] lg:h-[500px] block w-full order-first lg:order-last mb-8 lg:mb-0 group overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+                    <div className="lg:col-span-5 relative h-[300px] lg:h-[500px] block w-full order-first lg:order-last mb-8 lg:mb-0 group overflow-hidden rounded-2xl border border-white/10 shadow-2xl will-change-transform">
                         {/* Image Background */}
                         <img 
                             src="/images/ceo-junior.png" 
                             alt="CEO Junior Vision" 
+                            loading="lazy"
+                            decoding="async"
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                         

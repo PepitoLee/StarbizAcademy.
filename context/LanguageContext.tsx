@@ -34,6 +34,8 @@ const translations = {
     },
     about: {
       title: "IDENTIDAD Y ORIGEN",
+      main_title: "Descubre a Starbiz",
+      intro_desc: "Starbiz Academy es la PRIMERA academia en el mundo hispano en formar a jóvenes y adolescentes como empresarios digitales, fusionando el desarrollo personal, la tecnología a través de la Inteligencia Artificial, y los sólidos valores cristianos",
       card1: {
         title: "El Origen: Henry Orellana",
         desc: "Starbiz Academy no es solo una institución; es el resultado de la visión de su fundador, Henry Orellana. Tras años de experiencia, Henry identificó una desconexión: el sistema tradicional no prepara para la velocidad de la IA. Por eso nace Starbiz: donde el potencial brillante (Star) se convierte en ejecución empresarial (Biz).",
@@ -226,7 +228,9 @@ const translations = {
       scroll: "Explore System"
     },
     about: {
-      title: "IDENTITY AND ORIGIN",
+      title: "IDENTITY AND ORIGEN",
+      main_title: "Discover Starbiz",
+      intro_desc: "Starbiz Academy is the FIRST academy in the Hispanic world to train youth and teenagers as digital entrepreneurs, merging personal development, technology through Artificial Intelligence, and solid Christian values.",
       card1: {
         title: "The Origin: Henry Orellana",
         desc: "Starbiz Academy is the result of founder Henry Orellana's vision. Identifying a disconnect in traditional education regarding AI speed, Starbiz was born: where brilliant potential (Star) becomes business execution (Biz).",

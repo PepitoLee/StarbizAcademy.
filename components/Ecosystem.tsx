@@ -51,11 +51,13 @@ const Ecosystem: React.FC = () => {
                </div>
                <div className="flex-1 w-full md:w-auto relative group perspective-1000">
                    {/* Image Container with 3D tilt effect on hover */}
-                   <div className="relative w-full aspect-video md:aspect-square max-w-[500px] mx-auto transform transition-transform duration-700 group-hover:rotate-y-12 group-hover:rotate-x-6">
+                   <div className="relative w-full aspect-video md:aspect-square max-w-[500px] mx-auto transform transition-transform duration-700 group-hover:rotate-y-12 group-hover:rotate-x-6 will-change-transform">
                       <div className="absolute inset-0 bg-brand-cyan/20 blur-3xl rounded-full opacity-40 group-hover:opacity-60 transition-opacity"></div>
                       <img 
                         src="/images/stareduca-community.png" 
                         alt="Comunidad StarEduca" 
+                        loading="lazy"
+                        decoding="async"
                         className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-cyan/20 group-hover:shadow-brand-cyan/40 transition-all duration-500"
                       />
                       {/* Overlay Glint */}
@@ -96,11 +98,13 @@ const Ecosystem: React.FC = () => {
                </div>
                <div className="flex-1 w-full md:w-auto relative group perspective-1000">
                    {/* Image Container with 3D tilt effect on hover */}
-                   <div className="relative w-full aspect-video md:aspect-square max-w-[500px] mx-auto transform transition-transform duration-700 group-hover:-rotate-y-12 group-hover:rotate-x-6">
+                   <div className="relative w-full aspect-video md:aspect-square max-w-[500px] mx-auto transform transition-transform duration-700 group-hover:-rotate-y-12 group-hover:rotate-x-6 will-change-transform">
                       <div className="absolute inset-0 bg-brand-orange/20 blur-3xl rounded-full opacity-40 group-hover:opacity-60 transition-opacity"></div>
                       <img 
                         src="/images/parents-community.png" 
                         alt="Comunidad Padres 3.0" 
+                        loading="lazy"
+                        decoding="async"
                         className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-orange/20 group-hover:shadow-brand-orange/40 transition-all duration-500"
                       />
                        {/* Overlay Glint */}

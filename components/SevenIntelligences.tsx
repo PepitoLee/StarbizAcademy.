@@ -63,6 +63,8 @@ const SevenIntelligences: React.FC = () => {
             <img 
               src="/images/intelligences-bg.png" 
               alt="Background" 
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover blur-sm scale-110" 
             />
          </div>

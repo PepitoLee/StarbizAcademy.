@@ -158,8 +158,8 @@ const Hero: React.FC = () => {
                             {/* ROCKET SVG (Rotated 45deg) */}
                             <svg 
                               viewBox="0 0 100 200" // Taller viewBox to fit the massive flame
-                              className="w-64 h-[500px] drop-shadow-[0_0_50px_rgba(255,77,0,0.6)]" // Much taller container
-                              style={{ transform: "rotate(45deg) translateY(50px)" }} // Diagonal Tilt + Offset
+                              className="w-48 h-[380px] drop-shadow-[0_0_50px_rgba(255,77,0,0.6)]" // Reduced size
+                              style={{ transform: "rotate(45deg) translateY(30px)" }} // Adjusted offset
                               preserveAspectRatio="xMidYMin slice"
                             >
                               <defs>

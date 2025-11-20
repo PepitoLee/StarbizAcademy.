@@ -114,11 +114,11 @@ const About: React.FC = () => {
                 <div className="absolute -top-8 left-24 w-4 h-1 bg-brand-purple mb-4"></div>
 
                 <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white font-display leading-[0.9] tracking-tight mb-6">
-                  Descubre a Starbiz
+                  {t.about.main_title}
                 </h2>
 
                               <p className="text-gray-400 text-lg leading-relaxed mb-8 border-l-2 border-white/10 pl-6">
-                                Starbiz Academy es la PRIMERA academia en el mundo hispano en formar a jóvenes y adolescentes como empresarios digitales, fusionando el desarrollo personal, la tecnología a través de la Inteligencia Artificial, y los sólidos valores cristianos
+                                {t.about.intro_desc}
                               </p>
              </div>
           </div>
