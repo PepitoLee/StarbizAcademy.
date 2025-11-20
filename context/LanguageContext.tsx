@@ -37,7 +37,7 @@ const translations = {
       main_title: "Descubre a Starbiz",
       intro_desc: "Starbiz Academy es la PRIMERA academia en el mundo hispano en formar a jóvenes y adolescentes como empresarios digitales, fusionando el desarrollo personal, la tecnología a través de la Inteligencia Artificial, y los sólidos valores cristianos",
       card1: {
-        title: "El Origen: Henry Orellana",
+        title: "StarbizAcademy",
         desc: "Starbiz Academy no es solo una institución; es el resultado de la visión de su fundador, Henry Orellana. Tras años de experiencia, Henry identificó una desconexión: el sistema tradicional no prepara para la velocidad de la IA. Por eso nace Starbiz: donde el potencial brillante (Star) se convierte en ejecución empresarial (Biz).",
         tag1: "Primera Academia Hispana Digital",
         tag2: "Valores Cristianos"
