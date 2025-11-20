@@ -191,7 +191,7 @@ const About: React.FC = () => {
                                        {item.label}
                                     </span>
                                  </div>
-                                 <span className="text-[10px] text-gray-600 font-mono">/// ID_{item.id}</span>
+                                 <span className="text-[10px] text-white font-mono">/// ID_{item.id}</span>
                               </div>
 
                               <h3 className="text-2xl md:text-3xl font-bold text-white font-display mb-4 group-hover:text-white transition-colors flex items-center gap-2">
