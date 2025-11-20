@@ -58,8 +58,17 @@ const SevenIntelligences: React.FC = () => {
     <section id="metodologia" className="relative bg-[#030014] py-24 md:py-32 overflow-hidden">
       {/* Background Ambient Effects */}
       <div className="absolute inset-0 pointer-events-none">
-         <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brand-purple/20 blur-[120px] rounded-full opacity-40"></div>
-         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] opacity-20"></div>
+         {/* Image Background */}
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-20">
+            <img 
+              src="/images/intelligences-bg.png" 
+              alt="Background" 
+              className="w-full h-full object-cover blur-sm scale-110" 
+            />
+         </div>
+         <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brand-purple/20 blur-[120px] rounded-full opacity-40 mixed-blend-screen"></div>
+         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 z-10"></div>
+         <div className="absolute inset-0 bg-gradient-to-b from-[#030014] via-transparent to-[#030014] z-10"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -68,6 +77,9 @@ const SevenIntelligences: React.FC = () => {
         <div className="text-center mb-12 md:mb-20">
           <h2 className="text-4xl md:text-7xl font-bold text-white font-display tracking-wide uppercase drop-shadow-[0_0_25px_rgba(255,255,255,0.2)]">
             7 INTELIGENCIAS
+            <span className="block text-2xl md:text-4xl mt-2 text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold tracking-[0.1em]">
+              MIL OPORTUNIDADES
+            </span>
           </h2>
           <div className="w-24 h-1 bg-brand-orange mx-auto my-6 md:my-8 shadow-[0_0_15px_#FF6B00]"></div>
           <p className="text-brand-yellow font-mono text-xs md:text-base tracking-[0.3em] uppercase">
@@ -93,17 +105,18 @@ const SevenIntelligences: React.FC = () => {
                 transition={{ delay: index * 0.1 }}
                 className={`
                   group relative 
-                  bg-[#080818] 
-                  border border-white/5 hover:border-white/20
+                  bg-[#1A1A2E] 
+                  border border-white/15 hover:border-white/30
                   rounded-3xl p-8 
                   h-[380px] flex flex-col
                   transition-all duration-300
                   overflow-hidden
+                  shadow-lg hover:shadow-2xl
                   hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]
                 `}
               >
                 {/* Background Big Number */}
-                <span className="absolute top-2 right-6 text-7xl font-display font-bold text-white/[0.02] group-hover:text-white/[0.06] transition-colors select-none pointer-events-none">
+                <span className="absolute top-2 right-6 text-7xl font-display font-bold text-white/[0.03] group-hover:text-white/[0.08] transition-colors select-none pointer-events-none">
                   {numberStr}
                 </span>
 
@@ -141,13 +154,14 @@ const SevenIntelligences: React.FC = () => {
             transition={{ delay: 0.7 }}
             className="
               relative 
-              bg-[#080818] 
-              border border-brand-orange/20 hover:border-brand-orange/50
+              bg-[#1A1A2E] 
+              border border-brand-orange/30 hover:border-brand-orange/60
               rounded-3xl p-8 
               h-[380px] flex flex-col items-center justify-center text-center
               transition-all duration-300
               group
-              shadow-[0_0_30px_rgba(255,107,0,0.05)]
+              shadow-lg
+              shadow-brand-orange/5
             "
           >
             {/* Center Icon */}

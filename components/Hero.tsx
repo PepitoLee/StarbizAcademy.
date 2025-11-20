@@ -4,10 +4,6 @@ import { Play, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Hero: React.FC = () => {
-  const { scrollY } = useScroll();
-  const yText = useTransform(scrollY, [0, 500], [0, 200]);
-  const opacityText = useTransform(scrollY, [0, 300], [1, 0]);
-  const scaleGraphic = useTransform(scrollY, [0, 500], [1, 1.2]);
   const { t } = useLanguage();
 
   return (
@@ -26,7 +22,9 @@ const Hero: React.FC = () => {
           {/* Text Content */}
           <motion.div 
             className="flex-1 text-center lg:text-left relative z-20"
-            style={{ y: yText, opacity: opacityText }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -54,12 +52,23 @@ const Hero: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
+              {/* SUPER CTA: PROGRAMS */}
               <a 
-                href="#comunidades" 
-                className="group relative px-8 py-4 bg-brand-orange overflow-hidden rounded-xl text-white font-bold font-display tracking-wider shadow-[0_0_20px_rgba(255,107,0,0.4)] transition-all hover:shadow-[0_0_40px_rgba(255,107,0,0.6)] hover:scale-105"
+                href="#programas" 
+                className="group relative px-10 py-5 bg-transparent overflow-hidden rounded-xl text-white font-bold font-display tracking-widest text-lg shadow-[0_0_30px_rgba(255,107,0,0.6)] hover:shadow-[0_0_60px_rgba(255,107,0,0.8)] transition-all hover:scale-105"
               >
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:animate-[shimmer_1s_infinite]"></div>
-                {t.hero.cta_primary}
+                {/* Animated Gradient Background */}
+                <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-brand-orange via-red-500 to-brand-purple animate-[gradient_3s_linear_infinite]"></div>
+                
+                {/* Shine Effect */}
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]"></div>
+                
+                {/* Border Glow */}
+                <div className="absolute inset-0 rounded-xl border-2 border-white/30 group-hover:border-white/80 transition-colors"></div>
+
+                <span className="relative z-10 flex items-center gap-2 drop-shadow-md">
+                  VER PROGRAMAS <span className="text-xl">→</span>
+                </span>
               </a>
               
               <button className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group">
@@ -74,7 +83,6 @@ const Hero: React.FC = () => {
           {/* 3D Hero Graphic */}
           <motion.div 
             className="flex-1 relative w-full aspect-square max-w-[600px]"
-            style={{ scale: scaleGraphic }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
@@ -108,16 +116,110 @@ const Hero: React.FC = () => {
                 >
                    {/* Inner Glow */}
                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-brand-orange/20 to-brand-purple/20 animate-pulse" />
-                   <div className="text-8xl z-20 drop-shadow-2xl">🚀</div>
                    
-                   {/* Orbiting Elements */}
-                   <motion.div 
-                     animate={{ rotate: 360 }}
-                     transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                     className="absolute inset-[-40px]"
-                   >
-                      <div className="w-8 h-8 bg-brand-cyan rounded-full shadow-[0_0_20px_cyan] absolute top-0 left-1/2 -translate-x-1/2" />
-                   </motion.div>
+                   {/* --- INFERNO MODE ROCKET (Diagonal & Heavy Fire) --- */}
+                   <div className="absolute inset-0 z-30 flex items-center justify-center">
+                      
+                      {/* 1. GLOBAL FIRE LIGHTING (The "Splash" on the Hero) */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-orange/20 blur-[120px] rounded-full mix-blend-screen animate-pulse" />
+                      
+                      <motion.div
+                        // Steady Powerful Burn (Slower Rumble)
+                        animate={{ 
+                          x: [-1, 1, -0.5, 0.5, 0], 
+                          y: [0.5, -0.5, 1, -1, 0] 
+                        }}
+                        transition={{ duration: 0.3, repeat: Infinity, ease: "linear" }}
+                        className="relative flex flex-col items-center group"
+                      >
+                            {/* 2. PARTICLE SYSTEM (Sparks/Embers falling back) */}
+                            <div className="absolute top-[80%] left-1/2 -translate-x-1/2 w-full h-[300px] overflow-visible pointer-events-none">
+                               {[...Array(8)].map((_, i) => (
+                                 <motion.div
+                                   key={i}
+                                   className="absolute top-0 left-1/2 w-2 h-2 bg-brand-yellow rounded-full blur-[1px]"
+                                   animate={{ 
+                                      y: [0, 200 + Math.random() * 100],
+                                      x: [(Math.random() - 0.5) * 50, (Math.random() - 0.5) * 150],
+                                      opacity: [1, 0],
+                                      scale: [1, 0] 
+                                   }}
+                                   transition={{ 
+                                      duration: 1 + Math.random(), 
+                                      repeat: Infinity, 
+                                      delay: Math.random() * 0.5,
+                                      ease: "easeOut"
+                                   }}
+                                   style={{ left: `calc(50% + ${(Math.random() - 0.5) * 40}px)` }}
+                                 />
+                               ))}
+                            </div>
+
+                            {/* ROCKET SVG (Rotated 45deg) */}
+                            <svg 
+                              viewBox="0 0 100 200" // Taller viewBox to fit the massive flame
+                              className="w-64 h-[500px] drop-shadow-[0_0_50px_rgba(255,77,0,0.6)]" // Much taller container
+                              style={{ transform: "rotate(45deg) translateY(50px)" }} // Diagonal Tilt + Offset
+                              preserveAspectRatio="xMidYMin slice"
+                            >
+                              <defs>
+                                <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                  <stop offset="0%" stopColor="#F8FAFC" /> 
+                                  <stop offset="100%" stopColor="#CBD5E1" /> 
+                                </linearGradient>
+                                <linearGradient id="infernoGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                  <stop offset="0%" stopColor="#FFFFFF" /> {/* White Hot */}
+                                  <stop offset="10%" stopColor="#FEF08A" /> {/* Yellow */}
+                                  <stop offset="30%" stopColor="#F97316" /> {/* Orange */}
+                                  <stop offset="60%" stopColor="#EF4444" /> {/* Red */}
+                                  <stop offset="100%" stopColor="transparent" />
+                                </linearGradient>
+                              </defs>
+
+                              {/* --- MASSIVE FLAME TAIL --- */}
+                              <g className="mix-blend-screen" transform="translate(0, -20)"> 
+                                  {/* Core Blast */}
+                                  <motion.path 
+                                    d="M30 95 Q50 250 70 95" 
+                                    fill="url(#infernoGrad)"
+                                    style={{ filter: "blur(6px)" }}
+                                    animate={{ d: ["M30 95 Q50 260 70 95", "M25 95 Q50 240 75 95", "M30 95 Q50 260 70 95"] }}
+                                    transition={{ duration: 0.4, repeat: Infinity }}
+                                  />
+                                  {/* Inner Plasma */}
+                                  <motion.path 
+                                    d="M40 95 Q50 180 60 95" 
+                                    fill="#FFF"
+                                    style={{ filter: "blur(3px)" }}
+                                    animate={{ d: ["M42 95 Q50 190 58 95", "M40 95 Q50 160 60 95", "M42 95 Q50 190 58 95"] }}
+                                    transition={{ duration: 0.2, repeat: Infinity }}
+                                  />
+                              </g>
+
+                              {/* --- ROCKET SHIP --- */}
+                              <g transform="translate(0, 20)">
+                                {/* Fins (Red) */}
+                                <path d="M30 70 L15 90 L30 80 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
+                                <path d="M70 70 L85 90 L70 80 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
+                                <path d="M50 75 L50 90 L40 80 L60 80 Z" fill="#B91C1C" />
+
+                                {/* Main Body */}
+                                <path 
+                                  d="M30 70 Q30 40 50 10 Q70 40 70 70 L70 75 Q50 75 30 75 Z" 
+                                  fill="url(#bodyGrad)" 
+                                  stroke="#475569" strokeWidth="0.5"
+                                />
+
+                                {/* Window (Blue) */}
+                                <circle cx="50" cy="40" r="12" fill="#38BDF8" stroke="#0F172A" strokeWidth="2" />
+                                <path d="M50 40 A 12 12 0 0 1 58 32" fill="none" stroke="white" strokeWidth="2" opacity="0.6" />
+                                
+                                {/* Shine/Details */}
+                                <path d="M50 10 L50 75" stroke="#94A3B8" strokeWidth="0.5" strokeDasharray="2 2" fill="none" opacity="0.5"/>
+                              </g>
+                            </svg>
+                      </motion.div>
+                   </div>
                 </motion.div>
               </div>
             </div>
@@ -125,15 +227,6 @@ const Hero: React.FC = () => {
 
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-gray-500 flex flex-col items-center gap-2"
-        >
-          <span className="text-xs uppercase tracking-[0.2em]">{t.hero.scroll}</span>
-          <ChevronDown size={20} />
-        </motion.div>
       </div>
     </section>
   );

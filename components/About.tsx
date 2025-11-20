@@ -11,9 +11,9 @@ const About: React.FC = () => {
     {
       icon: User,
       color: "text-cyan-400",
-      borderColor: "border-cyan-400",
-      shadowColor: "shadow-cyan-400/20",
-      bgGradient: "from-cyan-400/10 to-transparent",
+      borderColor: "border-cyan-500",
+      shadowColor: "shadow-cyan-500/20",
+      spotlight: "from-cyan-500/20 via-cyan-900/5 to-transparent",
       id: "001",
       label: "ARCHITECT",
       subtitle: t.about.card1.title,
@@ -21,11 +21,31 @@ const About: React.FC = () => {
       meta: ["Access Granted", "Level 7 Clearance"]
     },
     {
+      icon: MapPin,
+      color: "text-emerald-400",
+      borderColor: "border-emerald-500",
+      shadowColor: "shadow-emerald-500/20",
+      spotlight: "from-emerald-500/20 via-emerald-900/5 to-transparent",
+      id: "004",
+      label: "LOCATION",
+      subtitle: t.about.card2.title,
+      content: (
+        <div className="space-y-2">
+           <p>{t.about.card2.desc}</p>
+           <div className="inline-flex items-center gap-3 bg-emerald-950/30 px-3 py-2 rounded border border-emerald-500/20 mt-2">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-emerald-400 text-xs font-mono tracking-widest uppercase">{t.about.card2.status_val}</span>
+           </div>
+        </div>
+      ),
+      meta: ["Utah_USA", "Global_Link"]
+    },
+    {
       icon: Cpu,
       color: "text-purple-400",
-      borderColor: "border-purple-400",
-      shadowColor: "shadow-purple-400/20",
-      bgGradient: "from-purple-400/10 to-transparent",
+      borderColor: "border-purple-500",
+      shadowColor: "shadow-purple-500/20",
+      spotlight: "from-purple-500/20 via-purple-900/5 to-transparent",
       id: "002",
       label: "CORE SYSTEM",
       subtitle: "Misión & Visión",
@@ -46,9 +66,9 @@ const About: React.FC = () => {
     {
       icon: Award,
       color: "text-orange-400",
-      borderColor: "border-orange-400",
-      shadowColor: "shadow-orange-400/20",
-      bgGradient: "from-orange-400/10 to-transparent",
+      borderColor: "border-orange-500",
+      shadowColor: "shadow-orange-500/20",
+      spotlight: "from-orange-500/20 via-orange-900/5 to-transparent",
       id: "003",
       label: "PROTOCOL",
       subtitle: t.about.values.title,
@@ -57,7 +77,7 @@ const About: React.FC = () => {
           <p>{t.about.values.desc}</p>
           <div className="flex flex-wrap gap-2 pt-2">
              {['Fe', 'Ciencia', 'Liderazgo', 'Servicio'].map((v, i) => (
-               <span key={i} className="text-[10px] font-mono text-orange-300 bg-orange-500/10 px-2 py-1 border border-orange-500/20 uppercase tracking-widest hover:bg-orange-500/20 transition-colors">
+               <span key={i} className="text-[10px] font-mono text-orange-300 bg-orange-950/30 px-2 py-1 border border-orange-500/20 uppercase tracking-widest hover:bg-orange-500/20 transition-colors">
                  {v}
                </span>
              ))}
@@ -65,26 +85,6 @@ const About: React.FC = () => {
         </div>
       ),
       meta: ["Ethics_Verified", "Code_Red"]
-    },
-    {
-      icon: MapPin,
-      color: "text-emerald-400",
-      borderColor: "border-emerald-400",
-      shadowColor: "shadow-emerald-400/20",
-      bgGradient: "from-emerald-400/10 to-transparent",
-      id: "004",
-      label: "LOCATION",
-      subtitle: t.about.card2.title,
-      content: (
-        <div className="space-y-2">
-           <p>{t.about.card2.desc}</p>
-           <div className="inline-flex items-center gap-3 bg-emerald-900/20 px-3 py-2 rounded border border-emerald-500/20 mt-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-emerald-400 text-xs font-mono tracking-widest uppercase">{t.about.card2.status_val}</span>
-           </div>
-        </div>
-      ),
-      meta: ["Utah_USA", "Global_Link"]
     }
   ];
 
@@ -113,34 +113,13 @@ const About: React.FC = () => {
                 <div className="absolute -top-8 left-0 w-20 h-1 bg-brand-cyan mb-4"></div>
                 <div className="absolute -top-8 left-24 w-4 h-1 bg-brand-purple mb-4"></div>
 
-                <div className="flex items-center gap-2 mb-4 text-brand-cyan/80 font-mono text-xs tracking-[0.3em]">
-                  <Terminal size={14} />
-                  <span>SYSTEM_IDENTITY_LOGS</span>
-                </div>
-
                 <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white font-display leading-[0.9] tracking-tight mb-6">
-                  STARBIZ <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-600">LOGS</span>
+                  Descubre a Starbiz
                 </h2>
 
-                <p className="text-gray-400 text-lg leading-relaxed mb-8 border-l-2 border-white/10 pl-6">
-                  Decodificando el ADN de nuestra academia. Explorando los componentes centrales que forman a la nueva élite digital.
-                </p>
-
-                {/* Status Box */}
-                <div className="hidden lg:block p-4 bg-white/5 rounded-lg border border-white/10 font-mono text-xs text-gray-500">
-                   <div className="flex justify-between mb-2">
-                      <span>UPTIME</span>
-                      <span className="text-brand-cyan">99.9%</span>
-                   </div>
-                   <div className="flex justify-between mb-2">
-                      <span>ENCRYPTION</span>
-                      <span className="text-brand-purple">SHA-256</span>
-                   </div>
-                   <div className="w-full bg-white/10 h-1 rounded-full overflow-hidden mt-2">
-                      <div className="bg-brand-orange h-full w-2/3 animate-pulse"></div>
-                   </div>
-                </div>
+                              <p className="text-gray-400 text-lg leading-relaxed mb-8 border-l-2 border-white/10 pl-6">
+                                Starbiz Academy es la PRIMERA academia en el mundo hispano en formar a jóvenes y adolescentes como empresarios digitales, fusionando el desarrollo personal, la tecnología a través de la Inteligencia Artificial, y los sólidos valores cristianos
+                              </p>
              </div>
           </div>
 
@@ -162,56 +141,62 @@ const About: React.FC = () => {
                         <div className="absolute left-[27px] top-16 bottom-[-32px] w-px bg-white/5 group-hover:bg-white/10 transition-colors hidden md:block"></div>
                      )}
 
+                     {/* Card Container */}
                      <div className={`
                         relative overflow-hidden
-                        bg-[#0A0A12] backdrop-blur-xl
-                        border border-white/10 hover:border-white/20
-                        p-6 md:p-8 rounded-r-2xl rounded-bl-2xl rounded-tl-md
-                        transition-all duration-300
-                        hover:shadow-lg ${item.shadowColor}
+                        bg-[#1A1A2E]
+                        border-l-4 ${item.borderColor.replace('border-', 'border-')}
+                        border-t border-r border-b border-white/20
+                        p-6 md:p-8 rounded-r-2xl rounded-bl-2xl rounded-tl-sm
+                        transition-all duration-500
+                        shadow-lg
+                        hover:shadow-2xl ${item.shadowColor}
+                        group-hover:translate-x-2
                      `}>
-                        {/* Gradient overlay on hover */}
-                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r ${item.bgGradient} transition-opacity duration-500`}></div>
+                        {/* 1. Creative Background Spotlight (Animated) */}
+                        <div className={`
+                           absolute -top-[100px] -right-[100px] w-[300px] h-[300px] 
+                           bg-gradient-to-br ${item.spotlight} 
+                           blur-[80px] opacity-40 group-hover:opacity-60 transition-opacity duration-500
+                           rounded-full pointer-events-none
+                        `}></div>
                         
-                        {/* Tech Corner Markers */}
-                        <div className={`absolute top-0 left-0 w-2 h-2 border-t border-l ${item.borderColor} opacity-50`}></div>
-                        <div className={`absolute top-0 right-0 w-2 h-2 border-t border-r ${item.borderColor} opacity-50`}></div>
-                        <div className={`absolute bottom-0 left-0 w-2 h-2 border-b border-l ${item.borderColor} opacity-50`}></div>
-                        <div className={`absolute bottom-0 right-0 w-2 h-2 border-b border-r ${item.borderColor} opacity-50`}></div>
+                        {/* 2. Tech Grid Overlay (Subtle) */}
+                        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
                         <div className="relative z-10 flex flex-col md:flex-row gap-6">
                            {/* Icon Column */}
-                           <div className="shrink-0">
+                           <div className="shrink-0 relative">
+                              {/* Glowing Icon Container */}
                               <div className={`
-                                 w-14 h-14 rounded-lg bg-black/50 border border-white/10 
+                                 w-16 h-16 rounded-xl 
+                                 bg-[#12121a] border border-white/10
                                  flex items-center justify-center
-                                 group-hover:scale-110 transition-transform duration-500
-                                 shadow-inner
+                                 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500
+                                 relative z-10
+                                 ${item.shadowColor} shadow-lg
                               `}>
-                                 <Icon size={28} className={item.color} />
+                                 <Icon size={32} className={item.color} />
                               </div>
-                              <div className="mt-2 font-mono text-[10px] text-center text-gray-600">
-                                 ID_{item.id}
-                              </div>
+                              {/* Decorative line below icon */}
+                              <div className={`absolute top-full left-1/2 -translate-x-1/2 h-10 w-px bg-gradient-to-b from-${item.color.split('-')[1]}-500/50 to-transparent`}></div>
                            </div>
 
                            {/* Content Column */}
                            <div className="flex-1">
-                              {/* Header Meta */}
-                              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-3">
-                                 <span className={`font-mono text-xs font-bold tracking-widest uppercase ${item.color}`}>
-                                    // {item.label}
-                                 </span>
-                                 <div className="h-px w-8 bg-white/10"></div>
-                                 {item.meta.map((m, i) => (
-                                    <span key={i} className="text-[10px] text-gray-500 uppercase tracking-wider border border-white/5 px-1 rounded">
-                                       {m}
+                              {/* Header Meta - Tech Style */}
+                              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-3">
+                                 <div className={`px-2 py-0.5 rounded bg-${item.color.split('-')[1]}-950/50 border border-${item.color.split('-')[1]}-500/30`}>
+                                    <span className={`font-mono text-[10px] font-bold tracking-widest uppercase ${item.color}`}>
+                                       {item.label}
                                     </span>
-                                 ))}
+                                 </div>
+                                 <span className="text-[10px] text-gray-600 font-mono">/// ID_{item.id}</span>
                               </div>
 
-                              <h3 className="text-2xl md:text-3xl font-bold text-white font-display mb-4 group-hover:text-white transition-colors">
+                              <h3 className="text-2xl md:text-3xl font-bold text-white font-display mb-4 group-hover:text-white transition-colors flex items-center gap-2">
                                  {item.subtitle}
+                                 <span className="opacity-0 group-hover:opacity-100 transition-opacity text-lg text-gray-500">→</span>
                               </h3>
 
                               <div className="text-gray-400 leading-relaxed text-sm md:text-base">

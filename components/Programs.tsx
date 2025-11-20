@@ -13,6 +13,12 @@ const Programs: React.FC = () => {
         {/* Background Ambience for Section */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-brand-orange/5 blur-[100px] pointer-events-none"></div>
 
+        {/* Section Header */}
+        <div className="bg-transparent pt-32 pb-10 text-center px-4 relative z-10">
+            <span className="text-gray-500 uppercase tracking-[0.3em] text-sm font-bold">// STARBIZ ACADEMY</span>
+            <h2 className="text-5xl md:text-7xl font-bold text-white mt-4 font-display">PROGRAMAS</h2>
+        </div>
+
         {/* SECTION 1: SUMMER 2026 - "THE GOLDEN ECLIPSE" DESIGN */}
         <div className="relative w-full py-24 md:py-32">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -78,12 +84,19 @@ const Programs: React.FC = () => {
                         </div>
 
                         {/* Right Panel: The Specs / Visual */}
-                        <div className="lg:col-span-5 bg-white/[0.02] border-t lg:border-t-0 lg:border-l border-white/10 p-8 md:p-12 lg:p-16 flex flex-col justify-center relative">
-                            {/* Decorative Circle */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-brand-orange/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div className="lg:col-span-5 relative overflow-hidden min-h-[400px] lg:min-h-0">
+                            {/* Image Background */}
+                            <div className="absolute inset-0 z-0">
+                                <img 
+                                    src="/images/programs-bg.png" 
+                                    alt="Ascending platforms" 
+                                    className="w-full h-full object-cover opacity-60 mix-blend-screen hover:scale-105 transition-transform duration-1000" 
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A10] via-transparent to-transparent"></div>
+                            </div>
 
-                            <div className="relative z-10 space-y-6">
-                                <h3 className="text-white font-display font-bold text-xl uppercase tracking-wider mb-6 flex items-center gap-2">
+                            <div className="relative z-10 p-8 md:p-12 lg:p-16 flex flex-col justify-center h-full bg-black/20 backdrop-blur-sm">
+                                <h3 className="text-white font-display font-bold text-xl uppercase tracking-wider mb-6 flex items-center gap-2 drop-shadow-md">
                                     <Sparkles size={18} className="text-brand-yellow" /> 
                                     Modules Included
                                 </h3>
@@ -163,19 +176,20 @@ const Programs: React.FC = () => {
                         </a>
                     </div>
 
-                    <div className="lg:col-span-5 relative h-[500px] hidden lg:block">
-                        {/* Minimalist Vertical Card Representation */}
-                        <div className="absolute right-0 top-0 w-full h-full bg-gradient-to-br from-gray-800 to-black rounded-2xl overflow-hidden border border-white/10 opacity-80 shadow-2xl">
-                           <div className="absolute inset-0 grid-bg opacity-30"></div>
-                           {/* Decorative UI Elements */}
-                           <div className="absolute top-8 left-8 w-12 h-1 bg-brand-cyan"></div>
-                           <div className="absolute bottom-8 right-8 text-8xl font-display font-bold text-white/5">JR</div>
-                           
-                           {/* Abstract geometric shape */}
-                           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-white/10 rounded-full flex items-center justify-center">
-                              <div className="w-32 h-32 border border-brand-cyan/30 rounded-full"></div>
-                           </div>
-                        </div>
+                    <div className="lg:col-span-5 relative h-[300px] lg:h-[500px] block w-full order-first lg:order-last mb-8 lg:mb-0 group overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+                        {/* Image Background */}
+                        <img 
+                            src="/images/ceo-junior.png" 
+                            alt="CEO Junior Vision" 
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        
+                        {/* Gradient Overlay for Mood */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#050510] via-transparent to-transparent opacity-80"></div>
+                        <div className="absolute inset-0 bg-brand-cyan/10 mix-blend-overlay"></div>
+
+                        {/* Decorative Elements (kept for style) */}
+                        <div className="absolute bottom-8 right-8 text-8xl font-display font-bold text-white/10 z-10">JR</div>
                     </div>
                 </div>
             </div>

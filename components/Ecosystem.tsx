@@ -7,18 +7,28 @@ const Ecosystem: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <div id="comunidades">
+    <div id="comunidades" className="relative">
+      {/* Global Network Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <img 
+            src="/images/ecosystem-bg.png" 
+            alt="Network" 
+            className="w-full h-full object-cover opacity-10 mix-blend-screen fixed-bg"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#030014] via-[#030014]/80 to-[#030014]"></div>
+      </div>
+
       {/* Header Section */}
-      <div className="bg-space-black pt-32 pb-10 text-center px-4">
+      <div className="bg-transparent pt-32 pb-10 text-center px-4 relative z-10">
           <span className="text-gray-500 uppercase tracking-[0.3em] text-sm font-bold">{t.ecosystem.pretitle}</span>
           <h2 className="text-5xl md:text-7xl font-bold text-white mt-4 font-display">{t.ecosystem.title}</h2>
       </div>
 
       {/* Community 1: Stareduca (Full Width) */}
-      <section className="relative py-24 md:py-32 bg-[#02040a] border-y border-white/5 overflow-hidden">
+      <section className="relative py-24 md:py-32 border-y border-white/5 overflow-hidden backdrop-blur-sm bg-black/20">
          <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-cyan/5 skew-x-12 pointer-events-none"></div>
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex flex-col md:flex-row gap-16 items-center">
+            <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-16 items-center">
                <div className="flex-1">
                   <div className="w-16 h-16 rounded-2xl bg-brand-cyan text-black flex items-center justify-center mb-8">
                      <Users size={32} />
@@ -39,10 +49,17 @@ const Ecosystem: React.FC = () => {
                      {t.ecosystem.stareduca.cta}
                   </a>
                </div>
-               <div className="flex-1 hidden md:block">
-                   {/* Abstract visual representation instead of a box */}
-                   <div className="text-[200px] font-display font-bold text-white/5 leading-none select-none">
-                      STAR <br/> EDUCA
+               <div className="flex-1 w-full md:w-auto relative group perspective-1000">
+                   {/* Image Container with 3D tilt effect on hover */}
+                   <div className="relative w-full aspect-video md:aspect-square max-w-[500px] mx-auto transform transition-transform duration-700 group-hover:rotate-y-12 group-hover:rotate-x-6">
+                      <div className="absolute inset-0 bg-brand-cyan/20 blur-3xl rounded-full opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                      <img 
+                        src="/images/stareduca-community.png" 
+                        alt="Comunidad StarEduca" 
+                        className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-cyan/20 group-hover:shadow-brand-cyan/40 transition-all duration-500"
+                      />
+                      {/* Overlay Glint */}
+                      <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
                    </div>
                </div>
             </div>
@@ -53,7 +70,7 @@ const Ecosystem: React.FC = () => {
       <section className="relative py-24 md:py-32 bg-[#050505]">
          <div className="absolute top-0 left-0 w-1/2 h-full bg-brand-orange/5 -skew-x-12 pointer-events-none"></div>
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex flex-col md:flex-row-reverse gap-16 items-center">
+            <div className="flex flex-col-reverse md:flex-row-reverse gap-8 md:gap-16 items-center">
                <div className="flex-1">
                   <div className="w-16 h-16 rounded-2xl bg-brand-orange text-black flex items-center justify-center mb-8">
                      <Sparkles size={32} />
@@ -77,27 +94,21 @@ const Ecosystem: React.FC = () => {
                      {t.ecosystem.parents.cta}
                   </a>
                </div>
-               <div className="flex-1 hidden md:block text-right">
-                   <div className="text-[200px] font-display font-bold text-white/5 leading-none select-none">
-                      PADRES <br/> 3.0
+               <div className="flex-1 w-full md:w-auto relative group perspective-1000">
+                   {/* Image Container with 3D tilt effect on hover */}
+                   <div className="relative w-full aspect-video md:aspect-square max-w-[500px] mx-auto transform transition-transform duration-700 group-hover:-rotate-y-12 group-hover:rotate-x-6">
+                      <div className="absolute inset-0 bg-brand-orange/20 blur-3xl rounded-full opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                      <img 
+                        src="/images/parents-community.png" 
+                        alt="Comunidad Padres 3.0" 
+                        className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-orange/20 group-hover:shadow-brand-orange/40 transition-all duration-500"
+                      />
+                       {/* Overlay Glint */}
+                      <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
                    </div>
                </div>
             </div>
          </div>
-      </section>
-
-      {/* App Section */}
-      <section className="py-32 relative bg-space-black overflow-hidden border-t border-white/5">
-          <div className="max-w-5xl mx-auto px-4 relative z-10 text-center">
-              <Smartphone className="text-white w-12 h-12 mx-auto mb-8 opacity-80" strokeWidth={1} />
-              <h2 className="text-5xl md:text-8xl font-bold text-white mb-8 font-display tracking-tighter">{t.ecosystem.app.title}</h2>
-              <p className="text-2xl text-gray-400 mb-12 font-light max-w-3xl mx-auto leading-relaxed">
-                  {t.ecosystem.app.desc_part1} <span className="text-white font-bold border-b-2 border-brand-orange">{t.ecosystem.app.desc_part2}</span> {t.ecosystem.app.desc_part3}
-              </p>
-              <a href="#contacto" className="inline-flex items-center gap-3 text-black bg-white px-10 py-4 rounded-full font-bold transition-all hover:scale-105 shadow-[0_0_40px_rgba(255,255,255,0.2)]">
-                  {t.ecosystem.app.cta} <ArrowRight size={20} />
-              </a>
-          </div>
       </section>
     </div>
   );
