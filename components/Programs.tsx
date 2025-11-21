@@ -179,18 +179,20 @@ const Programs: React.FC = () => {
                     </div>
 
                     <div className="lg:col-span-5 relative h-[300px] lg:h-[500px] block w-full order-first lg:order-last mb-8 lg:mb-0 group overflow-hidden rounded-2xl border border-white/10 shadow-2xl will-change-transform">
-                        {/* Image Background */}
-                        <img 
-                            src="/images/ceo-junior.png" 
-                            alt="CEO Junior Vision" 
-                            loading="lazy"
-                            decoding="async"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
+                        {/* Video Background - Visionary */}
+                        <video 
+                            autoPlay 
+                            loop 
+                            muted 
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90"
+                        >
+                            <source src="/videos/visionary.mp4" type="video/mp4" />
+                        </video>
                         
                         {/* Gradient Overlay for Mood */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#050510] via-transparent to-transparent opacity-80"></div>
-                        <div className="absolute inset-0 bg-brand-cyan/10 mix-blend-overlay"></div>
+                        <div className="absolute inset-0 bg-brand-cyan/20 mix-blend-overlay"></div>
 
                         {/* Decorative Elements (kept for style) */}
                         <div className="absolute bottom-8 right-8 text-8xl font-display font-bold text-white/10 z-10">JR</div>

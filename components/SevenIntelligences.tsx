@@ -14,7 +14,8 @@ const SevenIntelligences: React.FC = () => {
       icon: Brain, 
       color: "text-purple-500", 
       borderColor: "group-hover:border-purple-500/50",
-      bgIcon: "bg-purple-500/10"
+      bgIcon: "bg-purple-500/10",
+      video: "/videos/mental-intelligence.mp4"
     },
     { 
       icon: Activity, // Using Activity for "Física" (Pulse)
@@ -44,13 +45,15 @@ const SevenIntelligences: React.FC = () => {
       icon: DollarSign, 
       color: "text-emerald-400", 
       borderColor: "group-hover:border-emerald-400/50",
-      bgIcon: "bg-emerald-400/10"
+      bgIcon: "bg-emerald-400/10",
+      video: "/videos/finance-intelligence.mp4"
     },
     { 
       icon: Cpu, 
       color: "text-cyan-400", 
       borderColor: "group-hover:border-cyan-400/50",
-      bgIcon: "bg-cyan-400/10"
+      bgIcon: "bg-cyan-400/10",
+      video: "/videos/tech-intelligence.mp4"
     }
   ];
 
@@ -117,8 +120,22 @@ const SevenIntelligences: React.FC = () => {
                   hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]
                 `}
               >
+                {/* --- VIDEO BACKGROUND (If available) --- */}
+                {config.video && (
+                   <>
+                     <video 
+                       autoPlay loop muted playsInline
+                       className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-40 transition-opacity duration-700 mix-blend-luminosity group-hover:mix-blend-normal"
+                     >
+                       <source src={config.video} type="video/mp4" />
+                     </video>
+                     {/* Overlay to ensure text legibility */}
+                     <div className="absolute inset-0 bg-[#1A1A2E]/90 group-hover:bg-[#1A1A2E]/60 transition-colors duration-700 pointer-events-none"></div>
+                   </>
+                )}
+
                 {/* Background Big Number */}
-                <span className="absolute top-2 right-6 text-7xl font-display font-bold text-white group-hover:text-white transition-colors select-none pointer-events-none">
+                <span className="absolute top-2 right-6 text-7xl font-display font-bold text-white group-hover:text-white transition-colors select-none pointer-events-none z-10">
                   {numberStr}
                 </span>
 
