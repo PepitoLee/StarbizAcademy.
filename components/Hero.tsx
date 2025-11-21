@@ -1,20 +1,28 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Play, ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Play } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import Starfield from './Starfield';
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Dynamic Background Gradients */}
-      <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-brand-purple/20 rounded-full blur-[120px] animate-pulse-glow" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-brand-cyan/10 rounded-full blur-[100px] animate-float" />
-      <div className="absolute top-[40%] left-[60%] w-[300px] h-[300px] bg-brand-orange/20 rounded-full blur-[80px]" />
+    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-[#020005]">
+      
+      {/* 1. Animated Starfield Background */}
+      <Starfield />
 
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+      {/* 2. Deep Space Nebula Effects (Subtle) */}
+      <div className="absolute top-[-20%] left-[-10%] w-[1000px] h-[1000px] bg-brand-purple/10 rounded-full blur-[120px] animate-pulse-glow mix-blend-screen" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] bg-brand-cyan/5 rounded-full blur-[120px] animate-float mix-blend-screen" />
+      <div className="absolute top-[30%] left-[50%] w-[500px] h-[500px] bg-brand-orange/5 rounded-full blur-[100px] mix-blend-screen" />
+
+      {/* 3. Vignette for focus */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#000000_100%)] opacity-60 pointer-events-none"></div>
+
+      {/* Grid Pattern Overlay (Very subtle tech feel) */}
+      <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none mix-blend-overlay"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
