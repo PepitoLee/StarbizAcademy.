@@ -120,10 +120,28 @@ const Hero: React.FC = () => {
                 <motion.div 
                   animate={{ y: [-20, 20, -20] }}
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative w-64 h-64 bg-black rounded-full flex items-center justify-center z-10 border-4 border-brand-orange shadow-[0_0_60px_rgba(255,107,0,0.3)]"
+                  className="relative w-80 h-80 flex items-center justify-center z-10"
                 >
-                   {/* Inner Glow */}
-                   <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-brand-orange/20 to-brand-purple/20 animate-pulse" />
+                   {/* --- COSMIC PORTAL DESIGN --- */}
+                   
+                   {/* 1. Spinning Energy Ring (Outer) */}
+                   <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-brand-cyan/40 via-brand-purple/40 to-brand-orange/40 blur-md animate-[spin_8s_linear_infinite]"></div>
+                   
+                   {/* 2. Structural Ring (Metallic/Glass border) */}
+                   <div className="absolute inset-[2px] rounded-full bg-gradient-to-b from-white/20 to-white/5 border border-white/10 backdrop-blur-sm z-0 shadow-[0_0_50px_rgba(0,0,0,0.5)]"></div>
+
+                   {/* 3. Deep Space Core (Background) */}
+                   <div className="absolute inset-[6px] rounded-full bg-[#030005] overflow-hidden shadow-[inset_0_0_60px_rgba(0,0,0,0.9)]">
+                      {/* Internal Atmosphere */}
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(124,58,237,0.4),transparent_70%)]"></div>
+                      <div className="absolute top-0 left-0 right-0 h-full bg-[linear-gradient(180deg,transparent,rgba(6,182,212,0.1))]"></div>
+                      
+                      {/* Subtle HUD Grid */}
+                      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30"></div>
+                      
+                      {/* Specular Highlight (Glass reflection) */}
+                      <div className="absolute top-10 left-10 w-32 h-16 bg-white/5 rounded-full blur-2xl rotate-[-45deg]"></div>
+                   </div>
                    
                    {/* --- INFERNO MODE ROCKET (Diagonal & Heavy Fire) --- */}
                    <div className="absolute inset-0 z-30 flex items-center justify-center">
