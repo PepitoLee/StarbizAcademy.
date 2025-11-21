@@ -4,104 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Starbiz Academy | Liderazgo Digital</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <style>
-      :root {
-        --color-bg: #030014;
-        --color-card: rgba(255, 255, 255, 0.03);
-      }
-      html {
-        font-size: 19px; /* Adjusted to 19px as requested */
-      }
-      body {
-        font-family: 'Outfit', sans-serif;
-        background-color: var(--color-bg);
-        color: #E2E8F0;
-        overflow-x: hidden;
-      }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Rajdhani', sans-serif;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #030014;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: linear-gradient(to bottom, #F59E0B, #7C3AED);
-        border-radius: 4px;
-      }
-      
-      /* Utility classes for glass effects */
-      .glass-panel {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      }
-      
-      .neon-text {
-        text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
-      }
-
-      .grid-bg {
-        background-size: 40px 40px;
-        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-      }
-    </style>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              space: {
-                black: '#030014',
-                dark: '#0A0A20',
-                card: '#151530'
-              },
-              brand: {
-                orange: '#FF6B00',
-                yellow: '#FFC800',
-                cyan: '#00F0FF',
-                purple: '#7000FF',
-              }
-            },
-            fontFamily: {
-              sans: ['Outfit', 'sans-serif'],
-              display: ['Rajdhani', 'sans-serif'],
-            },
-            animation: {
-              'float': 'float 6s ease-in-out infinite',
-              'pulse-glow': 'pulse-glow 3s infinite',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
-              },
-              'pulse-glow': {
-                '0%, 100%': { opacity: 0.5, filter: 'blur(8px)' },
-                '50%': { opacity: 1, filter: 'blur(12px)' },
-              }
-            }
-          }
-        }
-      }
-    </script>
-  <script type="importmap">
+    <script type="importmap">
 {
   "imports": {
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
