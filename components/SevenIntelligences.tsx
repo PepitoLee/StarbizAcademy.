@@ -21,25 +21,29 @@ const SevenIntelligences: React.FC = () => {
       icon: Activity, // Using Activity for "Física" (Pulse)
       color: "text-orange-500", 
       borderColor: "group-hover:border-orange-500/50",
-      bgIcon: "bg-orange-500/10"
+      bgIcon: "bg-orange-500/10",
+      video: "/videos/physical-intelligence.mp4"
     },
     { 
       icon: Heart, 
       color: "text-pink-500", 
       borderColor: "group-hover:border-pink-500/50",
-      bgIcon: "bg-pink-500/10"
+      bgIcon: "bg-pink-500/10",
+      video: "/videos/emotional-intelligence.mp4"
     },
     { 
       icon: Users, 
       color: "text-blue-400", 
       borderColor: "group-hover:border-blue-400/50",
-      bgIcon: "bg-blue-400/10"
+      bgIcon: "bg-blue-400/10",
+      video: "/videos/social-intelligence.mp4"
     },
     { 
       icon: Zap, // Using Zap for "Espiritual" as per reference image (lightning bolt)
       color: "text-yellow-400", 
       borderColor: "group-hover:border-yellow-400/50",
-      bgIcon: "bg-yellow-400/10"
+      bgIcon: "bg-yellow-400/10",
+      video: "/videos/spiritual-intelligence.mp4"
     },
     { 
       icon: DollarSign, 
