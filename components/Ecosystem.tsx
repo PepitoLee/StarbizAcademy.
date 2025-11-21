@@ -126,11 +126,13 @@ const Ecosystem: React.FC = () => {
 const StarbooksAppSection = ({ t }: { t: any }) => {
   const [powerState, setPowerState] = useState<'off' | 'booting' | 'on'>('off');
   
-  // Rotation State
+  // Rotation State - Infinite Freedom
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useTransform(y, [300, -300], [180, -180]); // Inverted logic for natural feel
-  const rotateY = useTransform(x, [-300, 300], [-180, 180]);
+  
+  // Map drag distance directly to rotation degrees (1px = 0.5deg for smooth control)
+  const rotateX = useTransform(y, (value) => value * -0.5); 
+  const rotateY = useTransform(x, (value) => value * 0.5);
 
   const handlePowerOn = () => {
     if (powerState === 'off') {
@@ -165,25 +167,25 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
              </div>
 
              {/* 3D Interactive Area */}
-             <div className="flex-1 relative flex justify-center items-center h-[700px] w-full cursor-grab active:cursor-grabbing perspective-1000">
+             <div className="flex-1 relative flex justify-center items-center h-[700px] w-full perspective-1000">
                 
-                {/* Draggable Area Overlay */}
+                {/* Draggable Area Overlay - Full Freedom */}
                 <motion.div 
-                   className="absolute inset-0 z-50"
+                   className="absolute inset-0 z-50 cursor-grab active:cursor-grabbing"
                    style={{ x, y }}
                    drag
-                   dragElastic={0.1}
-                   dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }} // Free drag feeling without moving element
+                   dragElastic={0} // No elastic bounce back
+                   dragMomentum={false} // Precise control
                    onDragEnd={() => {
-                     // Optional: Snap back or spin momentum could go here
+                     // Optional: Add momentum here if desired
                    }}
                 ></motion.div>
 
                 {/* THE IPHONE 3D CONTAINER */}
                 <motion.div 
-                   className="relative w-[300px] h-[620px]"
+                   className="relative w-[300px] h-[620px] cursor-pointer" // Added cursor-pointer
                    style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-                   onClick={handlePowerOn}
+                   onClick={handlePowerOn} // Click anywhere on the phone to power on
                 >
                    {/* --- FRONT FACE (Screen) --- */}
                    <div 
