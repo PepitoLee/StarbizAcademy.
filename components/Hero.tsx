@@ -266,20 +266,22 @@ const Hero: React.FC = () => {
                                 <circle cx="50" cy="35" r="10" fill="#0EA5E9" stroke="#0F172A" strokeWidth="1.5" />
                                 <path d="M50 35 A 10 10 0 0 1 57 28" fill="none" stroke="white" strokeWidth="2" opacity="0.8" />
 
-                                {/* Branding Text "STAREDUCA" */}
-                                <text 
+                                {/* Branding Text "STAREDUCA" - Corrected & Animated */}
+                                <motion.text 
                                   x="50" 
-                                  y="68" 
-                                  fontSize="6" 
-                                  fontFamily="monospace" 
-                                  fontWeight="bold" 
-                                  fill="#1E293B" 
+                                  y="60" 
+                                  fontSize="7" 
+                                  fontFamily="sans-serif" 
+                                  fontWeight="900" 
+                                  fill="#020617" 
                                   textAnchor="middle" 
-                                  transform="rotate(90, 50, 68)"
-                                  style={{ letterSpacing: "1px" }}
+                                  transform="rotate(-90, 50, 60)" 
+                                  style={{ letterSpacing: "2px", filter: "drop-shadow(0px 1px 0px rgba(255,255,255,0.5))" }}
+                                  animate={{ opacity: [0.7, 1, 0.7] }}
+                                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                                 >
                                   STAREDUCA
-                                </text>
+                                </motion.text>
                                 
                                 {/* Tech Details / Lines */}
                                 <path d="M30 75 L70 75" stroke="#94A3B8" strokeWidth="0.5" opacity="0.5" />
