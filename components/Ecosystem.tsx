@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import { Users, Sparkles, Smartphone, ArrowRight } from 'lucide-react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
@@ -253,6 +254,15 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
                    </div>
 
                    {/* --- 2. SIDES (Titanium Texture SVG) --- */}
+                   <svg width="0" height="0">
+                     <defs>
+                       <linearGradient id="sideGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                         <stop offset="0%" stopColor="#1A2630" />
+                         <stop offset="50%" stopColor="#3E5563" />
+                         <stop offset="100%" stopColor="#1A2630" />
+                       </linearGradient>
+                     </defs>
+                   </svg>
                    {/* Right */}
                    <div className="absolute top-0 right-0 w-[30px] h-full rounded-r-[20px]" style={{ transform: "rotateY(90deg) translateZ(-15px) translateX(15px)", transformOrigin: "right", background: "#273642" }}>
                       <svg width="30" height="650" className="w-full h-full opacity-80"><rect width="100%" height="100%" fill="url(#sideGrad)"/></svg>
