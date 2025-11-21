@@ -1,5 +1,4 @@
-
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Users, Sparkles, Smartphone, ArrowRight } from 'lucide-react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
@@ -51,7 +50,6 @@ const Ecosystem: React.FC = () => {
                   </a>
                </div>
                <div className="flex-1 w-full md:w-auto relative group perspective-1000">
-                   {/* Image Container with 3D tilt effect on hover */}
                    <div className="relative w-full aspect-video md:aspect-square max-w-[500px] mx-auto transform transition-transform duration-700 group-hover:rotate-y-12 group-hover:rotate-x-6 will-change-transform">
                       <div className="absolute inset-0 bg-brand-cyan/20 blur-3xl rounded-full opacity-40 group-hover:opacity-60 transition-opacity"></div>
                       <img 
@@ -61,7 +59,6 @@ const Ecosystem: React.FC = () => {
                         decoding="async"
                         className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-cyan/20 group-hover:shadow-brand-cyan/40 transition-all duration-500"
                       />
-                      {/* Overlay Glint */}
                       <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
                    </div>
                </div>
@@ -98,7 +95,6 @@ const Ecosystem: React.FC = () => {
                   </a>
                </div>
                <div className="flex-1 w-full md:w-auto relative group perspective-1000">
-                   {/* Image Container with 3D tilt effect on hover */}
                    <div className="relative w-full aspect-video md:aspect-square max-w-[500px] mx-auto transform transition-transform duration-700 group-hover:-rotate-y-12 group-hover:rotate-x-6 will-change-transform">
                       <div className="absolute inset-0 bg-brand-orange/20 blur-3xl rounded-full opacity-40 group-hover:opacity-60 transition-opacity"></div>
                       <img 
@@ -108,226 +104,215 @@ const Ecosystem: React.FC = () => {
                         decoding="async"
                         className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-orange/20 group-hover:shadow-brand-orange/40 transition-all duration-500"
                       />
-                       {/* Overlay Glint */}
-                      <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
+                       <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
                    </div>
                </div>
             </div>
          </div>
       </section>
 
-      {/* --- SECTION 3: STARBOOKS APP (Interactive iPhone) --- */}
+      {/* --- SECTION 3: STARBOOKS APP (Interactive iPhone from IPGONE file) --- */}
       <StarbooksAppSection t={t} />
     </div>
   );
 };
 
-// --- SUB-COMPONENT: Interactive 3D iPhone Section ---
+// --- SUB-COMPONENT: Interactive 3D iPhone Section (Ported from ipgone) ---
 const StarbooksAppSection = ({ t }: { t: any }) => {
-  const [powerState, setPowerState] = useState<'off' | 'booting' | 'on'>('off');
-  
-  // Rotation State - Infinite Freedom
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  // Map drag distance directly to rotation degrees (1px = 0.5deg for smooth control)
-  const rotateX = useTransform(y, (value) => value * -0.5); 
-  const rotateY = useTransform(x, (value) => value * 0.5);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [phase, setPhase] = useState(0); // 0: Idle, 1: Boot, 2: Home, 3: App
+  const [isLocked, setIsLocked] = useState(false);
 
-  const handlePowerOn = () => {
-    if (powerState === 'off') {
-      setPowerState('booting');
-      // Boot sequence
-      setTimeout(() => {
-        setPowerState('on');
-      }, 3500); // 3.5s boot time
-    }
+  useEffect(() => {
+    const scene = sceneRef.current;
+    const container = containerRef.current;
+    if (!scene || !container) return;
+
+    let rotX = -10;
+    let rotY = 0;
+    let curRotX = -10;
+    let curRotY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let animationFrameId: number;
+
+    const updateTransform = () => {
+      curRotX += (rotX - curRotX) * 0.1;
+      curRotY += (rotY - curRotY) * 0.1;
+      
+      if (scene) {
+          if(phase === 0) {
+             scene.style.transform = `rotateX(${curRotX}deg) rotateY(${curRotY}deg) scale(1)`;
+             if (!isDragging) rotY += 0.2; // Auto rotate
+          } else {
+             // Centered and locked when active
+             scene.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+          }
+      }
+      animationFrameId = requestAnimationFrame(updateTransform);
+    };
+    updateTransform();
+
+    const handleMouseDown = (e: MouseEvent | TouchEvent) => {
+      if (phase !== 0) return;
+      isDragging = true;
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+      startX = clientX;
+      startY = clientY;
+      scene.style.cursor = 'grabbing';
+    };
+
+    const handleMouseMove = (e: MouseEvent | TouchEvent) => {
+      if (!isDragging || phase !== 0) return;
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+      
+      const deltaX = clientX - startX;
+      const deltaY = clientY - startY;
+      
+      rotY += deltaX * 0.5;
+      rotX -= deltaY * 0.5;
+      
+      startX = clientX;
+      startY = clientY;
+    };
+
+    const handleMouseUp = () => {
+      isDragging = false;
+      if(scene) scene.style.cursor = 'grab';
+    };
+
+    container.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    container.addEventListener('touchstart', handleMouseDown);
+    window.addEventListener('touchmove', handleMouseMove);
+    window.addEventListener('touchend', handleMouseUp);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      container.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+      container.removeEventListener('touchstart', handleMouseDown);
+      window.removeEventListener('touchmove', handleMouseMove);
+      window.removeEventListener('touchend', handleMouseUp);
+    };
+  }, [phase]);
+
+  const handleScreenClick = () => {
+    if (phase > 0) return;
+    setPhase(1); // Start sequence
+    setIsLocked(true);
+    
+    // Sequence Logic
+    setTimeout(() => setPhase(2), 2000); // Show Home after 2s
+    setTimeout(() => setPhase(3), 5000); // Show App after 5s
   };
 
-  // Titanium Blue #2F4452 constants
-  const titaniumBase = "#2F4452";
-  const titaniumHighlight = "#4A6070";
-  const titaniumShadow = "#1A2630";
+  const handleReset = () => {
+    setPhase(0);
+    setIsLocked(false);
+  };
 
   return (
-    <section className="relative py-32 overflow-hidden bg-black perspective-2000">
-       {/* Background Glow */}
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-orange/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <section className="relative py-32 overflow-hidden bg-black" ref={containerRef}>
+       {/* CSS Styles embedded for the 3D iPhone */}
+       <style>{`
+        .iphone-scene { perspective: 1200px; width: 300px; height: 600px; position: relative; transform-style: preserve-3d; cursor: grab; }
+        .iphone-body { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; }
+        .face { position: absolute; background-color: #1a1a1a; border: 1px solid #333; backface-visibility: visible; }
+        
+        .face-front { width: 300px; height: 600px; border-radius: 48px; transform: translateZ(15px); background: #000; border: 4px solid #2c2c2c; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .face-back { width: 300px; height: 600px; border-radius: 48px; transform: translateZ(-15px) rotateY(180deg); background: linear-gradient(135deg, #1c1c1c 0%, #111 100%); border: 1px solid #2a2a2a; }
+        
+        .face-right { width: 30px; height: 540px; top: 30px; left: 135px; background: linear-gradient(to right, #2c2c2c, #1a1a1a, #2c2c2c); transform: rotateY(90deg) translateZ(148px); }
+        .face-left { width: 30px; height: 540px; top: 30px; left: 135px; background: linear-gradient(to right, #2c2c2c, #1a1a1a, #2c2c2c); transform: rotateY(-90deg) translateZ(148px); }
+        .face-top { width: 240px; height: 30px; left: 30px; top: 285px; background: linear-gradient(to bottom, #2c2c2c, #1a1a1a, #2c2c2c); transform: rotateX(90deg) translateZ(298px); }
+        .face-bottom { width: 240px; height: 30px; left: 30px; top: 285px; background: linear-gradient(to bottom, #2c2c2c, #1a1a1a, #2c2c2c); transform: rotateX(-90deg) translateZ(298px); }
+        
+        .screen-content { width: 100%; height: 100%; background: #000; position: relative; overflow: hidden; }
+        .dynamic-island { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 90px; height: 28px; background: #000; border-radius: 20px; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
+        .island-cam { width: 10px; height: 10px; background: #1a1a1a; border-radius: 50%; box-shadow: inset 0 0 2px #333; }
+        
+        .screen-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .screen-layer.active { opacity: 1; pointer-events: auto; }
+        
+        /* App Grid */
+        .app-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px 10px; padding: 20px; margin-top: 50px; width: 100%; }
+        .app-icon { width: 55px; height: 55px; background: rgba(255,255,255,0.2); border-radius: 14px; margin: 0 auto; }
+        .star-app-icon { width: 70px; height: 70px; background: linear-gradient(135deg, #ff0080, #ff6600); border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 35px; margin-top: 30px; animation: pulse-icon 2s infinite; }
+        
+        @keyframes pulse-icon { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,0,128,0.5); } }
+       `}</style>
 
-       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-             
-             {/* Text Content */}
-             <div className="flex-1 text-center lg:text-left pointer-events-none">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-brand-yellow mb-6">
-                   <Smartphone size={14} />
-                   <span>INTERACTIVE 3D DEMO</span>
-                </div>
-                <h2 className="text-5xl md:text-7xl font-bold text-white font-display mb-6 tracking-tight">
-                   {t.ecosystem.app.title}
-                </h2>
-                <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                   Desliza para girar. <span className="text-white font-bold">Haz click para encender.</span>
-                </p>
-             </div>
-
-             {/* 3D Interactive Area */}
-             <div className="flex-1 relative flex justify-center items-center h-[700px] w-full perspective-1000">
-                
-                {/* Draggable Area Overlay - Full Freedom */}
-                <motion.div 
-                   className="absolute inset-0 z-50 cursor-grab active:cursor-grabbing"
-                   style={{ x, y }}
-                   drag
-                   dragElastic={0} // No elastic bounce back
-                   dragMomentum={false} // Precise control
-                   onDragEnd={() => {
-                     // Optional: Add momentum here if desired
-                   }}
-                ></motion.div>
-
-                {/* THE IPHONE 3D CONTAINER - ULTIMATE FIDELITY */}
-                <motion.div 
-                   className="relative w-[315px] h-[650px]" // Pro Max Aspect Ratio
-                   style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-                   onClick={handlePowerOn}
-                >
-                   
-                   {/* === 1. FRONT GLASS (Infinity Display) === */}
-                   <div 
-                     className="absolute inset-0 bg-black rounded-[60px] overflow-hidden backface-hidden"
-                     style={{ 
-                       transform: "translateZ(16px)", 
-                       boxShadow: "inset 0 0 0 2px #222, 0 0 0 1px #111" // Deep bezel + seam
-                     }}
-                   >
-                      {/* Reflection Layer (Ceramic Shield) */}
-                      <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-30 pointer-events-none z-50 rounded-[60px]"></div>
-                      
-                      {/* Dynamic Island (Integrated) */}
-                      <div className="absolute top-7 left-1/2 -translate-x-1/2 w-[100px] h-[28px] bg-black rounded-full z-40 flex items-center justify-center gap-3 shadow-sm border border-[#1a1a1a]">
-                         <div className="w-3 h-3 rounded-full bg-[#0a0a0a]"></div>
-                         <div className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a]"></div>
-                      </div>
-
-                      {/* DISPLAY CONTENT */}
-                      {powerState === 'off' && (
-                        <div className="absolute inset-0 bg-[#020202] flex flex-col items-center justify-center">
-                           <h3 className="text-7xl font-bold text-[#2F4452]/30 font-display tracking-tighter">09:41</h3>
-                           <p className="text-[#2F4452]/20 font-medium mt-2">Tap to Wake</p>
-                        </div>
-                      )}
-
-                      {powerState === 'on' && (
-                        <div className="absolute inset-0 bg-black">
-                           <img src="/images/ceo-junior.png" className="w-full h-full object-cover opacity-90" />
-                           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40"></div>
-                           <div className="absolute top-20 left-0 w-full text-center text-white">
-                              <h2 className="text-3xl font-bold font-display tracking-wide">StarbizOS</h2>
-                              <p className="text-brand-cyan text-xs font-mono tracking-widest">SYSTEM READY</p>
-                           </div>
-                           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[110px] h-[4px] bg-white rounded-full"></div>
-                        </div>
-                      )}
-                   </div>
-
-
-                   {/* === 2. TITANIUM FRAME (Volumetric) === */}
-                   {/* Colors */}
-                   {/* Base: #2F4452, Highlight: #4A6070, Shadow: #1A2630 */}
-                   
-                   {/* Right */}
-                   <div className="absolute top-[30px] right-0 w-[32px] h-[calc(100%-60px)]" 
-                        style={{ 
-                          transform: "rotateY(90deg) translateZ(-16px) translateX(16px)", 
-                          transformOrigin: "right",
-                          background: "linear-gradient(90deg, #1A2630, #2F4452 40%, #4A6070 50%, #2F4452 60%, #1A2630)",
-                        }}></div>
-                   {/* Left */}
-                   <div className="absolute top-[30px] left-0 w-[32px] h-[calc(100%-60px)]" 
-                        style={{ 
-                          transform: "rotateY(-90deg) translateZ(-16px) translateX(-16px)", 
-                          transformOrigin: "left",
-                          background: "linear-gradient(90deg, #1A2630, #2F4452 40%, #4A6070 50%, #2F4452 60%, #1A2630)",
-                        }}></div>
-                   {/* Top */}
-                   <div className="absolute top-0 left-[30px] w-[calc(100%-60px)] h-[32px]" 
-                        style={{ 
-                          transform: "rotateX(90deg) translateZ(-16px) translateY(-16px)", 
-                          transformOrigin: "top",
-                          background: "linear-gradient(180deg, #1A2630, #2F4452 40%, #4A6070 50%, #2F4452 60%, #1A2630)",
-                        }}></div>
-                   {/* Bottom */}
-                   <div className="absolute bottom-0 left-[30px] w-[calc(100%-60px)] h-[32px]" 
-                        style={{ 
-                          transform: "rotateX(-90deg) translateZ(-16px) translateY(16px)", 
-                          transformOrigin: "bottom",
-                          background: "linear-gradient(0deg, #1A2630, #2F4452 40%, #4A6070 50%, #2F4452 60%, #1A2630)",
-                          display: "flex", alignItems: "center", justifyContent: "center", gap: "40px"
-                        }}>
-                          <div className="w-10 h-1 bg-[#111] rounded-full shadow-[inset_0_0_2px_#333]"></div>
-                          <div className="w-10 h-1 bg-[#111] rounded-full shadow-[inset_0_0_2px_#333]"></div>
-                        </div>
-
-                   {/* Corner Spheres (Seamless Joints) */}
-                   <div className="absolute top-0 right-0 w-[32px] h-[32px] rounded-full bg-[#2F4452]" style={{ transform: "translateZ(-16px) rotateY(45deg) translate(11px, -11px)" }}></div>
-                   <div className="absolute top-0 left-0 w-[32px] h-[32px] rounded-full bg-[#2F4452]" style={{ transform: "translateZ(-16px) rotateY(-45deg) translate(-11px, -11px)" }}></div>
-                   <div className="absolute bottom-0 right-0 w-[32px] h-[32px] rounded-full bg-[#2F4452]" style={{ transform: "translateZ(-16px) rotateY(45deg) translate(11px, 11px)" }}></div>
-                   <div className="absolute bottom-0 left-0 w-[32px] h-[32px] rounded-full bg-[#2F4452]" style={{ transform: "translateZ(-16px) rotateY(-45deg) translate(-11px, 11px)" }}></div>
-
-
-                   {/* === 3. BACK GLASS (Matte Textured) === */}
-                   <div 
-                     className="absolute inset-0 rounded-[60px] backface-visible"
-                     style={{ 
-                       transform: "translateZ(-16px) rotateY(180deg)", 
-                       background: "#2F4452",
-                       boxShadow: "inset 0 0 60px rgba(0,0,0,0.5)"
-                     }}
-                   >
-                      {/* Texture Overlay */}
-                      <div className="absolute inset-0 bg-white/5 rounded-[60px] backdrop-blur-sm border border-white/5"></div>
-                      
-                      {/* Apple Logo (Polished) */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-40 drop-shadow-sm">
-                         <svg viewBox="0 0 384 512" width="70" fill="#ccc"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg>
-                      </div>
-
-                      {/* CAMERA BUMP (Pro Max Scale) */}
-                      <div 
-                        className="absolute top-6 left-6 w-[150px] h-[155px] rounded-[48px]"
-                        style={{
-                           background: "linear-gradient(135deg, #253540, #2F4452)",
-                           transform: "translateZ(2px)",
-                           boxShadow: "0 10px 25px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1)"
-                        }}
-                      >
-                         {/* LENSES (Big & Bold) */}
-                         {[
-                           { top: "12px", left: "12px" }, // Wide
-                           { bottom: "12px", left: "12px" }, // Ultra
-                           { top: "50%", right: "12px", transform: "translateY(-50%)" } // Tele
-                         ].map((pos, i) => (
-                            <div key={i} className="absolute w-[58px] h-[58px] rounded-full bg-[#151515] border-[2px] border-[#4A6070] shadow-lg flex items-center justify-center" style={pos}>
-                               <div className="w-[44px] h-[44px] rounded-full bg-[#000] relative overflow-hidden shadow-inner">
-                                  {/* Lens Coatings */}
-                                  <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a40] to-transparent opacity-70 rounded-full"></div>
-                                  <div className="absolute w-full h-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.1),transparent)]"></div>
-                               </div>
-                            </div>
-                         ))}
-                         
-                         {/* LiDAR */}
-                         <div className="absolute bottom-6 right-6 w-[22px] h-[22px] rounded-full bg-[#111] border border-[#333] shadow-inner bg-[radial-gradient(#222,#000)]"></div>
-                         {/* Flash */}
-                         <div className="absolute top-6 right-6 w-[20px] h-[20px] rounded-full bg-[#fff] border border-[#ccc] shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-90"></div>
-                      </div>
-                   </div>
-
-                </motion.div>
-             </div>
-
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center gap-16">
+          
+          {/* Instructions */}
+          <div className="flex-1 text-center lg:text-left pointer-events-none z-20">
+             <h2 className="text-5xl font-bold text-white font-display mb-4">{t.ecosystem.app.title}</h2>
+             <p className="text-xl text-gray-400 mb-8">
+                {phase === 0 ? "Arrastra para rotar. Haz click en la pantalla para iniciar." : "Experiencia interactiva iniciada."}
+             </p>
+             {phase === 3 && (
+                <button onClick={handleReset} className="bg-white/10 border border-white/20 text-white px-6 py-2 rounded-full pointer-events-auto hover:bg-white/20 transition-colors">
+                   Reiniciar
+                </button>
+             )}
           </div>
+
+          {/* 3D Scene */}
+          <div className="flex-1 flex justify-center h-[700px] items-center perspective-1200">
+             <div id="scene" ref={sceneRef} className="iphone-scene">
+                <div className="iphone-body">
+                   {/* Front */}
+                   <div className="face face-front">
+                      <div className="screen-content" onClick={handleScreenClick}>
+                         <div className="dynamic-island"><div className="island-cam"></div></div>
+                         
+                         {/* Boot Layer */}
+                         <div className={`screen-layer ${phase === 1 ? 'active' : ''}`} style={{ background: '#000' }}>
+                            <svg width="80" viewBox="0 0 384 512" fill="white"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 102.1 78 102.1 18 0 25.8-12.5 59.5-12.5 32.9 0 40.6 12.5 62.6 12.5 32 0 61.7-56 75.2-82.7-47-22.2-55.6-73.5-15-105.4zM249.4 92c18.9-27.4 30.4-63.9 26.4-92-24.4 2.6-60.3 20.8-81.2 48.1-19.2 24.7-31.1 61-26.1 90.9 29.4 3.5 62.3-20.1 80.9-47z"/></svg>
+                         </div>
+
+                         {/* Home Layer */}
+                         <div className={`screen-layer ${phase === 2 ? 'active' : ''}`} style={{ background: 'linear-gradient(180deg, #4c1d95 0%, #2563eb 100%)', justifyContent: 'flex-start' }}>
+                            <div className="app-grid">
+                               {[...Array(8)].map((_,i) => <div key={i} className="app-icon"></div>)}
+                            </div>
+                            <div className="star-app-icon">⭐</div>
+                         </div>
+
+                         {/* App Layer */}
+                         <div className={`screen-layer ${phase === 3 ? 'active' : ''}`} style={{ background: '#0f0c29' }}>
+                            <h3 className="text-3xl font-bold text-white font-display">StarBiz</h3>
+                            <p className="text-brand-cyan">PRÓXIMAMENTE</p>
+                         </div>
+                         
+                         {/* Idle/Off Layer */}
+                         <div className={`screen-layer ${phase === 0 ? 'active' : ''}`} style={{ background: '#000' }}>
+                            <h3 className="text-6xl font-bold text-white/30 font-mono">09:41</h3>
+                         </div>
+                      </div>
+                   </div>
+
+                   {/* Back */}
+                   <div className="face face-back">
+                      <svg width="60" viewBox="0 0 384 512" fill="#333"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 102.1 78 102.1 18 0 25.8-12.5 59.5-12.5 32.9 0 40.6 12.5 62.6 12.5 32 0 61.7-56 75.2-82.7-47-22.2-55.6-73.5-15-105.4zM249.4 92c18.9-27.4 30.4-63.9 26.4-92-24.4 2.6-60.3 20.8-81.2 48.1-19.2 24.7-31.1 61-26.1 90.9 29.4 3.5 62.3-20.1 80.9-47z"/></svg>
+                   </div>
+
+                   {/* Sides */}
+                   <div className="face face-right"></div>
+                   <div className="face face-left"></div>
+                   <div className="face face-top"></div>
+                   <div className="face face-bottom"></div>
+                </div>
+             </div>
+          </div>
+
        </div>
     </section>
   );
