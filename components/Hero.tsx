@@ -195,97 +195,94 @@ const Hero: React.FC = () => {
                                ))}
                             </div>
 
-                            {/* ROCKET SVG (Rotated 45deg) */}
+                            {/* ROCKET SVG (Rotated 45deg) - REDESIGNED SLEEK */}
                             <svg 
                               viewBox="0 0 100 200" 
-                              className="w-56 h-[400px] drop-shadow-[0_0_50px_rgba(255,77,0,0.6)]" 
-                              style={{ transform: "rotate(45deg) translateY(30px)" }}
+                              className="w-64 h-[420px] drop-shadow-[0_0_30px_rgba(255,77,0,0.4)]" 
+                              style={{ transform: "rotate(45deg) translateY(40px)" }}
                               preserveAspectRatio="xMidYMin slice"
                             >
                               <defs>
-                                <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                  <stop offset="0%" stopColor="#F1F5F9" /> 
-                                  <stop offset="50%" stopColor="#E2E8F0" /> 
-                                  <stop offset="100%" stopColor="#CBD5E1" /> 
+                                {/* Metallic Body Gradient */}
+                                <linearGradient id="hullGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                  <stop offset="0%" stopColor="#E2E8F0" /> {/* Light Edge */}
+                                  <stop offset="40%" stopColor="#F8FAFC" /> {/* Highlight */}
+                                  <stop offset="60%" stopColor="#CBD5E1" /> {/* Shadow */}
+                                  <stop offset="100%" stopColor="#94A3B8" /> {/* Dark Edge */}
                                 </linearGradient>
-                                <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                  <stop offset="0%" stopColor="#EF4444" />
-                                  <stop offset="100%" stopColor="#B91C1C" />
+                                
+                                {/* Dark Tech Detail Gradient */}
+                                <linearGradient id="techGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                  <stop offset="0%" stopColor="#334155" />
+                                  <stop offset="100%" stopColor="#0F172A" />
                                 </linearGradient>
-                                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                                  <feGaussianBlur stdDeviation="2" result="blur" />
-                                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                                </filter>
-                                <linearGradient id="infernoGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+
+                                {/* Engine Plasma */}
+                                <linearGradient id="plasmaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                                   <stop offset="0%" stopColor="#FFFFFF" /> 
-                                  <stop offset="15%" stopColor="#FDE047" /> 
-                                  <stop offset="40%" stopColor="#F97316" /> 
-                                  <stop offset="70%" stopColor="#EF4444" /> 
+                                  <stop offset="20%" stopColor="#38BDF8" /> {/* Blue core */}
+                                  <stop offset="50%" stopColor="#818CF8" /> {/* Purple mid */}
                                   <stop offset="100%" stopColor="transparent" />
                                 </linearGradient>
                               </defs>
 
-                              {/* --- MASSIVE FLAME TAIL --- */}
-                              <g className="mix-blend-screen" transform="translate(0, -25)"> 
-                                  {/* Core Blast */}
+                              {/* --- ENGINE FLAME (Blue/Purple Tech Fire) --- */}
+                              <g className="mix-blend-screen" transform="translate(0, -10)"> 
                                   <motion.path 
-                                    d="M30 95 Q50 280 70 95" 
-                                    fill="url(#infernoGrad)"
-                                    style={{ filter: "blur(6px)" }}
-                                    animate={{ d: ["M30 95 Q50 290 70 95", "M28 95 Q50 260 72 95", "M30 95 Q50 290 70 95"] }}
-                                    transition={{ duration: 0.2, repeat: Infinity }}
+                                    d="M40 130 Q50 350 60 130" 
+                                    fill="url(#plasmaGrad)"
+                                    style={{ filter: "blur(8px)" }}
+                                    animate={{ d: ["M40 130 Q50 360 60 130", "M38 130 Q50 320 62 130", "M40 130 Q50 360 60 130"] }}
+                                    transition={{ duration: 0.15, repeat: Infinity }}
                                   />
                                   {/* Inner Plasma */}
                                   <motion.path 
-                                    d="M42 95 Q50 180 58 95" 
+                                    d="M45 130 Q50 250 55 130" 
                                     fill="#FFF"
-                                    style={{ filter: "blur(2px)" }}
-                                    animate={{ d: ["M42 95 Q50 200 58 95", "M40 95 Q50 160 60 95", "M42 95 Q50 200 58 95"] }}
+                                    style={{ filter: "blur(4px)" }}
+                                    animate={{ d: ["M45 130 Q50 260 55 130", "M44 130 Q50 230 56 130", "M45 130 Q50 260 55 130"] }}
                                     transition={{ duration: 0.1, repeat: Infinity }}
                                   />
                               </g>
 
-                              {/* --- ROCKET SHIP DESIGN --- */}
-                              <g transform="translate(0, 20)">
-                                {/* Left Fin */}
-                                <path d="M30 65 L10 95 L30 85 Z" fill="url(#wingGrad)" stroke="#991B1B" strokeWidth="0.5" />
-                                {/* Right Fin */}
-                                <path d="M70 65 L90 95 L70 85 Z" fill="url(#wingGrad)" stroke="#991B1B" strokeWidth="0.5" />
-                                {/* Center Engine Cover */}
-                                <path d="M45 85 L55 85 L55 92 L45 92 Z" fill="#475569" />
-
-                                {/* Main Body */}
+                              {/* --- SLEEK SPACESHIP HULL --- */}
+                              <g transform="translate(0, 30)">
+                                
+                                {/* Rear Landing Legs / Fins (Dark Tech) */}
+                                <path d="M35 100 L20 140 L35 125 Z" fill="url(#techGrad)" />
+                                <path d="M65 100 L80 140 L65 125 Z" fill="url(#techGrad)" />
+                                
+                                {/* Main Fuselage (Elongated Bullet Shape) */}
                                 <path 
-                                  d="M30 75 Q30 30 50 0 Q70 30 70 75 L70 85 Q50 90 30 85 Z" 
-                                  fill="url(#bodyGrad)" 
-                                  stroke="#94A3B8" strokeWidth="0.5"
-                                  filter="url(#glow)"
+                                  d="M35 120 L35 60 Q35 10 50 0 Q65 10 65 60 L65 120 Q50 125 35 120 Z" 
+                                  fill="url(#hullGrad)" 
+                                  stroke="#64748B" strokeWidth="0.5"
                                 />
-                                
-                                {/* Cockpit Window */}
-                                <circle cx="50" cy="35" r="10" fill="#0EA5E9" stroke="#0F172A" strokeWidth="1.5" />
-                                <path d="M50 35 A 10 10 0 0 1 57 28" fill="none" stroke="white" strokeWidth="2" opacity="0.8" />
 
-                                {/* Branding Text "STAREDUCA" - Corrected & Animated */}
-                                <motion.text 
-                                  x="50" 
-                                  y="60" 
-                                  fontSize="7" 
-                                  fontFamily="sans-serif" 
-                                  fontWeight="900" 
-                                  fill="#020617" 
-                                  textAnchor="middle" 
-                                  transform="rotate(-90, 50, 60)" 
-                                  style={{ letterSpacing: "2px", filter: "drop-shadow(0px 1px 0px rgba(255,255,255,0.5))" }}
-                                  animate={{ opacity: [0.7, 1, 0.7] }}
-                                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                >
-                                  STAREDUCA
-                                </motion.text>
+                                {/* Engine Nozzle */}
+                                <path d="M40 120 L40 128 L60 128 L60 120 Z" fill="#1E293B" />
+
+                                {/* Vertical Cockpit/Sensor Strip */}
+                                <path d="M48 20 L48 40 L52 40 L52 20 Q52 18 50 15 Q48 18 48 20 Z" fill="#0EA5E9" opacity="0.9" />
                                 
-                                {/* Tech Details / Lines */}
-                                <path d="M30 75 L70 75" stroke="#94A3B8" strokeWidth="0.5" opacity="0.5" />
-                                <path d="M50 10 L50 20" stroke="#94A3B8" strokeWidth="0.5" opacity="0.5" />
+                                {/* Branding Text "STAREDUCA" - Vertical Tech Font */}
+                                <g transform="translate(53, 80) rotate(-90)">
+                                   <text 
+                                     fontSize="5.5" 
+                                     fontFamily="sans-serif" 
+                                     fontWeight="800" 
+                                     fill="#334155"
+                                     style={{ letterSpacing: "1.5px" }}
+                                   >
+                                     STAREDUCA
+                                   </text>
+                                </g>
+
+                                {/* Hull Details / Panel Lines */}
+                                <path d="M35 60 L65 60" stroke="#94A3B8" strokeWidth="0.3" />
+                                <path d="M35 100 L65 100" stroke="#94A3B8" strokeWidth="0.3" />
+                                <circle cx="50" cy="110" r="2" fill="#EF4444" opacity="0.8" /> {/* Status Light */}
+
                               </g>
                             </svg>
                       </motion.div>
