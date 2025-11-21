@@ -181,153 +181,205 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
                    }}
                 ></motion.div>
 
-                {/* THE IPHONE 3D CONTAINER - IPHONE 17 PRO MAX REALISM */}
+                {/* THE IPHONE 3D CONTAINER - PHOTOREALISTIC IPHONE 17 PRO MAX */}
                 <motion.div 
-                   className="relative w-[310px] h-[640px]" // Slightly wider for Pro Max feel
+                   className="relative w-[315px] h-[650px]" // Pro Max Dimensions
                    style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
                    onClick={handlePowerOn}
                 >
                    {/* --- FRONT FACE (Screen) --- */}
                    <div 
-                     className="absolute inset-0 bg-black rounded-[60px] overflow-hidden backface-hidden"
+                     className="absolute inset-0 bg-black rounded-[64px] backface-hidden"
                      style={{ 
-                       transform: "translateZ(14px)",
-                       // Titanium Frame Effect (Front Edge)
-                       border: "2px solid #6b5b50", // Darker bronze base
-                       boxShadow: "inset 0 0 0 2px #2a2a2a, inset 0 0 0 4px #000" // Bezel layers
+                       transform: "translateZ(16px)",
+                       // Complex Titanium Frame Simulation
+                       boxShadow: `
+                         inset 0 0 0 2px #453F3C, /* Inner Frame Dark */
+                         inset 0 0 0 4px #8B7D76, /* Titanium Highlight */
+                         0 0 0 1px #2E2A27 /* Outer Seam */
+                       ` 
                      }}
                    >
-                      {/* Screen Bezel (Ultra Thin) */}
-                      <div className="absolute inset-[5px] bg-black rounded-[54px] overflow-hidden">
+                      {/* Ultra-Thin Bezels (1.5mm simulation) */}
+                      <div className="absolute inset-[6px] bg-black rounded-[58px] overflow-hidden border border-[#111]">
                           
-                          {/* Glass Reflection (Curved Edge) */}
-                          <div className="absolute inset-0 bg-gradient-to-tr from-white/30 via-transparent to-transparent opacity-40 z-50 pointer-events-none rounded-[54px]"></div>
-                          <div className="absolute top-0 right-0 w-[200px] h-[300px] bg-gradient-to-bl from-white/10 to-transparent opacity-30 blur-2xl z-50 pointer-events-none"></div>
+                          {/* Display Panel (OLED Black) */}
+                          <div className="absolute inset-0 bg-[#000000]"></div>
+
+                          {/* Glass Reflections (Premium Anti-glare) */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-20 z-50 pointer-events-none rounded-[58px]"></div>
+                          <div className="absolute top-[-100px] right-[-100px] w-[300px] h-[600px] bg-gradient-to-b from-white/5 to-transparent rotate-12 blur-3xl pointer-events-none z-50"></div>
                           
-                          {/* Dynamic Island (Refined) */}
-                          <div className="absolute top-5 left-1/2 -translate-x-1/2 w-[96px] h-[26px] bg-black rounded-full z-40 flex items-center justify-center gap-3 shadow-sm border border-[#1a1a1a]">
-                             <div className="w-2.5 h-2.5 rounded-full bg-[#0f0f0f] shadow-[inset_0_0_4px_rgba(255,255,255,0.1)]"></div> {/* Camera */}
-                             <div className="w-1.5 h-1.5 rounded-full bg-[#080808]"></div>
+                          {/* Dynamic Island (Integrated) */}
+                          <div className="absolute top-6 left-1/2 -translate-x-1/2 w-[100px] h-[28px] bg-black rounded-full z-40 flex items-center justify-between px-3 shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+                             {/* FaceID Sensors */}
+                             <div className="w-10 h-full flex items-center justify-center">
+                                <div className="w-3 h-3 rounded-full bg-[#080808] shadow-[inset_0_0_2px_#1a1a1a]"></div>
+                             </div>
+                             {/* Selfie Cam */}
+                             <div className="w-3 h-3 rounded-full bg-[#050505] shadow-[inset_0_0_4px_#222] border border-[#111]">
+                                <div className="w-1 h-1 rounded-full bg-[#1a1a3a] opacity-60 ml-[1px] mt-[1px]"></div> {/* Lens glint */}
+                             </div>
                           </div>
 
-                          {/* --- STATE: OFF --- */}
+                          {/* --- SCREEN CONTENT LAYERS --- */}
+                          
+                          {/* STATE: OFF (Always On) */}
                           {powerState === 'off' && (
-                            <div className="absolute inset-0 bg-[#050505] flex flex-col items-center justify-center">
-                               {/* Always On Display Date (Very Dim) */}
-                               <div className="opacity-20 flex flex-col items-center">
-                                  <h3 className="text-6xl font-bold text-white/50 font-display tracking-tight">09:41</h3>
-                                  <p className="text-white/30 font-medium mt-2">Monday 5</p>
+                            <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+                               <div className="opacity-30 flex flex-col items-center transform scale-90">
+                                  <h3 className="text-7xl font-bold text-[#e5e5e5] font-display tracking-tighter">09:41</h3>
+                                  <p className="text-[#a3a3a3] font-medium text-lg mt-2">Monday, June 5</p>
                                </div>
-                               <p className="absolute bottom-10 text-[#333] font-mono text-[10px] tracking-widest animate-pulse">TOUCH TO WAKE</p>
+                               <div className="absolute bottom-12 flex flex-col items-center gap-2 opacity-40 animate-pulse">
+                                  <div className="w-12 h-1 bg-white/20 rounded-full"></div>
+                               </div>
                             </div>
                           )}
 
-                          {/* --- STATE: BOOTING (Apple Logo) --- */}
+                          {/* STATE: BOOTING */}
                           {powerState === 'booting' && (
-                            <div className="absolute inset-0 bg-black flex items-center justify-center">
-                               <motion.div 
-                                 initial={{ opacity: 0, scale: 0.8 }}
-                                 animate={{ opacity: 1, scale: 1 }}
-                                 transition={{ duration: 1 }}
-                               >
-                                 <svg viewBox="0 0 384 512" width="70" fill="white">
+                            <div className="absolute inset-0 bg-black z-40 flex items-center justify-center">
+                               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+                                 <svg viewBox="0 0 384 512" width="80" fill="#f5f5f5">
                                    <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
                                  </svg>
                                </motion.div>
                             </div>
                           )}
 
-                          {/* --- STATE: ON (Starbiz App) --- */}
+                          {/* STATE: ON (App) */}
                           {powerState === 'on' && (
                             <motion.div 
-                               className="absolute inset-0 bg-[#0A0A0A] flex flex-col"
-                               initial={{ opacity: 0 }}
-                               animate={{ opacity: 1 }}
-                               transition={{ duration: 0.5 }}
+                               className="absolute inset-0 bg-black z-30 flex flex-col"
+                               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}
                             >
-                               <div className="flex-1 relative">
-                                  <img src="/images/ceo-junior.png" alt="App" className="w-full h-full object-cover opacity-60" />
-                                  <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black"></div>
-                                  <div className="absolute top-20 left-6 right-6">
-                                     <h4 className="text-white text-2xl font-display font-bold">Hola, Líder.</h4>
-                                     <p className="text-brand-cyan text-sm">Nivel 7 Desbloqueado</p>
-                                  </div>
-                                  <div className="absolute bottom-10 left-6 right-6 flex flex-col gap-3">
-                                     <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                                        <p className="text-white text-xs font-bold mb-1">RENDIMIENTO SEMANAL</p>
-                                        <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
-                                           <motion.div className="h-full bg-brand-orange" initial={{ width: 0 }} animate={{ width: "85%" }} transition={{ delay: 0.5, duration: 1 }} />
-                                        </div>
-                                     </div>
-                                     <div className="bg-brand-cyan text-black p-4 rounded-2xl font-bold text-center shadow-lg shadow-brand-cyan/20">CONTINUAR CURSO</div>
-                                  </div>
+                               <img src="/images/ceo-junior.png" alt="App" className="w-full h-full object-cover opacity-80" />
+                               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
+                               
+                               {/* UI Overlay */}
+                               <div className="absolute top-20 left-6 right-6 text-white">
+                                  <h4 className="text-3xl font-display font-bold tracking-wide">Starbiz<span className="text-brand-orange">OS</span></h4>
+                                  <p className="text-white/60 text-sm font-medium mt-1">Bienvenido, Henry.</p>
                                </div>
-                               <div className="h-1 w-1/3 bg-white rounded-full mx-auto mb-3 opacity-50"></div>
+                               
+                               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[130px] h-[5px] bg-white rounded-full"></div>
                             </motion.div>
                           )}
                       </div>
                    </div>
 
-                   {/* --- THICKNESS (Titanium Frame - Natural Titanium/Orange Tint) --- */}
-                   {/* Right Side */}
-                   <div className="absolute top-0 right-0 w-[28px] h-full bg-gradient-to-l from-[#8B7D76] via-[#D6Cfc7] to-[#8B7D76] rounded-r-[16px]" 
-                        style={{ transform: "rotateY(90deg) translateZ(-14px) translateX(14px)", transformOrigin: "right" }}></div>
-                   {/* Left Side */}
-                   <div className="absolute top-0 left-0 w-[28px] h-full bg-gradient-to-r from-[#8B7D76] via-[#D6Cfc7] to-[#8B7D76] rounded-l-[16px]" 
-                        style={{ transform: "rotateY(-90deg) translateZ(-14px) translateX(-14px)", transformOrigin: "left" }}></div>
-                   {/* Top Side */}
-                   <div className="absolute top-0 left-0 w-full h-[28px] bg-gradient-to-b from-[#8B7D76] via-[#D6Cfc7] to-[#8B7D76] rounded-t-[24px]" 
-                        style={{ transform: "rotateX(90deg) translateZ(-14px) translateY(-14px)", transformOrigin: "top" }}></div>
-                   {/* Bottom Side */}
-                   <div className="absolute bottom-0 left-0 w-full h-[28px] bg-gradient-to-t from-[#8B7D76] via-[#D6Cfc7] to-[#8B7D76] rounded-b-[24px]" 
-                        style={{ transform: "rotateX(-90deg) translateZ(-14px) translateY(14px)", transformOrigin: "bottom" }}></div>
+                   {/* --- TITANIUM BAND (Side Thickness) --- */}
+                   {/* Brushed Metal Texture via CSS Gradients */}
+                   {/* Right */}
+                   <div className="absolute top-0 right-0 w-[32px] h-full rounded-r-[20px]" 
+                        style={{ 
+                          transform: "rotateY(90deg) translateZ(-16px) translateX(16px)", 
+                          transformOrigin: "right",
+                          background: "linear-gradient(90deg, #5D5550, #8B7D76 20%, #E0D8D3 50%, #8B7D76 80%, #5D5550)",
+                          boxShadow: "inset 2px 0 4px rgba(0,0,0,0.2)"
+                        }}></div>
+                   {/* Left */}
+                   <div className="absolute top-0 left-0 w-[32px] h-full rounded-l-[20px]" 
+                        style={{ 
+                          transform: "rotateY(-90deg) translateZ(-16px) translateX(-16px)", 
+                          transformOrigin: "left",
+                          background: "linear-gradient(90deg, #5D5550, #8B7D76 20%, #E0D8D3 50%, #8B7D76 80%, #5D5550)",
+                          boxShadow: "inset -2px 0 4px rgba(0,0,0,0.2)"
+                        }}></div>
+                   {/* Top */}
+                   <div className="absolute top-0 left-0 w-full h-[32px] rounded-t-[28px]" 
+                        style={{ 
+                          transform: "rotateX(90deg) translateZ(-16px) translateY(-16px)", 
+                          transformOrigin: "top",
+                          background: "linear-gradient(180deg, #5D5550, #8B7D76 20%, #E0D8D3 50%, #8B7D76 80%, #5D5550)",
+                        }}></div>
+                   {/* Bottom */}
+                   <div className="absolute bottom-0 left-0 w-full h-[32px] rounded-b-[28px]" 
+                        style={{ 
+                          transform: "rotateX(-90deg) translateZ(-16px) translateY(16px)", 
+                          transformOrigin: "bottom",
+                          background: "linear-gradient(0deg, #5D5550, #8B7D76 20%, #E0D8D3 50%, #8B7D76 80%, #5D5550)",
+                          display: "flex", justifyContent: "center", alignItems: "center", gap: "40px"
+                        }}>
+                          {/* Speaker Holes & Port */}
+                          <div className="w-12 h-1 bg-[#2a2a2a] rounded-full shadow-inner"></div> {/* Speaker */}
+                          <div className="w-12 h-1 bg-[#2a2a2a] rounded-full shadow-inner"></div> {/* Mic */}
+                          <div className="absolute w-16 h-2 bg-[#111] rounded-full border border-[#333]"></div> {/* USB-C */}
+                        </div>
 
 
-                   {/* --- BACK FACE (Matte Glass + Pro Camera) --- */}
+                   {/* --- BACK FACE (Natural Titanium Glass) --- */}
                    <div 
-                     className="absolute inset-0 bg-[#2e2a27] rounded-[60px]" // Dark Titanium/Desert color
+                     className="absolute inset-0 bg-[#4A433E] rounded-[64px]" 
                      style={{ 
-                       transform: "translateZ(-14px) rotateY(180deg)",
+                       transform: "translateZ(-16px) rotateY(180deg)",
                        backfaceVisibility: "visible",
-                       boxShadow: "inset 0 0 40px rgba(0,0,0,0.5)"
+                       boxShadow: "inset 0 0 50px rgba(0,0,0,0.4)" // Deep edges
                      }}
                    >
-                      {/* Matte Texture */}
-                      <div className="absolute inset-0 bg-white/5 rounded-[60px] backdrop-blur-[2px]"></div>
+                      {/* Satin Glass Texture */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50 rounded-[64px]"></div>
                       
-                      {/* Apple Logo (Polished Mirror) */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30 brightness-125">
-                         <svg viewBox="0 0 384 512" width="64" fill="#e5e5e5">
+                      {/* Apple Logo */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-40">
+                         <svg viewBox="0 0 384 512" width="68" fill="#d1d1d1">
                             <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
                          </svg>
                       </div>
                       
-                      {/* CAMERA MODULE (Pro Triple Lens) */}
-                      <div className="absolute top-5 left-5 w-[130px] h-[135px] bg-[#383330]/80 rounded-[38px] shadow-[0_10px_20px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-md border border-white/5">
-                         {/* Lens 1 (Top Left) */}
-                         <div className="absolute top-3 left-3 w-16 h-16 rounded-full bg-[#1a1a1a] border-[3px] border-[#6b5b50] shadow-lg flex items-center justify-center">
-                            <div className="w-12 h-12 rounded-full bg-[#050505] border border-[#333] flex items-center justify-center overflow-hidden">
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#1a1a40] to-[#000] opacity-80 shadow-inner"></div>
-                                <div className="absolute w-4 h-4 rounded-full bg-white/10 blur-sm top-3 left-3"></div>
+                      {/* --- CAMERA SYSTEM (The Masterpiece) --- */}
+                      <div 
+                        className="absolute top-6 left-6 w-[145px] h-[150px] bg-[#4A433E] rounded-[45px]"
+                        style={{
+                           boxShadow: "0 10px 30px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.1)",
+                           border: "1px solid rgba(255,255,255,0.05)"
+                        }}
+                      >
+                         {/* Camera Bump Gradient (Seamless Lift) */}
+                         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-[45px] opacity-50 pointer-events-none"></div>
+
+                         {/* LENS 1 (Wide) */}
+                         <div className="absolute top-3 left-3 w-[54px] h-[54px] rounded-full bg-[#151515] shadow-[0_4px_8px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#333]">
+                            <div className="w-[50px] h-[50px] rounded-full border-[2px] border-[#777] flex items-center justify-center bg-[#080808]">
+                               {/* Lens Glass */}
+                               <div className="w-[36px] h-[36px] rounded-full bg-[#000] relative overflow-hidden shadow-inner">
+                                  <div className="absolute inset-0 bg-gradient-to-tr from-[#1a1a40] to-[#000] opacity-80"></div>
+                                  <div className="absolute w-6 h-2 bg-white/20 blur-md rotate-45 top-2 left-2"></div>
+                               </div>
                             </div>
                          </div>
-                         {/* Lens 2 (Bottom Left) */}
-                         <div className="absolute bottom-3 left-3 w-16 h-16 rounded-full bg-[#1a1a1a] border-[3px] border-[#6b5b50] shadow-lg flex items-center justify-center">
-                            <div className="w-12 h-12 rounded-full bg-[#050505] border border-[#333] flex items-center justify-center overflow-hidden">
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#1a1a40] to-[#000] opacity-80 shadow-inner"></div>
-                                <div className="absolute w-4 h-4 rounded-full bg-white/10 blur-sm top-3 left-3"></div>
+
+                         {/* LENS 2 (Ultra Wide) */}
+                         <div className="absolute bottom-3 left-3 w-[54px] h-[54px] rounded-full bg-[#151515] shadow-[0_4px_8px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#333]">
+                            <div className="w-[50px] h-[50px] rounded-full border-[2px] border-[#777] flex items-center justify-center bg-[#080808]">
+                               <div className="w-[36px] h-[36px] rounded-full bg-[#000] relative overflow-hidden shadow-inner">
+                                  <div className="absolute inset-0 bg-gradient-to-tr from-[#1a1a40] to-[#000] opacity-80"></div>
+                                  <div className="absolute w-6 h-2 bg-white/20 blur-md rotate-45 top-2 left-2"></div>
+                               </div>
                             </div>
                          </div>
-                         {/* Lens 3 (Right Center) */}
-                         <div className="absolute top-1/2 -translate-y-1/2 right-3 w-16 h-16 rounded-full bg-[#1a1a1a] border-[3px] border-[#6b5b50] shadow-lg flex items-center justify-center">
-                            <div className="w-12 h-12 rounded-full bg-[#050505] border border-[#333] flex items-center justify-center overflow-hidden">
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#1a1a40] to-[#000] opacity-80 shadow-inner"></div>
-                                <div className="absolute w-4 h-4 rounded-full bg-white/10 blur-sm top-3 left-3"></div>
+
+                         {/* LENS 3 (Telephoto) */}
+                         <div className="absolute top-1/2 -translate-y-1/2 right-3 w-[54px] h-[54px] rounded-full bg-[#151515] shadow-[0_4px_8px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#333]">
+                            <div className="w-[50px] h-[50px] rounded-full border-[2px] border-[#777] flex items-center justify-center bg-[#080808]">
+                               <div className="w-[30px] h-[30px] rounded-full bg-[#000] relative overflow-hidden shadow-inner border border-[#222]"> {/* Rectangular prism look inside */}
+                                  <div className="absolute inset-0 bg-gradient-to-tr from-[#101030] to-[#000] opacity-90"></div>
+                                  <div className="absolute w-4 h-4 bg-white/10 blur-md top-1 left-1"></div>
+                               </div>
                             </div>
                          </div>
-                         {/* LiDAR / Flash */}
-                         <div className="absolute bottom-4 right-5 w-4 h-4 rounded-full bg-[#888] opacity-50 border border-[#555]"></div>
-                         <div className="absolute top-4 right-6 w-2 h-2 rounded-full bg-[#111] opacity-80 border border-[#333]"></div>
+
+                         {/* LiDAR Scanner */}
+                         <div className="absolute bottom-5 right-5 w-[18px] h-[18px] rounded-full bg-[#1a1a1a] shadow-inner border border-[#333]">
+                            <div className="w-full h-full rounded-full bg-[radial-gradient(circle,#333_20%,#000_70%)]"></div>
+                         </div>
+
+                         {/* True Tone Flash */}
+                         <div className="absolute top-5 right-6 w-[16px] h-[16px] rounded-full bg-[#e5e5e5] shadow-[0_0_5px_rgba(255,255,255,0.2)] border border-[#ccc] flex items-center justify-center">
+                            <div className="w-[12px] h-[12px] rounded-full bg-white opacity-80"></div>
+                         </div>
+                         
                       </div>
                    </div>
 
