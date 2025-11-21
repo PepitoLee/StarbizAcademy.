@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iPhone 15 Pro - STARBIZACADEMI Experience</title>
+    <style>
+        /* --- RESET & BASE --- */
+        :root {
+            --titanium-dark: #1a1a1a;
+            --titanium-frame: #2c2c2c;
+            --titanium-light: #4a4a4a;
+            --screen-black: #000000;
+            --neon-cyan: #00ffff;
+            --neon-magenta: #ff00ff;
+            --app-bg-start: #0a0a1a;
+            --app-bg-end: #1a0524;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px; /* Profundidad de la escena 3D */
+        }
+
+        /* --- UI & INSTRUCCIONES --- */
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 50px;
+            transition: opacity 0.5s ease;
+        }
+
+        .instruction-pill {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hand-icon {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            animation: pulse-hand 2s infinite;
+        }
+
+        #reset-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        #reset-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #reset-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        /* --- ESCENA 3D --- */
+        #scene {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            transform-style: preserve-3d;
+            /* La rotación inicial se controla por JS */
+            cursor: grab;
+            transition: transform 0.1s linear; /* Suavizado para drag */
+        }
+
+        #scene.grabbing {
+            cursor: grabbing;
+        }
+
+        #scene.locked {
+            cursor: default;
+            transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1); /* Transición suave al centrar */
+        }
+
+        /* --- ESTRUCTURA DEL IPHONE --- */
+        .iphone-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        /* Caras del Cubo */
+        .face {
+            position: absolute;
+            background-color: var(--titanium-dark);
+            border: 1px solid #333;
+            backface-visibility: visible;
+        }
+
+        /* Frente y Dorso (Las caras principales) */
+        .face-front, .face-back {
+            width: 300px;
+            height: 600px;
+            border-radius: 48px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+        }
+
+        .face-front {
+            transform: translateZ(15px);
+            background: #000;
+            border: 4px solid var(--titanium-frame);
+            overflow: hidden; /* Para contener la pantalla */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Efecto de reflejo en el borde */
+        .face-front::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 44px;
+            border: 1px solid rgba(255,255,255,0.15);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .face-back {
+            transform: translateZ(-15px) rotateY(180deg);
+            background: linear-gradient(135deg, #1c1c1c 0%, #111 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #2a2a2a;
+        }
+
+        /* Lados (Simulando el grosor) */
+        .face-right, .face-left {
+            width: 30px;
+            height: 540px; /* Menos que 600 para ajustar esquinas redondeadas (ilusión) */
+            top: 30px;
+            left: 135px; /* Centrado matemáticamente */
+            background: linear-gradient(to right, var(--titanium-frame), var(--titanium-dark), var(--titanium-frame));
+        }
+        
+        .face-right { transform: rotateY(90deg) translateZ(148px); }
+        .face-left { transform: rotateY(-90deg) translateZ(148px); }
+
+        .face-top, .face-bottom {
+            width: 240px; /* Menos que 300 para esquinas */
+            height: 30px;
+            left: 30px;
+            top: 285px;
+            background: linear-gradient(to bottom, var(--titanium-frame), var(--titanium-dark), var(--titanium-frame));
+        }
+
+        .face-top { transform: rotateX(90deg) translateZ(298px); }
+        .face-bottom { transform: rotateX(-90deg) translateZ(298px); }
+
+        /* Botones Físicos */
+        .button {
+            position: absolute;
+            background: var(--titanium-light);
+            transform-style: preserve-3d;
+            border-radius: 2px;
+            box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+        }
+
+        .btn-power {
+            width: 4px; height: 60px;
+            right: -4px; top: 150px;
+            transform: translateZ(0px); /* Ajustado al lado derecho */
+        }
+        
+        /* --- PANTALLA Y CONTENIDO --- */
+        #screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 42px;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 28px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 100;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px;
+        }
+        
+        /* Cámara frontal y sensores */
+        .island-cam { width: 10px; height: 10px; background: #1a1a1a; border-radius: 50%; box-shadow: inset 0 0 2px #333; }
+        
+        /* CONTENIDOS DE PANTALLA */
+        .screen-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
+
+        .screen-layer.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* 1. Logo Boot */
+        #boot-layer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+        }
+        
+        #apple-logo-svg {
+            width: 80px;
+            fill: white;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+            animation: bootPulse 2s ease-in-out infinite;
+        }
+
+        /* 2. iOS Home */
+        #home-layer {
+            background: linear-gradient(180deg, #4c1d95 0%, #2563eb 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding-top: 50px;
+        }
+
+        .status-bar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 25px;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            box-sizing: border-box;
+            z-index: 90;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px 10px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .app-icon {
+            width: 55px;
+            height: 55px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            margin: 0 auto;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Featured App */
+        .featured-app-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .star-app-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff0080, #ff6600);
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+            animation: pulse-icon 2s infinite;
+            position: relative;
+            z-index: 50;
+        }
+
+        .app-label {
+            margin-top: 8px;
+            font-size: 12px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* 3. App Final (Starbizacademi) */
+        #app-layer {
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #particles-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .app-content {
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .final-logo {
+            font-size: 60px;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+            animation: wiggle 3s ease-in-out infinite;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .brand-name {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: white;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .coming-soon {
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.1;
+            background: linear-gradient(90deg, var(--neon-magenta), var(--neon-cyan), var(--neon-magenta));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 3s linear infinite;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        /* Efecto Glitch opcional en texto */
+        .coming-soon::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            text-shadow: -1px 0 red;
+            top: 0;
+            width: 100%;
+            background: transparent;
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+
+        .divider-line {
+            height: 2px;
+            width: 0%;
+            background: var(--neon-cyan);
+            margin: 0 auto 20px auto;
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: expandLine 1s forwards ease-out;
+        }
+
+        .subtext {
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeInSub 1s 0.5s forwards;
+        }
+
+        /* Ripple Effect Footer */
+        .ripple-container {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%) rotateX(60deg);
+            width: 200px;
+            height: 200px;
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        .ripple {
+            position: absolute;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: rippleAnim 4s infinite;
+        }
+        .ripple:nth-child(2) { animation-delay: 1.3s; }
+        .ripple:nth-child(3) { animation-delay: 2.6s; }
+
+        /* --- CÁMARA TRASERA (SVG) --- */
+        .camera-bump-svg {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 120px;
+            height: 130px;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+            transform: translateZ(2px); /* Relieve físico */
+        }
+
+        /* --- KEYFRAMES --- */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes pulse-hand { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.9); opacity: 0.7; } }
+        @keyframes bootPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.95); } }
+        @keyframes pulse-icon { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 0, 128, 0.5); } 50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 0, 128, 0.8); } }
+        @keyframes bounceIn { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        @keyframes gradientText { to { background-position: 200% center; } }
+        @keyframes expandLine { to { width: 60%; } }
+        @keyframes fadeInSub { to { opacity: 1; } }
+        @keyframes rippleAnim { 0% { width: 0; height: 0; opacity: 1; border-width: 4px; } 100% { width: 300px; height: 300px; opacity: 0; border-width: 0px; } }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(24px, 9999px, 84px, 0); transform: translate(-2px); }
+            10% { clip: rect(62px, 9999px, 12px, 0); transform: translate(2px); }
+            20% { clip: rect(12px, 9999px, 54px, 0); transform: translate(-1px); }
+            100% { clip: rect(0, 0, 0, 0); transform: translate(0); }
+        }
+
+        /* Animación de apertura de App */
+        .app-opening-animation {
+            animation: appExpand 0.8s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+        }
+
+        @keyframes appExpand {
+            0% { position: absolute; top: 75%; left: 50%; width: 70px; height: 70px; border-radius: 16px; transform: translate(-50%, 0); z-index: 1000; }
+            50% { width: 150px; height: 300px; border-radius: 30px; }
+            100% { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 42px; transform: translate(0, 0); z-index: 1000; }
+        }
+        
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            #scene { transform: scale(0.8); }
+            .coming-soon { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- UI de Instrucciones -->
+    <div id="ui-layer">
+        <div class="instruction-pill" id="instruction-text">
+            <svg class="hand-icon" viewBox="0 0 24 24">
+                <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74z"/>
+                <path d="M17.5 11c-.83 0-1.5-.67-1.5-1.5 0-.39.15-.74.39-1.01-.25-.27-.4-.63-.4-1.01 0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .38-.15.74-.4 1.01.25.27.39.62.39 1.01 0 .83-.67 1.5-1.5 1.5zM11.5 1C7.91 1 5 3.91 5 7.5c0 2.13 1.09 4.02 2.76 5.2-.3.41-.55.85-.74 1.32l-2.86 7.15C4.05 21.56 4.33 22 4.75 22h13.5c.42 0 .7-.44.59-.83l-2.86-7.15c-.19-.47-.44-.91-.74-1.32C16.91 11.52 18 9.63 18 7.5 18 3.91 15.09 1 11.5 1z"/>
+            </svg>
+            <span>Arrastra para rotar &bull; Click pantalla para iniciar</span>
+        </div>
+        <button id="reset-btn">Reiniciar Experiencia</button>
+    </div>
+
+    <!-- Escena 3D -->
+    <div id="scene-container">
+        <div id="scene">
+            <div class="iphone-body">
+                
+                <!-- Cara FRONTAL -->
+                <div class="face face-front">
+                    <div id="screen-content">
+                        <!-- Isla Dinámica -->
+                        <div class="dynamic-island">
+                            <div class="island-cam"></div>
+                        </div>
+
+                        <!-- 1. Capa de Inicio (Negra / Boot) -->
+                        <div id="boot-layer" class="screen-layer">
+                            <!-- Logo Apple SVG -->
+                            <svg id="apple-logo-svg" viewBox="0 0 384 512">
+                                <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 102.1 78 102.1 18 0 25.8-12.5 59.5-12.5 32.9 0 40.6 12.5 62.6 12.5 32 0 61.7-56 75.2-82.7-47-22.2-55.6-73.5-15-105.4zM249.4 92c18.9-27.4 30.4-63.9 26.4-92-24.4 2.6-60.3 20.8-81.2 48.1-19.2 24.7-31.1 61-26.1 90.9 29.4 3.5 62.3-20.1 80.9-47z"/>
+                            </svg>
+                        </div>
+
+                        <!-- 2. Capa Home iOS -->
+                        <div id="home-layer" class="screen-layer">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <span>🔋 100%</span>
+                            </div>
+                            <div class="app-grid">
+                                <div class="app-icon">📞</div>
+                                <div class="app-icon">💬</div>
+                                <div class="app-icon">📷</div>
+                                <div class="app-icon">🎵</div>
+                                <div class="app-icon">🧭</div>
+                                <div class="app-icon">⚙️</div>
+                                <div class="app-icon">📧</div>
+                                <div class="app-icon">☁️</div>
+                            </div>
+                            <div class="featured-app-container" id="trigger-app">
+                                <div class="star-app-icon">⭐</div>
+                                <div class="app-label">StarBiz</div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Capa App Final -->
+                        <div id="app-layer" class="screen-layer">
+                            <canvas id="particles-canvas"></canvas>
+                            <div class="app-content">
+                                <span class="final-logo">⭐</span>
+                                <div class="brand-name">StarBizAcademi</div>
+                                <div class="coming-soon" data-text="PRÓXIMAMENTE">PRÓXIMAMENTE</div>
+                                <div class="divider-line"></div>
+                                <div class="subtext">Algo grande está por venir...</div>
+                            </div>
+                            <!-- Efecto ondas -->
+                            <div class="ripple-container">
+                                <div class="ripple"></div>
+                                <div class="ripple"></div>
+                                <div class="ripple"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Cara TRASERA -->
+                <div class="face face-back">
+                    <!-- SVG Cámara -->
+                    <svg class="camera-bump-svg" viewBox="0 0 120 130">
+                        <defs>
+                            <linearGradient id="lensGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#333;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#000;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#222;stop-opacity:1" />
+                            </linearGradient>
+                            <filter id="dropShadow">
+                                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.5"/>
+                            </filter>
+                        </defs>
+                        <!-- Isla base -->
+                        <rect x="0" y="0" width="120" height="130" rx="25" fill="#1f1f1f" filter="url(#dropShadow)" stroke="#333" stroke-width="1"/>
+                        <!-- Lentes -->
+                        <circle cx="35" cy="35" r="22" fill="url(#lensGrad)" stroke="#444" stroke-width="2"/>
+                        <circle cx="35" cy="95" r="22" fill="url(#lensGrad)" stroke="#444" stroke-width="2"/>
+                        <circle cx="85" cy="65" r="22" fill="url(#lensGrad)" stroke="#444" stroke-width="2"/>
+                        <!-- Flash y Mic -->
+                        <circle cx="85" cy="25" r="8" fill="#fff" opacity="0.8"/>
+                        <circle cx="85" cy="105" r="4" fill="#000"/>
+                        <!-- Reflejos lentes -->
+                        <circle cx="35" cy="35" r="8" fill="#0f1b33" opacity="0.8"/>
+                        <circle cx="35" cy="95" r="8" fill="#0f1b33" opacity="0.8"/>
+                        <circle cx="85" cy="65" r="8" fill="#0f1b33" opacity="0.8"/>
+                    </svg>
+                    
+                    <!-- Logo Apple Trasero -->
+                    <svg width="50" height="60" viewBox="0 0 384 512" style="opacity: 0.3; fill: white;">
+                        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 102.1 78 102.1 18 0 25.8-12.5 59.5-12.5 32.9 0 40.6 12.5 62.6 12.5 32 0 61.7-56 75.2-82.7-47-22.2-55.6-73.5-15-105.4zM249.4 92c18.9-27.4 30.4-63.9 26.4-92-24.4 2.6-60.3 20.8-81.2 48.1-19.2 24.7-31.1 61-26.1 90.9 29.4 3.5 62.3-20.1 80.9-47z"/>
+                    </svg>
+                </div>
+
+                <!-- LADOS -->
+                <div class="face face-right">
+                    <div class="button btn-power"></div>
+                </div>
+                <div class="face face-left"></div>
+                <div class="face face-top"></div>
+                <div class="face face-bottom"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* --- CONFIGURACIÓN DE ESCENA Y VARIABLES --- */
+        const scene = document.getElementById('scene');
+        const screenContent = document.getElementById('screen-content');
+        const uiText = document.getElementById('instruction-text');
+        const resetBtn = document.getElementById('reset-btn');
+        
+        // Capas de Pantalla
+        const bootLayer = document.getElementById('boot-layer');
+        const homeLayer = document.getElementById('home-layer');
+        const appLayer = document.getElementById('app-layer');
+        const layers = [bootLayer, homeLayer, appLayer];
+        
+        // Estado
+        let rotX = -10;
+        let rotY = 0;
+        let curRotX = -10;
+        let curRotY = 0;
+        let scale = 1;
+        
+        let isDragging = false;
+        let startX, startY;
+        let autoRotate = true;
+        let isLocked = false; // Cuando empieza la secuencia
+        let sequencePhase = 0; // 0: Idle, 1: Booting, 2: Home, 3: App
+        
+        /* --- MOTOR DE INTERACCIÓN 3D --- */
+        
+        function updateTransform() {
+            // Lerp para suavidad (inercia)
+            curRotX += (rotX - curRotX) * 0.1;
+            curRotY += (rotY - curRotY) * 0.1;
+            
+            if(!isLocked) {
+                scene.style.transform = `rotateX(${curRotX}deg) rotateY(${curRotY}deg) scale(${scale})`;
+            } else {
+                // Cuando está bloqueado (secuencia), forzamos a 0,0
+                scene.style.transform = `rotateX(0deg) rotateY(0deg) scale(${Math.max(1, scale)})`;
+            }
+            
+            if (autoRotate && !isDragging && !isLocked) {
+                rotY += 0.3; // Rotación automática lenta
+            }
+            
+            requestAnimationFrame(updateTransform);
+        }
+        
+        // Event Listeners Mouse
+        document.addEventListener('mousedown', (e) => {
+            if (isLocked) return;
+            if (e.target.closest('#reset-btn')) return;
+            
+            isDragging = true;
+            autoRotate = false;
+            startX = e.clientX;
+            startY = e.clientY;
+            scene.classList.add('grabbing');
+            uiText.style.opacity = '0';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging || isLocked) return;
+            
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            
+            rotY += deltaX * 0.5;
+            rotX -= deltaY * 0.5; // Invertir eje Y del mouse para eje X 3D
+            
+            // Límites verticales para no volcar demasiado
+            rotX = Math.max(-60, Math.min(60, rotX));
+            
+            startX = e.clientX;
+            startY = e.clientY;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            scene.classList.remove('grabbing');
+        });
+        
+        // Zoom con Rueda
+        document.addEventListener('wheel', (e) => {
+            if(isLocked) return;
+            e.preventDefault();
+            scale += e.deltaY * -0.001;
+            scale = Math.min(Math.max(.5, scale), 1.5);
+        }, { passive: false });
+
+        // Touch Events (Móvil)
+        document.addEventListener('touchstart', (e) => {
+            if (isLocked) return;
+            isDragging = true;
+            autoRotate = false;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            uiText.style.opacity = '0';
+        }, {passive: true});
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging || isLocked) return;
+            const deltaX = e.touches[0].clientX - startX;
+            const deltaY = e.touches[0].clientY - startY;
+            rotY += deltaX * 0.8;
+            rotX -= deltaY * 0.8;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }, {passive: true});
+        
+        document.addEventListener('touchend', () => isDragging = false);
+
+        /* --- LÓGICA DE LA SECUENCIA --- */
+
+        screenContent.addEventListener('click', () => {
+            if (sequencePhase > 0) return; // Ya iniciado
+            startSequence();
+        });
+        
+        function switchLayer(layerIndex) {
+            layers.forEach(l => l.classList.remove('active'));
+            if(layers[layerIndex]) layers[layerIndex].classList.add('active');
+        }
+
+        function startSequence() {
+            sequencePhase = 1;
+            isLocked = true;
+            scene.classList.add('locked');
+            uiText.style.display = 'none';
+            
+            // Efecto de flash visual al click
+            screenContent.style.filter = "brightness(1.5)";
+            setTimeout(() => screenContent.style.filter = "brightness(1)", 200);
+
+            // 1. Pantalla Negra (Reset)
+            switchLayer(-1); 
+            
+            // 2. Boot (Apple Logo) - Segundo 1
+            setTimeout(() => {
+                switchLayer(0); // Boot Layer
+            }, 1000);
+
+            // 3. iOS Home - Segundo 4
+            setTimeout(() => {
+                switchLayer(1); // Home Layer
+            }, 4000);
+
+            // 4. Trigger App Opening - Segundo 8
+            setTimeout(() => {
+                const starApp = document.querySelector('.star-app-icon');
+                // Clonamos el icono para animarlo a pantalla completa
+                const rect = starApp.getBoundingClientRect();
+                
+                // Simulamos la apertura creando un div que se expande
+                const expander = document.createElement('div');
+                expander.classList.add('app-opening-animation');
+                // Estilos iniciales copiados del icono
+                expander.style.background = getComputedStyle(starApp).background;
+                
+                // Añadir al DOM dentro de la pantalla
+                screenContent.appendChild(expander);
+                
+                // 5. Mostrar App Final - Segundo 9
+                setTimeout(() => {
+                    switchLayer(2); // App Layer
+                    expander.remove();
+                    initParticles(); // Iniciar partículas Matrix
+                    resetBtn.classList.add('visible');
+                }, 800); // Lo que dura la animación CSS appExpand
+                
+            }, 8000);
+        }
+        
+        /* --- SISTEMA DE PARTÍCULAS (MATRIX/FUTURISTA) --- */
+        function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 300;
+            canvas.height = 600;
+            
+            const particles = [];
+            const particleCount = 30;
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height + Math.random() * 100;
+                    this.speed = 1 + Math.random() * 2;
+                    this.size = Math.random() * 2;
+                    this.alpha = 0.1 + Math.random() * 0.4;
+                }
+                
+                update() {
+                    this.y -= this.speed;
+                    if (this.y < -10) {
+                        this.y = canvas.height + Math.random() * 100;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+                
+                draw() {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                    ctx.fillRect(this.x, this.y, 1, this.size * 5); // Líneas verticales
+                }
+            }
+            
+            for(let i=0; i<particleCount; i++) particles.push(new Particle());
+            
+            function animateParticles() {
+                if(sequencePhase !== 1) { // Si reiniciamos, detener
+                    // ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    // return; 
+                }
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        }
+
+        /* --- REINICIAR --- */
+        resetBtn.addEventListener('click', () => {
+            isLocked = false;
+            scene.classList.remove('locked');
+            sequencePhase = 0;
+            autoRotate = true;
+            switchLayer(-1);
+            uiText.style.display = 'flex';
+            setTimeout(() => uiText.style.opacity = '1', 100);
+            resetBtn.classList.remove('visible');
+            
+            // Reset rotación suavemente
+            curRotX = -10;
+            curRotY = 0;
+            rotX = -10;
+            rotY = 0;
+        });
+
+        // Iniciar loop principal
+        updateTransform();
+
+    </script>
+</body>
+</html>
