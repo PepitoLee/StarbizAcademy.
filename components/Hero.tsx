@@ -134,7 +134,7 @@ const Hero: React.FC = () => {
                 <motion.div 
                   animate={{ y: [-20, 20, -20] }}
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative w-80 h-80 flex items-center justify-center z-10"
+                  className="relative w-64 h-64 flex items-center justify-center z-10"
                 >
                    {/* --- COSMIC PORTAL DESIGN --- */}
                    
