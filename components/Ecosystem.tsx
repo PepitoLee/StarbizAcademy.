@@ -186,132 +186,141 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
                    }}
                 ></motion.div>
 
-                {/* THE IPHONE 3D CONTAINER - VOLUMETRIC 3D */}
+                {/* THE IPHONE 3D CONTAINER - ULTIMATE FIDELITY */}
                 <motion.div 
-                   className="relative w-[320px] h-[660px]"
+                   className="relative w-[315px] h-[650px]" // Pro Max Aspect Ratio
                    style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
                    onClick={handlePowerOn}
                 >
                    
-                   {/* === 1. FRONT GLASS (Screen) === */}
+                   {/* === 1. FRONT GLASS (Infinity Display) === */}
                    <div 
-                     className="absolute inset-0 bg-black rounded-[58px] overflow-hidden backface-hidden"
+                     className="absolute inset-0 bg-black rounded-[60px] overflow-hidden backface-hidden"
                      style={{ 
-                       transform: "translateZ(16px)", // Push forward
-                       boxShadow: "inset 0 0 0 2px #333" // Bezel
+                       transform: "translateZ(16px)", 
+                       boxShadow: "inset 0 0 0 2px #222, 0 0 0 1px #111" // Deep bezel + seam
                      }}
                    >
-                      {/* Glass Material */}
-                      <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-20 pointer-events-none z-50 rounded-[58px]"></div>
+                      {/* Reflection Layer (Ceramic Shield) */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-30 pointer-events-none z-50 rounded-[60px]"></div>
                       
-                      {/* Dynamic Island */}
-                      <div className="absolute top-6 left-1/2 -translate-x-1/2 w-[96px] h-[28px] bg-black rounded-full z-40 flex items-center justify-center gap-3 border border-[#111] shadow-sm">
-                         <div className="w-2.5 h-2.5 rounded-full bg-[#080808]"></div>
-                         <div className="w-1.5 h-1.5 rounded-full bg-[#080808]"></div>
+                      {/* Dynamic Island (Integrated) */}
+                      <div className="absolute top-7 left-1/2 -translate-x-1/2 w-[100px] h-[28px] bg-black rounded-full z-40 flex items-center justify-center gap-3 shadow-sm border border-[#1a1a1a]">
+                         <div className="w-3 h-3 rounded-full bg-[#0a0a0a]"></div>
+                         <div className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a]"></div>
                       </div>
 
-                      {/* OFF State */}
+                      {/* DISPLAY CONTENT */}
                       {powerState === 'off' && (
-                        <div className="absolute inset-0 bg-[#050505] flex flex-col items-center justify-center">
-                           <h3 className="text-6xl font-bold text-[#2F4452]/40 font-display">09:41</h3>
-                           <p className="text-[#2F4452]/30 font-medium mt-2">Tap to Wake</p>
+                        <div className="absolute inset-0 bg-[#020202] flex flex-col items-center justify-center">
+                           <h3 className="text-7xl font-bold text-[#2F4452]/30 font-display tracking-tighter">09:41</h3>
+                           <p className="text-[#2F4452]/20 font-medium mt-2">Tap to Wake</p>
                         </div>
                       )}
 
-                      {/* ON State */}
                       {powerState === 'on' && (
                         <div className="absolute inset-0 bg-black">
-                           <img src="/images/ceo-junior.png" className="w-full h-full object-cover opacity-80" />
-                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                           <img src="/images/ceo-junior.png" className="w-full h-full object-cover opacity-90" />
+                           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40"></div>
                            <div className="absolute top-20 left-0 w-full text-center text-white">
-                              <h2 className="text-2xl font-bold font-display">StarbizOS</h2>
-                              <p className="text-brand-cyan text-xs">System Active</p>
+                              <h2 className="text-3xl font-bold font-display tracking-wide">StarbizOS</h2>
+                              <p className="text-brand-cyan text-xs font-mono tracking-widest">SYSTEM READY</p>
                            </div>
+                           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[110px] h-[4px] bg-white rounded-full"></div>
                         </div>
                       )}
                    </div>
 
 
-                   {/* === 2. SIDE BANDS (The Volume) === */}
+                   {/* === 2. TITANIUM FRAME (Volumetric) === */}
+                   {/* Colors */}
+                   {/* Base: #2F4452, Highlight: #4A6070, Shadow: #1A2630 */}
+                   
                    {/* Right */}
-                   <div className="absolute top-[20px] right-0 w-[32px] h-[calc(100%-40px)]" 
+                   <div className="absolute top-[30px] right-0 w-[32px] h-[calc(100%-60px)]" 
                         style={{ 
                           transform: "rotateY(90deg) translateZ(-16px) translateX(16px)", 
                           transformOrigin: "right",
-                          background: `linear-gradient(90deg, ${titaniumShadow}, ${titaniumBase} 20%, ${titaniumHighlight} 50%, ${titaniumBase} 80%, ${titaniumShadow})`,
+                          background: "linear-gradient(90deg, #1A2630, #2F4452 40%, #4A6070 50%, #2F4452 60%, #1A2630)",
                         }}></div>
                    {/* Left */}
-                   <div className="absolute top-[20px] left-0 w-[32px] h-[calc(100%-40px)]" 
+                   <div className="absolute top-[30px] left-0 w-[32px] h-[calc(100%-60px)]" 
                         style={{ 
                           transform: "rotateY(-90deg) translateZ(-16px) translateX(-16px)", 
                           transformOrigin: "left",
-                          background: `linear-gradient(90deg, ${titaniumShadow}, ${titaniumBase} 20%, ${titaniumHighlight} 50%, ${titaniumBase} 80%, ${titaniumShadow})`,
+                          background: "linear-gradient(90deg, #1A2630, #2F4452 40%, #4A6070 50%, #2F4452 60%, #1A2630)",
                         }}></div>
                    {/* Top */}
-                   <div className="absolute top-0 left-[20px] w-[calc(100%-40px)] h-[32px]" 
+                   <div className="absolute top-0 left-[30px] w-[calc(100%-60px)] h-[32px]" 
                         style={{ 
                           transform: "rotateX(90deg) translateZ(-16px) translateY(-16px)", 
                           transformOrigin: "top",
-                          background: `linear-gradient(180deg, ${titaniumShadow}, ${titaniumBase} 20%, ${titaniumHighlight} 50%, ${titaniumBase} 80%, ${titaniumShadow})`,
+                          background: "linear-gradient(180deg, #1A2630, #2F4452 40%, #4A6070 50%, #2F4452 60%, #1A2630)",
                         }}></div>
                    {/* Bottom */}
-                   <div className="absolute bottom-0 left-[20px] w-[calc(100%-40px)] h-[32px]" 
+                   <div className="absolute bottom-0 left-[30px] w-[calc(100%-60px)] h-[32px]" 
                         style={{ 
                           transform: "rotateX(-90deg) translateZ(-16px) translateY(16px)", 
                           transformOrigin: "bottom",
-                          background: `linear-gradient(0deg, ${titaniumShadow}, ${titaniumBase} 20%, ${titaniumHighlight} 50%, ${titaniumBase} 80%, ${titaniumShadow})`,
-                          display: "flex", alignItems: "center", justifyContent: "center", gap: "30px"
+                          background: "linear-gradient(0deg, #1A2630, #2F4452 40%, #4A6070 50%, #2F4452 60%, #1A2630)",
+                          display: "flex", alignItems: "center", justifyContent: "center", gap: "40px"
                         }}>
-                          <div className="w-8 h-1 bg-black rounded-full opacity-50"></div>
-                          <div className="w-8 h-1 bg-black rounded-full opacity-50"></div>
+                          <div className="w-10 h-1 bg-[#111] rounded-full shadow-[inset_0_0_2px_#333]"></div>
+                          <div className="w-10 h-1 bg-[#111] rounded-full shadow-[inset_0_0_2px_#333]"></div>
                         </div>
 
-                   {/* Corner Curves (Spheres) */}
-                   <div className="absolute top-0 right-0 w-[32px] h-[32px] rounded-full" style={{ transform: "translateZ(-16px) rotateY(45deg) translate(11px, -11px)", background: titaniumBase }}></div>
-                   <div className="absolute top-0 left-0 w-[32px] h-[32px] rounded-full" style={{ transform: "translateZ(-16px) rotateY(-45deg) translate(-11px, -11px)", background: titaniumBase }}></div>
-                   <div className="absolute bottom-0 right-0 w-[32px] h-[32px] rounded-full" style={{ transform: "translateZ(-16px) rotateY(45deg) translate(11px, 11px)", background: titaniumBase }}></div>
-                   <div className="absolute bottom-0 left-0 w-[32px] h-[32px] rounded-full" style={{ transform: "translateZ(-16px) rotateY(-45deg) translate(-11px, 11px)", background: titaniumBase }}></div>
+                   {/* Corner Spheres (Seamless Joints) */}
+                   <div className="absolute top-0 right-0 w-[32px] h-[32px] rounded-full bg-[#2F4452]" style={{ transform: "translateZ(-16px) rotateY(45deg) translate(11px, -11px)" }}></div>
+                   <div className="absolute top-0 left-0 w-[32px] h-[32px] rounded-full bg-[#2F4452]" style={{ transform: "translateZ(-16px) rotateY(-45deg) translate(-11px, -11px)" }}></div>
+                   <div className="absolute bottom-0 right-0 w-[32px] h-[32px] rounded-full bg-[#2F4452]" style={{ transform: "translateZ(-16px) rotateY(45deg) translate(11px, 11px)" }}></div>
+                   <div className="absolute bottom-0 left-0 w-[32px] h-[32px] rounded-full bg-[#2F4452]" style={{ transform: "translateZ(-16px) rotateY(-45deg) translate(-11px, 11px)" }}></div>
 
 
-                   {/* === 3. BACK GLASS (Matte) === */}
+                   {/* === 3. BACK GLASS (Matte Textured) === */}
                    <div 
-                     className="absolute inset-0 rounded-[58px] backface-visible"
+                     className="absolute inset-0 rounded-[60px] backface-visible"
                      style={{ 
-                       transform: "translateZ(-16px) rotateY(180deg)", // Push back
-                       background: titaniumBase,
-                       boxShadow: `inset 0 0 40px ${titaniumShadow}`
+                       transform: "translateZ(-16px) rotateY(180deg)", 
+                       background: "#2F4452",
+                       boxShadow: "inset 0 0 60px rgba(0,0,0,0.5)"
                      }}
                    >
-                      {/* Matte Texture */}
-                      <div className="absolute inset-0 bg-white/5 rounded-[58px] backdrop-blur-sm"></div>
+                      {/* Texture Overlay */}
+                      <div className="absolute inset-0 bg-white/5 rounded-[60px] backdrop-blur-sm border border-white/5"></div>
                       
-                      {/* Apple Logo */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30">
-                         <svg viewBox="0 0 384 512" width="64" fill="#1a1a1a"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg>
+                      {/* Apple Logo (Polished) */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-40 drop-shadow-sm">
+                         <svg viewBox="0 0 384 512" width="70" fill="#ccc"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg>
                       </div>
 
-                      {/* CAMERA BUMP (Volumetric) */}
+                      {/* CAMERA BUMP (Pro Max Scale) */}
                       <div 
-                        className="absolute top-6 left-6 w-[140px] h-[145px] rounded-[45px]"
+                        className="absolute top-6 left-6 w-[150px] h-[155px] rounded-[48px]"
                         style={{
-                           background: `linear-gradient(135deg, ${titaniumShadow}, ${titaniumBase})`,
-                           transform: "translateZ(2px)", // Lift bump slightly
-                           boxShadow: "0 10px 20px rgba(0,0,0,0.5)"
+                           background: "linear-gradient(135deg, #253540, #2F4452)",
+                           transform: "translateZ(2px)",
+                           boxShadow: "0 10px 25px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1)"
                         }}
                       >
-                         {/* LENSES (Extruded) */}
+                         {/* LENSES (Big & Bold) */}
                          {[
-                           { top: "10px", left: "10px" },
-                           { bottom: "10px", left: "10px" },
-                           { top: "50%", right: "10px", transform: "translateY(-50%)" }
+                           { top: "12px", left: "12px" }, // Wide
+                           { bottom: "12px", left: "12px" }, // Ultra
+                           { top: "50%", right: "12px", transform: "translateY(-50%)" } // Tele
                          ].map((pos, i) => (
-                            <div key={i} className="absolute w-[54px] h-[54px] rounded-full bg-[#111] border-[3px] border-[#4A6070] shadow-lg flex items-center justify-center" style={pos}>
-                               <div className="w-[40px] h-[40px] rounded-full bg-[#000] relative overflow-hidden">
-                                  <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a40] to-transparent opacity-60 rounded-full"></div>
-                                  <div className="absolute top-3 left-3 w-2 h-2 bg-white opacity-40 blur-[1px] rounded-full"></div>
+                            <div key={i} className="absolute w-[58px] h-[58px] rounded-full bg-[#151515] border-[2px] border-[#4A6070] shadow-lg flex items-center justify-center" style={pos}>
+                               <div className="w-[44px] h-[44px] rounded-full bg-[#000] relative overflow-hidden shadow-inner">
+                                  {/* Lens Coatings */}
+                                  <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a40] to-transparent opacity-70 rounded-full"></div>
+                                  <div className="absolute w-full h-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.1),transparent)]"></div>
                                </div>
                             </div>
                          ))}
+                         
+                         {/* LiDAR */}
+                         <div className="absolute bottom-6 right-6 w-[22px] h-[22px] rounded-full bg-[#111] border border-[#333] shadow-inner bg-[radial-gradient(#222,#000)]"></div>
+                         {/* Flash */}
+                         <div className="absolute top-6 right-6 w-[20px] h-[20px] rounded-full bg-[#fff] border border-[#ccc] shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-90"></div>
                       </div>
                    </div>
 
