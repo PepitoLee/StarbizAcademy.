@@ -1,6 +1,6 @@
-
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Users, Sparkles, Smartphone, ArrowRight } from 'lucide-react';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 const Ecosystem: React.FC = () => {
@@ -68,7 +68,6 @@ const Ecosystem: React.FC = () => {
          </div>
       </section>
 
-
       {/* Community 2: Padres 3.0 (Full Width) */}
       <section className="relative py-24 md:py-32 bg-[#050505]">
          <div className="absolute top-0 left-0 w-1/2 h-full bg-brand-orange/5 -skew-x-12 pointer-events-none"></div>
@@ -123,9 +122,6 @@ const Ecosystem: React.FC = () => {
 };
 
 // --- SUB-COMPONENT: Interactive iPhone Section ---
-import { useState, useRef } from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-
 const StarbooksAppSection = ({ t }: { t: any }) => {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [appLaunched, setAppLaunched] = useState(false);
@@ -292,3 +288,5 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
     </section>
   );
 };
+
+export default Ecosystem;
