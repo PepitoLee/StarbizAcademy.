@@ -96,24 +96,38 @@ const Hero: React.FC = () => {
             transition={{ duration: 1 }}
           >
             <div className="relative w-full h-full perspective-1000">
-              {/* Floating Rings */}
-              {[...Array(3)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className={`absolute inset-${i * 10} rounded-full border border-brand-cyan/20`}
-                  animate={{ 
-                    rotateX: [0, 360], 
-                    rotateY: [0, 180], 
-                    scale: [1, 1.1, 1] 
-                  }}
-                  transition={{ 
-                    duration: 15 + i * 5, 
-                    repeat: Infinity, 
-                    ease: "linear" 
-                  }}
-                  style={{ borderStyle: i % 2 === 0 ? 'solid' : 'dashed' }}
-                />
-              ))}
+              {/* Floating Rings - Holographic Gyroscope */}
+              
+              {/* Ring 1: Cyber Data (Large, Dashed, Cyan) */}
+              <motion.div
+                className="absolute inset-[-40px] rounded-full border border-dashed border-brand-cyan/20"
+                animate={{ rotateZ: [0, 360], rotateX: [60, 60], rotateY: [20, 20] }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              >
+                 <div className="absolute top-0 left-1/2 w-2 h-2 bg-brand-cyan rounded-full shadow-[0_0_10px_#00FFFF]"></div>
+              </motion.div>
+
+              {/* Ring 2: Nebula Arc (Medium, Gradient, Purple) */}
+              <motion.div
+                className="absolute inset-[-20px] rounded-full border-[1px] border-transparent border-t-brand-purple/60 border-l-brand-purple/30"
+                animate={{ rotateZ: [360, 0], rotateX: [-45, -45], rotateY: [10, 10] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                style={{ boxShadow: "0 0 20px rgba(168,85,247,0.2)" }}
+              />
+
+              {/* Ring 3: Solar Orbit (Close, Fast, Orange/Gold) */}
+              <motion.div
+                className="absolute inset-[0px] rounded-full border-[1px] border-white/10"
+                animate={{ rotateX: [0, 360], rotateY: [0, 360] }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              >
+                 {/* Orbiting Satellite */}
+                 <motion.div 
+                   className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-brand-orange rounded-full shadow-[0_0_15px_#FF6B00]"
+                   animate={{ scale: [1, 1.5, 1] }}
+                   transition={{ duration: 2, repeat: Infinity }}
+                 />
+              </motion.div>
 
               {/* Central Core */}
               <div className="absolute inset-0 flex items-center justify-center">
