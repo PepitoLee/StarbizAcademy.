@@ -118,7 +118,7 @@ const SevenIntelligences: React.FC = () => {
                 `}
               >
                 {/* Background Big Number */}
-                <span className="absolute top-2 right-6 text-7xl font-display font-bold text-white/25 group-hover:text-white/40 transition-colors select-none pointer-events-none">
+                <span className="absolute top-2 right-6 text-7xl font-display font-bold text-white group-hover:text-white transition-colors select-none pointer-events-none">
                   {numberStr}
                 </span>
 
