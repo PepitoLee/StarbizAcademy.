@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Users, Sparkles, Smartphone, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -152,6 +153,7 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
   const uiRef = useRef<HTMLDivElement>(null);
   const resetBtnRef = useRef<HTMLButtonElement>(null);
   const screenContentRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null); // New ref for backdrop
   
   const stateRef = useRef({
     rotX: -10,
@@ -186,6 +188,7 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
       if (!s.isLocked) {
           scene.style.transform = `rotateX(${s.curRotX}deg) rotateY(${s.curRotY}deg) scale(${s.scale})`;
       } else {
+          // When locked (focus mode), keep it centered and upright
           scene.style.transform = `rotateX(0deg) rotateY(0deg) scale(${Math.max(1, s.scale)})`;
       }
       
@@ -263,55 +266,6 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
     };
   }, []);
 
-  const handleScreenClick = () => {
-    const s = stateRef.current;
-    if (s.sequencePhase > 0) return;
-    
-    s.sequencePhase = 1;
-    s.isLocked = true;
-    const scene = sceneRef.current;
-    const uiText = uiRef.current;
-    const resetBtn = resetBtnRef.current;
-    const screenContent = screenContentRef.current;
-
-    if(scene) scene.classList.add('locked');
-    if(uiText) uiText.style.display = 'none';
-    
-    if(screenContent) {
-       screenContent.style.filter = "brightness(1.5)";
-       setTimeout(() => screenContent.style.filter = "brightness(1)", 200);
-    }
-
-    const updateLayers = (idx: number) => {
-       const layers = document.querySelectorAll('.screen-layer');
-       layers.forEach(l => l.classList.remove('active'));
-       const target = document.getElementById(
-          idx === 0 ? 'boot-layer' : idx === 1 ? 'home-layer' : idx === 2 ? 'app-layer' : 'idle-layer'
-       );
-       if(target) target.classList.add('active');
-    };
-
-    setTimeout(() => updateLayers(0), 1000);
-    setTimeout(() => updateLayers(1), 4000);
-
-    setTimeout(() => {
-       const starApp = document.querySelector('.star-app-icon');
-       if(starApp && screenContent) {
-          const expander = document.createElement('div');
-          expander.classList.add('app-opening-animation');
-          expander.style.background = 'linear-gradient(135deg, #ff0080, #ff6600)';
-          screenContent.appendChild(expander);
-          
-          setTimeout(() => {
-             updateLayers(2);
-             if(expander.parentNode) expander.parentNode.removeChild(expander);
-             if(resetBtn) resetBtn.classList.add('visible');
-             initParticles();
-          }, 800);
-       }
-    }, 8000);
-  };
-
   const initParticles = () => {
      const canvas = document.getElementById('particles-canvas') as HTMLCanvasElement;
      if(!canvas) return;
@@ -350,52 +304,6 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
      animate();
   };
 
-  const handleReset = () => {
-     const s = stateRef.current;
-     s.isLocked = false;
-     s.sequencePhase = 0;
-     s.autoRotate = true;
-     s.curRotX = -10; s.curRotY = 0; s.rotX = -10; s.rotY = 0;
-     
-     const scene = sceneRef.current;
-     const uiText = uiRef.current;
-     const resetBtn = resetBtnRef.current;
-     const container = containerRef.current; // Get container ref
-     const backdrop = document.getElementById('immersive-backdrop'); // Get backdrop
-     
-     if(scene) {
-        scene.classList.remove('locked');
-        scene.style.transform = `rotateX(-10deg) rotateY(0deg) scale(1)`; // Reset transform explicitly
-     }
-
-     // Exit Focus Mode
-     if (container) {
-        container.style.position = 'relative';
-        container.style.zIndex = 'auto';
-        container.style.width = '100%';
-        container.style.height = '700px';
-        container.style.transform = 'none';
-        container.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-     }
-     if (backdrop) {
-        backdrop.style.opacity = '0';
-        backdrop.style.pointerEvents = 'none';
-     }
-     
-     // Reset layers
-     const layers = document.querySelectorAll('.screen-layer');
-     layers.forEach(l => l.classList.remove('active'));
-     const idleLayer = document.getElementById('idle-layer');
-     if(idleLayer) idleLayer.classList.add('active');
-
-     if(uiText) {
-        uiText.style.display = 'flex';
-        setTimeout(() => uiText.style.opacity = '1', 100);
-     }
-     if(resetBtn) resetBtn.classList.remove('visible');
-  };
-
-  // Handle Focus Mode Entry in handleScreenClick
   const handleScreenClick = () => {
     const s = stateRef.current;
     if (s.sequencePhase > 0) return;
@@ -412,25 +320,23 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
     if(scene) scene.classList.add('locked');
     if(uiText) uiText.style.display = 'none';
 
-    // Enter Focus Mode (Zoom & Center)
+    // --- ENTER FOCUS MODE (FIXED & ZOOMED) ---
     if (container) {
-        // Calculate centering offset if needed, or just use fixed centering
-        // Using fixed positioning is easiest for "modal" like behavior
         container.style.position = 'fixed';
         container.style.top = '0';
         container.style.left = '0';
         container.style.width = '100vw';
         container.style.height = '100vh';
-        container.style.zIndex = '60';
-        container.style.transform = 'scale(1.1)'; // Slight Zoom
+        container.style.zIndex = '60'; // Topmost
+        container.style.transform = 'scale(1.1)';
         container.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
     }
+    // Activate backdrop
     if (backdrop) {
         backdrop.style.opacity = '1';
         backdrop.style.pointerEvents = 'auto';
     }
     
-    // ... (rest of sequence logic)
     if(screenContent) {
        screenContent.style.filter = "brightness(1.5)";
        setTimeout(() => screenContent.style.filter = "brightness(1)", 200);
@@ -445,9 +351,11 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
        if(target) target.classList.add('active');
     };
 
+    // 1. Boot
     setTimeout(() => updateLayers(0), 1000);
+    // 2. Home
     setTimeout(() => updateLayers(1), 4000);
-
+    // 3. App
     setTimeout(() => {
        const starApp = document.querySelector('.star-app-icon');
        if(starApp && screenContent) {
@@ -466,11 +374,53 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
     }, 8000);
   };
 
-  // ... (initParticles remains same)
+  const handleReset = () => {
+     const s = stateRef.current;
+     s.isLocked = false;
+     s.sequencePhase = 0;
+     s.autoRotate = true;
+     s.curRotX = -10; s.curRotY = 0; s.rotX = -10; s.rotY = 0;
+     
+     const scene = sceneRef.current;
+     const uiText = uiRef.current;
+     const resetBtn = resetBtnRef.current;
+     const container = containerRef.current;
+     const backdrop = document.getElementById('immersive-backdrop');
+     
+     if(scene) {
+        scene.classList.remove('locked');
+        // Force reset visual rotation immediately
+        scene.style.transform = `rotateX(-10deg) rotateY(0deg) scale(1)`;
+     }
+
+     // --- EXIT FOCUS MODE ---
+     if (container) {
+        container.style.position = 'relative';
+        container.style.zIndex = 'auto';
+        container.style.width = '100%';
+        container.style.height = '700px';
+        container.style.transform = 'none';
+     }
+     if (backdrop) {
+        backdrop.style.opacity = '0';
+        backdrop.style.pointerEvents = 'none';
+     }
+     
+     const layers = document.querySelectorAll('.screen-layer');
+     layers.forEach(l => l.classList.remove('active'));
+     const idleLayer = document.getElementById('idle-layer');
+     if(idleLayer) idleLayer.classList.add('active');
+
+     if(uiText) {
+        uiText.style.display = 'flex';
+        setTimeout(() => uiText.style.opacity = '1', 100);
+     }
+     if(resetBtn) resetBtn.classList.remove('visible');
+  };
 
   return (
     <>
-    {/* Immersive Backdrop */}
+    {/* Immersive Backdrop (Global) */}
     <div id="immersive-backdrop" style={{
         position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
         background: 'rgba(0,0,0,0.95)', zIndex: 50, opacity: 0, pointerEvents: 'none',
@@ -596,6 +546,7 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
           </div>
        </div>
     </div>
+    </>
   );
 };
 
