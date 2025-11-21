@@ -122,7 +122,9 @@ const Ecosystem: React.FC = () => {
                      <Smartphone size={14} />
                      <span>APP STORE EXCLUSIVE</span>
                   </div>
-                  
+                  <h2 className="text-5xl md:text-7xl font-bold text-white font-display mb-6 tracking-tight">
+                     {t.ecosystem.app.title}
+                  </h2>
                   <p className="text-xl text-gray-400 mb-8 leading-relaxed">
                      {t.ecosystem.app.desc_part1} <span className="text-white font-bold">{t.ecosystem.app.desc_part2}</span> {t.ecosystem.app.desc_part3}
                   </p>

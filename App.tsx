@@ -9,7 +9,6 @@ import About from './components/About';
 import SevenIntelligences from './components/SevenIntelligences';
 import Programs from './components/Programs';
 import Ecosystem from './components/Ecosystem';
-import StarbooksApp from './components/StarbooksApp';
 import Testimonials from './components/Testimonials';
 import Events from './components/Events';
 import Contact from './components/Contact';
@@ -42,7 +41,6 @@ const AppContent: React.FC = () => {
             <SevenIntelligences />
             <Ecosystem />
             <Programs />
-            <StarbooksApp />
             <Testimonials />
             <Events />
             <Contact />
