@@ -10,23 +10,7 @@ const Hero: React.FC = () => {
   return (
     <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-[#020005]">
       
-      {/* 0. VIDEO BACKGROUND (Immersive Layer) */}
-      <div className="absolute inset-0 z-0">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="w-full h-full object-cover opacity-40 mix-blend-screen"
-        >
-          <source src="/videos/warp-speed.mp4" type="video/mp4" />
-        </video>
-        {/* Gradient Overlay to fade video edges into deep black */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#020005] via-transparent to-[#020005]"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#020005] via-transparent to-[#020005]"></div>
-      </div>
-
-      {/* 1. Animated Starfield Background (Particles on top of video) */}
+      {/* 1. Animated Starfield Background */}
       <Starfield />
 
       {/* 2. Deep Space Nebula Effects (Subtle) */}
