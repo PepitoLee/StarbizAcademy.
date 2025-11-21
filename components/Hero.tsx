@@ -290,16 +290,23 @@ const Hero: React.FC = () => {
                                 {/* Glass Background */}
                                 <circle cx="50" cy="45" r="12" fill="#38BDF8" stroke="#0F172A" strokeWidth="2" />
 
-                                {/* Kid Silhouette (Clipped) */}
+                                {/* Kid Astronaut (Clipped) */}
                                 <g clipPath="url(#windowClip)">
-                                   {/* Head */}
-                                   <circle cx="49" cy="44" r="3.5" fill="#0F172A" />
-                                   {/* Body */}
-                                   <path d="M44 48 Q49 47 54 48 L56 60 L42 60 Z" fill="#0F172A" />
-                                   {/* Waving Arm (Animated) */}
+                                   {/* Suit Body (White) */}
+                                   <path d="M43 48 Q49 47 55 48 L57 60 L41 60 Z" fill="#F1F5F9" />
+                                   
+                                   {/* Helmet (White) */}
+                                   <circle cx="49" cy="44" r="5.5" fill="#F1F5F9" />
+                                   
+                                   {/* Visor (Dark Glass) */}
+                                   <ellipse cx="49" cy="44" rx="4" ry="3" fill="#0F172A" />
+                                   {/* Visor Glint */}
+                                   <path d="M47 43 Q49 42 51 43" stroke="white" strokeWidth="0.5" fill="none" opacity="0.6" />
+
+                                   {/* Waving Arm (White Suit) */}
                                    <motion.path
-                                      stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" fill="none"
-                                      animate={{ d: ["M53 49 Q57 45 56 40", "M53 49 Q59 46 60 43", "M53 49 Q57 45 56 40"] }}
+                                      stroke="#F1F5F9" strokeWidth="2.5" strokeLinecap="round" fill="none"
+                                      animate={{ d: ["M54 49 Q58 45 57 39", "M54 49 Q60 46 61 42", "M54 49 Q58 45 57 39"] }}
                                       transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
                                    />
                                 </g>
