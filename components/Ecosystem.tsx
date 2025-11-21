@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Users, Sparkles, Smartphone, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -105,20 +104,19 @@ const Ecosystem: React.FC = () => {
                         decoding="async"
                         className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-orange/20 group-hover:shadow-brand-orange/40 transition-all duration-500"
                       />
-                       {/* Overlay Glint */}
-                      <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
+                       <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
                    </div>
                </div>
             </div>
          </div>
       </section>
 
-      {/* --- SECTION 3: STARBOOKS APP (Interactive iPhone + Info) --- */}
+      {/* --- SECTION 3: STARBOOKS APP (Interactive iPhone) --- */}
       <section className="relative py-32 overflow-hidden bg-black" style={{ background: 'radial-gradient(circle at center, #1a1a1a 0%, #000000 100%)' }}>
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
                
-               {/* Text Content (Restored) */}
+               {/* Text Content */}
                <div className="flex-1 text-center lg:text-left z-20">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-brand-cyan mb-6">
                      <Smartphone size={14} />
@@ -149,14 +147,12 @@ const Ecosystem: React.FC = () => {
 
 // --- SUB-COMPONENT: Custom IPGONE Design ---
 const StarbooksAppSection = ({ t }: { t: any }) => {
-  // ... (Rest of the component logic remains the same, but we remove the outer section wrapper to fit inside the layout above)
   const sceneRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const uiRef = useRef<HTMLDivElement>(null);
   const resetBtnRef = useRef<HTMLButtonElement>(null);
   const screenContentRef = useRef<HTMLDivElement>(null);
   
-  // ... (Refs and Logic) ...
   const stateRef = useRef({
     rotX: -10,
     rotY: 0,
@@ -172,7 +168,6 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
   });
 
   useEffect(() => {
-    // ... (Same logic as before) ...
     const scene = sceneRef.current;
     const container = containerRef.current;
     const uiText = uiRef.current;
@@ -302,7 +297,6 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
     setTimeout(() => {
        const starApp = document.querySelector('.star-app-icon');
        if(starApp && screenContent) {
-          const rect = starApp.getBoundingClientRect();
           const expander = document.createElement('div');
           expander.classList.add('app-opening-animation');
           expander.style.background = 'linear-gradient(135deg, #ff0080, #ff6600)';
@@ -381,85 +375,8 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
      if(resetBtn) resetBtn.classList.remove('visible');
   };
 
-  // Removed outer section to fit in parent flex layout
   return (
     <div className="relative w-full h-[700px] flex items-center justify-center perspective-1200" ref={containerRef}>
-       
-       <style>{`
-        :root { --titanium-dark: #1a1a1a; --titanium-frame: #2c2c2c; --titanium-light: #4a4a4a; --neon-cyan: #00ffff; --neon-magenta: #ff00ff; }
-        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 50px; transition: opacity 0.5s ease; }
-        .instruction-pill { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 12px 24px; border-radius: 30px; color: rgba(255, 255, 255, 0.9); font-size: 14px; font-weight: 500; letter-spacing: 0.5px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); animation: float 3s ease-in-out infinite; }
-        .hand-icon { width: 20px; height: 20px; fill: white; animation: pulse-hand 2s infinite; }
-        #reset-btn { position: absolute; top: 20px; right: 20px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); padding: 8px 16px; border-radius: 20px; cursor: pointer; pointer-events: auto; transition: all 0.3s; opacity: 0; visibility: hidden; }
-        #reset-btn.visible { opacity: 1; visibility: visible; }
-        #reset-btn:hover { background: rgba(255,255,255,0.1); color: white; }
-        
-        #scene { position: relative; width: 300px; height: 600px; transform-style: preserve-3d; cursor: grab; transition: transform 0.1s linear; }
-        #scene.grabbing { cursor: grabbing; }
-        #scene.locked { cursor: default; transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1); }
-        .iphone-body { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; }
-        .face { position: absolute; background-color: var(--titanium-dark); border: 1px solid #333; backface-visibility: visible; }
-        .face-front, .face-back { width: 300px; height: 600px; border-radius: 48px; box-shadow: inset 0 0 15px rgba(0,0,0,0.8); }
-        .face-front { transform: translateZ(15px); background: #000; border: 4px solid var(--titanium-frame); overflow: hidden; display: flex; justify-content: center; align-items: center; }
-        .face-front::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 44px; border: 1px solid rgba(255,255,255,0.15); pointer-events: none; z-index: 10; }
-        .face-back { transform: translateZ(-15px) rotateY(180deg); background: linear-gradient(135deg, #1c1c1c 0%, #111 100%); display: flex; justify-content: center; align-items: center; border: 1px solid #2a2a2a; }
-        .face-right, .face-left { width: 30px; height: 540px; top: 30px; left: 135px; background: linear-gradient(to right, var(--titanium-frame), var(--titanium-dark), var(--titanium-frame)); }
-        .face-right { transform: rotateY(90deg) translateZ(148px); }
-        .face-left { transform: rotateY(-90deg) translateZ(148px); }
-        .face-top, .face-bottom { width: 240px; height: 30px; left: 30px; top: 285px; background: linear-gradient(to bottom, var(--titanium-frame), var(--titanium-dark), var(--titanium-frame)); }
-        .face-top { transform: rotateX(90deg) translateZ(298px); }
-        .face-bottom { transform: rotateX(-90deg) translateZ(298px); }
-        .button { position: absolute; background: #4a4a4a; transform-style: preserve-3d; border-radius: 2px; box-shadow: inset 0 0 2px rgba(0,0,0,0.5); }
-        .btn-power { width: 4px; height: 60px; right: -4px; top: 150px; transform: translateZ(0px); }
-        
-        #screen-content { width: 100%; height: 100%; background-color: #000; position: relative; overflow: hidden; cursor: pointer; border-radius: 42px; }
-        .dynamic-island { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 90px; height: 28px; background: #000; border-radius: 20px; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
-        .island-cam { width: 10px; height: 10px; background: #1a1a1a; border-radius: 50%; box-shadow: inset 0 0 2px #333; }
-        
-        .screen-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease; pointer-events: none; }
-        .screen-layer.active { opacity: 1; pointer-events: auto; }
-        
-        #boot-layer { display: flex; justify-content: center; align-items: center; background: #000; }
-        #apple-logo-svg { width: 80px; fill: white; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); animation: bootPulse 2s ease-in-out infinite; }
-        
-        #home-layer { background: linear-gradient(180deg, #4c1d95 0%, #2563eb 100%); color: white; display: flex; flex-direction: column; padding-top: 50px; }
-        .status-bar { position: absolute; top: 0; width: 100%; height: 44px; display: flex; justify-content: space-between; padding: 0 25px; align-items: center; font-size: 14px; font-weight: 600; box-sizing: border-box; z-index: 90; }
-        .app-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px 10px; padding: 20px; margin-top: 10px; }
-        .app-icon { width: 55px; height: 55px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 14px; display: flex; justify-content: center; align-items: center; font-size: 24px; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .featured-app-container { margin-top: 30px; display: flex; flex-direction: column; align-items: center; animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        .star-app-icon { width: 70px; height: 70px; background: linear-gradient(135deg, #ff0080, #ff6600); border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 35px; box-shadow: 0 0 20px rgba(255, 0, 128, 0.5); animation: pulse-icon 2s infinite; position: relative; z-index: 50; }
-        .app-label { margin-top: 8px; font-size: 12px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        
-        #app-layer { background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e); overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        #particles-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .app-content { z-index: 10; text-align: center; width: 100%; position: relative; }
-        .final-logo { font-size: 60px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6)); animation: wiggle 3s ease-in-out infinite; display: block; margin-bottom: 10px; }
-        .brand-name { font-size: 16px; font-weight: 700; letter-spacing: 2px; color: white; margin-bottom: 40px; text-transform: uppercase; }
-        .coming-soon { font-size: 32px; font-weight: 900; text-transform: uppercase; line-height: 1.1; background: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientText 3s linear infinite; margin-bottom: 20px; position: relative; }
-        .coming-soon::before { content: attr(data-text); position: absolute; left: 2px; text-shadow: -1px 0 red; top: 0; width: 100%; background: transparent; overflow: hidden; clip: rect(0, 900px, 0, 0); animation: glitch-anim 3s infinite linear alternate-reverse; }
-        .divider-line { height: 2px; width: 0%; background: #00ffff; margin: 0 auto 20px auto; box-shadow: 0 0 10px #00ffff; animation: expandLine 1s forwards ease-out; }
-        .subtext { color: #aaa; font-size: 12px; font-weight: 300; letter-spacing: 1px; opacity: 0; animation: fadeInSub 1s 0.5s forwards; }
-        .ripple-container { position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%) rotateX(60deg); width: 200px; height: 200px; z-index: 5; pointer-events: none; }
-        .ripple { position: absolute; border: 2px solid #00ffff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; animation: rippleAnim 4s infinite; }
-        .ripple:nth-child(2) { animation-delay: 1.3s; }
-        .ripple:nth-child(3) { animation-delay: 2.6s; }
-        .camera-bump-svg { position: absolute; top: 20px; left: 20px; width: 120px; height: 130px; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5)); transform: translateZ(2px); }
-        
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes pulse-hand { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.9); opacity: 0.7; } }
-        @keyframes bootPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.95); } }
-        @keyframes pulse-icon { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 0, 128, 0.5); } 50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 0, 128, 0.8); } }
-        @keyframes bounceIn { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
-        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
-        @keyframes gradientText { to { background-position: 200% center; } }
-        @keyframes expandLine { to { width: 60%; } }
-        @keyframes fadeInSub { to { opacity: 1; } }
-        @keyframes rippleAnim { 0% { width: 0; height: 0; opacity: 1; border-width: 4px; } 100% { width: 300px; height: 300px; opacity: 0; border-width: 0px; } }
-        @keyframes glitch-anim { 0% { clip: rect(24px, 9999px, 84px, 0); transform: translate(-2px); } 10% { clip: rect(62px, 9999px, 12px, 0); transform: translate(2px); } 20% { clip: rect(12px, 9999px, 54px, 0); transform: translate(-1px); } 100% { clip: rect(0, 0, 0, 0); transform: translate(0); } }
-        .app-opening-animation { animation: appExpand 0.8s cubic-bezier(0.7, 0, 0.3, 1) forwards; }
-        @keyframes appExpand { 0% { position: absolute; top: 75%; left: 50%; width: 70px; height: 70px; border-radius: 16px; transform: translate(-50%, 0); z-index: 1000; } 50% { width: 150px; height: 300px; border-radius: 30px; } 100% { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 42px; transform: translate(0, 0); z-index: 1000; } }
-       `}</style>
-
        <div id="ui-layer" ref={uiRef}>
           <div className="instruction-pill" id="instruction-text">
               <svg className="hand-icon" viewBox="0 0 24 24">
@@ -474,7 +391,6 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
        <div id="scene-container">
           <div id="scene" ref={sceneRef}>
               <div className="iphone-body">
-                  
                   {/* Cara FRONTAL */}
                   <div className="face face-front">
                       <div id="screen-content" ref={screenContentRef} onClick={handleScreenClick}>
@@ -578,7 +494,7 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
               </div>
           </div>
        </div>
-    </section>
+    </div>
   );
 };
 
