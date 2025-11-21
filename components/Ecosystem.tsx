@@ -360,9 +360,29 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
      const scene = sceneRef.current;
      const uiText = uiRef.current;
      const resetBtn = resetBtnRef.current;
+     const container = containerRef.current; // Get container ref
+     const backdrop = document.getElementById('immersive-backdrop'); // Get backdrop
      
-     if(scene) scene.classList.remove('locked');
+     if(scene) {
+        scene.classList.remove('locked');
+        scene.style.transform = `rotateX(-10deg) rotateY(0deg) scale(1)`; // Reset transform explicitly
+     }
+
+     // Exit Focus Mode
+     if (container) {
+        container.style.position = 'relative';
+        container.style.zIndex = 'auto';
+        container.style.width = '100%';
+        container.style.height = '700px';
+        container.style.transform = 'none';
+        container.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+     }
+     if (backdrop) {
+        backdrop.style.opacity = '0';
+        backdrop.style.pointerEvents = 'none';
+     }
      
+     // Reset layers
      const layers = document.querySelectorAll('.screen-layer');
      layers.forEach(l => l.classList.remove('active'));
      const idleLayer = document.getElementById('idle-layer');
@@ -375,7 +395,88 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
      if(resetBtn) resetBtn.classList.remove('visible');
   };
 
+  // Handle Focus Mode Entry in handleScreenClick
+  const handleScreenClick = () => {
+    const s = stateRef.current;
+    if (s.sequencePhase > 0) return;
+    
+    s.sequencePhase = 1;
+    s.isLocked = true;
+    const scene = sceneRef.current;
+    const uiText = uiRef.current;
+    const resetBtn = resetBtnRef.current;
+    const screenContent = screenContentRef.current;
+    const container = containerRef.current;
+    const backdrop = document.getElementById('immersive-backdrop');
+
+    if(scene) scene.classList.add('locked');
+    if(uiText) uiText.style.display = 'none';
+
+    // Enter Focus Mode (Zoom & Center)
+    if (container) {
+        // Calculate centering offset if needed, or just use fixed centering
+        // Using fixed positioning is easiest for "modal" like behavior
+        container.style.position = 'fixed';
+        container.style.top = '0';
+        container.style.left = '0';
+        container.style.width = '100vw';
+        container.style.height = '100vh';
+        container.style.zIndex = '60';
+        container.style.transform = 'scale(1.1)'; // Slight Zoom
+        container.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+    }
+    if (backdrop) {
+        backdrop.style.opacity = '1';
+        backdrop.style.pointerEvents = 'auto';
+    }
+    
+    // ... (rest of sequence logic)
+    if(screenContent) {
+       screenContent.style.filter = "brightness(1.5)";
+       setTimeout(() => screenContent.style.filter = "brightness(1)", 200);
+    }
+
+    const updateLayers = (idx: number) => {
+       const layers = document.querySelectorAll('.screen-layer');
+       layers.forEach(l => l.classList.remove('active'));
+       const target = document.getElementById(
+          idx === 0 ? 'boot-layer' : idx === 1 ? 'home-layer' : idx === 2 ? 'app-layer' : 'idle-layer'
+       );
+       if(target) target.classList.add('active');
+    };
+
+    setTimeout(() => updateLayers(0), 1000);
+    setTimeout(() => updateLayers(1), 4000);
+
+    setTimeout(() => {
+       const starApp = document.querySelector('.star-app-icon');
+       if(starApp && screenContent) {
+          const expander = document.createElement('div');
+          expander.classList.add('app-opening-animation');
+          expander.style.background = 'linear-gradient(135deg, #ff0080, #ff6600)';
+          screenContent.appendChild(expander);
+          
+          setTimeout(() => {
+             updateLayers(2);
+             if(expander.parentNode) expander.parentNode.removeChild(expander);
+             if(resetBtn) resetBtn.classList.add('visible');
+             initParticles();
+          }, 800);
+       }
+    }, 8000);
+  };
+
+  // ... (initParticles remains same)
+
   return (
+    <>
+    {/* Immersive Backdrop */}
+    <div id="immersive-backdrop" style={{
+        position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+        background: 'rgba(0,0,0,0.95)', zIndex: 50, opacity: 0, pointerEvents: 'none',
+        transition: 'opacity 0.8s ease'
+    }}></div>
+
     <div className="relative w-full h-[700px] flex items-center justify-center perspective-1200" ref={containerRef}>
        <div id="ui-layer" ref={uiRef}>
           <div className="instruction-pill" id="instruction-text">
