@@ -7,6 +7,20 @@ import Starfield from './Starfield';
 const Hero: React.FC = () => {
   const { t } = useLanguage();
 
+  // Stabilize smoke particles to prevent NaN errors during re-renders
+  const smokeParticles = React.useMemo(() => {
+    return [...Array(12)].map(() => ({
+      cxStart: 50,
+      cyStart: 10,
+      rStart: 8,
+      cxEnd: 50 + (Math.random() - 0.5) * 60,
+      cyEnd: 300,
+      rEnd: 40,
+      duration: 1.5 + Math.random(),
+      delay: Math.random() * 1.5
+    }));
+  }, []);
+
   return (
     <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-[#020005]">
       
@@ -220,27 +234,27 @@ const Hero: React.FC = () => {
                                 </radialGradient>
                               </defs>
 
-                              {/* --- SMOKE TRAIL (New) --- */}
+                              {/* --- SMOKE TRAIL (Simplified & Safe) --- */}
                               <g transform="translate(0, 130)">
-                                 {[...Array(12)].map((_, i) => (
+                                 {[0, 1, 2, 3, 4].map((i) => (
                                     <motion.circle
                                       key={i}
-                                      cx={50}
+                                      cx={50} // Start center
                                       cy={10}
-                                      r={8}
+                                      r={6}
                                       fill="url(#smokeGrad)"
-                                      style={{ filter: "blur(5px)" }}
+                                      style={{ filter: "blur(4px)" }}
                                       animate={{
-                                        cy: [10, 300],
-                                        cx: [50, 50 + (Math.random() - 0.5) * 60], // Spread out
-                                        r: [8, 40], // Expand
+                                        cy: [10, 200], // Go down
+                                        cx: [50, 50 + (i % 2 === 0 ? 20 : -20)], // Spread left/right deterministic
+                                        r: [6, 25], // Expand
                                         opacity: [0.6, 0]
                                       }}
                                       transition={{
-                                        duration: 1.5 + Math.random(),
+                                        duration: 2,
                                         repeat: Infinity,
                                         ease: "easeOut",
-                                        delay: Math.random() * 1.5
+                                        delay: i * 0.4 // Staggered delay
                                       }}
                                     />
                                  ))}
