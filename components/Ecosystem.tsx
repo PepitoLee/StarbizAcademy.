@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Users, Sparkles, Smartphone, ArrowRight } from 'lucide-react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
@@ -332,7 +331,6 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
                    </div>
 
                 </motion.div>
-             </div>
              </div>
 
           </div>
