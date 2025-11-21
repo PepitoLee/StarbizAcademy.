@@ -91,7 +91,7 @@ const SevenIntelligences: React.FC = () => {
             </span>
           </h2>
           <div className="w-24 h-1 bg-brand-orange mx-auto my-6 md:my-8 shadow-[0_0_15px_#FF6B00]"></div>
-          <p className="text-brand-yellow font-mono text-xs md:text-base tracking-[0.3em] uppercase">
+          <p className="text-brand-yellow font-sans text-base md:text-lg tracking-wide max-w-3xl mx-auto leading-relaxed">
             Nuestro mapa comprobado para forjar empresarios digitales con propósito, carácter y abundancia. El desarrollo integral es la clave del éxito sostenible.
           </p>
         </div>
