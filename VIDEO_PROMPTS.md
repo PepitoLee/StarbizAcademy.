@@ -25,14 +25,26 @@ Este documento contiene los prompts optimizados para generar los "micro-videos" 
 **Ubicación:** Efecto hover o fondo sutil para las tarjetas.
 **Formato Recomendado:** **9:16 (Vertical)**
 
+### Inteligencia Mental (Neurociencia)
+> **Prompt:** Vertical abstract animation of a neural network. Glowing purple and white synapses firing and connecting in a dark void. Representation of a digital brain, elegant, fluid motion, mysterious and powerful, volumetric fog, 8k resolution.
+
 ### Inteligencia Tecnológica (IA)
 > **Prompt:** Vertical close-up of a high-tech quantum processor chip. Pulses of electrical energy flowing through gold and cyan circuits. Macro photography style, shallow depth of field, metallic textures, glowing nodes, slow elegant energy flow, cinematic lighting.
 
 ### Inteligencia Financiera
 > **Prompt:** Vertical animation of abstract digital financial data. Golden streams of numbers and rising geometric graphs forming a tree shape. Dark background, gold and emerald green glowing accents. Smooth floating particles, prestige feeling, high fidelity 3D render.
 
-### Inteligencia Mental (Neurociencia)
-> **Prompt:** Vertical abstract animation of a neural network. Glowing purple and white synapses firing and connecting in a dark void. Representation of a digital brain, elegant, fluid motion, mysterious and powerful, volumetric fog, 8k resolution.
+### Inteligencia Física (Biología y Energía)
+> **Prompt:** Vertical macro animation of human DNA double helix rotating slowly. Glowing cyan and orange energy strands wrapping around organic structures. Representation of vitality and biological optimization. Deep dark background, medical-grade detail but artistic and futuristic, 8k resolution.
+
+### Inteligencia Emocional (Resiliencia)
+> **Prompt:** Vertical abstract animation of fluid liquid light flowing in calming waves. Soft pink and purple gradients mixing like ink in water. Represents emotional intelligence and heart coherence. Serene, smooth, hypnotic motion, ethereal glow, high contrast against black.
+
+### Inteligencia Social (Networking)
+> **Prompt:** Vertical 3D network graph animation. Glowing blue nodes connecting to each other across a digital constellation. Silhouettes of people forming connections. Represents global networking and influence. Clean lines, high-tech data visualization style, depth of field effects.
+
+### Inteligencia Espiritual (Propósito)
+> **Prompt:** Vertical cinematic shot of an ethereal golden light beam rising upwards through a mystical dark nebula. Particles of light floating like stars. Represents purpose, ethics and spiritual connection. Divine atmosphere, peaceful, majestic, warm gold and white tones, 8k render.
 
 ---
 
