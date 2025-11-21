@@ -195,11 +195,11 @@ const Hero: React.FC = () => {
                                ))}
                             </div>
 
-                            {/* ROCKET SVG (Rotated 45deg) - ORIGINAL CLASSIC */}
+                            {/* ROCKET SVG (Rotated 45deg) - CLASSIC WITH SMOKE & TRAIL */}
                             <svg 
-                              viewBox="0 0 100 200" 
-                              className="w-48 h-[380px] drop-shadow-[0_0_50px_rgba(255,77,0,0.6)]" 
-                              style={{ transform: "rotate(45deg) translateY(30px)" }} 
+                              viewBox="0 0 100 400" // Increased viewBox height for long trail
+                              className="w-48 h-[500px] drop-shadow-[0_0_50px_rgba(255,77,0,0.6)]" 
+                              style={{ transform: "rotate(45deg) translateY(60px)" }} 
                               preserveAspectRatio="xMidYMin slice"
                             >
                               <defs>
@@ -209,52 +209,82 @@ const Hero: React.FC = () => {
                                 </linearGradient>
                                 <linearGradient id="infernoGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                                   <stop offset="0%" stopColor="#FFFFFF" /> 
-                                  <stop offset="10%" stopColor="#FEF08A" /> 
-                                  <stop offset="30%" stopColor="#F97316" /> 
-                                  <stop offset="60%" stopColor="#EF4444" /> 
+                                  <stop offset="5%" stopColor="#FEF08A" /> 
+                                  <stop offset="20%" stopColor="#F97316" /> 
+                                  <stop offset="40%" stopColor="#EF4444" /> 
                                   <stop offset="100%" stopColor="transparent" />
                                 </linearGradient>
+                                <radialGradient id="smokeGrad" cx="50%" cy="50%" r="50%">
+                                   <stop offset="0%" stopColor="#94A3B8" stopOpacity="0.8" />
+                                   <stop offset="100%" stopColor="#475569" stopOpacity="0" />
+                                </radialGradient>
                               </defs>
 
-                              {/* --- MASSIVE FLAME TAIL --- */}
-                              <g className="mix-blend-screen" transform="translate(0, -20)"> 
+                              {/* --- SMOKE TRAIL (New) --- */}
+                              <g transform="translate(0, 130)">
+                                 {[...Array(12)].map((_, i) => (
+                                    <motion.circle
+                                      key={i}
+                                      cx={50}
+                                      cy={10}
+                                      r={8}
+                                      fill="url(#smokeGrad)"
+                                      style={{ filter: "blur(5px)" }}
+                                      animate={{
+                                        cy: [10, 300],
+                                        cx: [50, 50 + (Math.random() - 0.5) * 60], // Spread out
+                                        r: [8, 40], // Expand
+                                        opacity: [0.6, 0]
+                                      }}
+                                      transition={{
+                                        duration: 1.5 + Math.random(),
+                                        repeat: Infinity,
+                                        ease: "easeOut",
+                                        delay: Math.random() * 1.5
+                                      }}
+                                    />
+                                 ))}
+                              </g>
+
+                              {/* --- MASSIVE FLAME TAIL (Aligned) --- */}
+                              <g className="mix-blend-screen" transform="translate(0, 10)"> 
                                   {/* Core Blast */}
                                   <motion.path 
-                                    d="M30 95 Q50 250 70 95" 
+                                    d="M40 118 Q50 350 60 118" 
                                     fill="url(#infernoGrad)"
                                     style={{ filter: "blur(6px)" }}
-                                    animate={{ d: ["M30 95 Q50 260 70 95", "M25 95 Q50 240 75 95", "M30 95 Q50 260 70 95"] }}
-                                    transition={{ duration: 0.4, repeat: Infinity }}
+                                    animate={{ d: ["M40 118 Q50 360 60 118", "M38 118 Q50 320 62 118", "M40 118 Q50 360 60 118"] }}
+                                    transition={{ duration: 0.2, repeat: Infinity }}
                                   />
                                   {/* Inner Plasma */}
                                   <motion.path 
-                                    d="M40 95 Q50 180 60 95" 
+                                    d="M45 118 Q50 200 55 118" 
                                     fill="#FFF"
                                     style={{ filter: "blur(3px)" }}
-                                    animate={{ d: ["M42 95 Q50 190 58 95", "M40 95 Q50 160 60 95", "M42 95 Q50 190 58 95"] }}
-                                    transition={{ duration: 0.2, repeat: Infinity }}
+                                    animate={{ d: ["M45 118 Q50 210 55 118", "M44 118 Q50 180 56 118", "M45 118 Q50 210 55 118"] }}
+                                    transition={{ duration: 0.1, repeat: Infinity }}
                                   />
                               </g>
 
                               {/* --- ROCKET SHIP (Classic - Elongated) --- */}
                               <g transform="translate(0, 10)">
-                                {/* Fins (Red) - Adjusted for height */}
+                                {/* Fins (Red) */}
                                 <path d="M30 90 L15 120 L30 105 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
                                 <path d="M70 90 L85 120 L70 105 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
                                 <path d="M50 100 L50 120 L40 105 L60 105 Z" fill="#B91C1C" />
 
-                                {/* Main Body - Elongated */}
+                                {/* Main Body */}
                                 <path 
                                   d="M30 90 Q30 40 50 0 Q70 40 70 90 L70 100 Q50 100 30 100 Z" 
                                   fill="url(#bodyGrad)" 
                                   stroke="#475569" strokeWidth="0.5"
                                 />
 
-                                {/* Window (Blue) - Positioned higher */}
+                                {/* Window (Blue) */}
                                 <circle cx="50" cy="45" r="12" fill="#38BDF8" stroke="#0F172A" strokeWidth="2" />
                                 <path d="M50 45 A 12 12 0 0 1 58 37" fill="none" stroke="white" strokeWidth="2" opacity="0.6" />
                                 
-                                {/* Shine/Details - Stretched */}
+                                {/* Shine/Details */}
                                 <path d="M50 10 L50 95" stroke="#94A3B8" strokeWidth="0.5" strokeDasharray="2 2" fill="none" opacity="0.5"/>
                               </g>
                             </svg>
