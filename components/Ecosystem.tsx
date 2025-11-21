@@ -1,6 +1,6 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Users, Sparkles, Smartphone, ArrowRight } from 'lucide-react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 const Ecosystem: React.FC = () => {
@@ -59,6 +59,7 @@ const Ecosystem: React.FC = () => {
                         decoding="async"
                         className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-cyan/20 group-hover:shadow-brand-cyan/40 transition-all duration-500"
                       />
+                      {/* Overlay Glint */}
                       <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
                    </div>
                </div>
@@ -104,92 +105,130 @@ const Ecosystem: React.FC = () => {
                         decoding="async"
                         className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-orange/20 group-hover:shadow-brand-orange/40 transition-all duration-500"
                       />
-                       <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
+                       {/* Overlay Glint */}
+                      <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
                    </div>
                </div>
             </div>
          </div>
       </section>
 
-      {/* --- SECTION 3: STARBOOKS APP (Interactive iPhone from IPGONE file) --- */}
+      {/* --- SECTION 3: STARBOOKS APP (Custom IPGONE Design) --- */}
       <StarbooksAppSection t={t} />
     </div>
   );
 };
 
-// --- SUB-COMPONENT: Interactive 3D iPhone Section (Ported from ipgone) ---
+// --- SUB-COMPONENT: Custom IPGONE Design ---
 const StarbooksAppSection = ({ t }: { t: any }) => {
   const sceneRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState(0); // 0: Idle, 1: Boot, 2: Home, 3: App
-  const [isLocked, setIsLocked] = useState(false);
+  const uiRef = useRef<HTMLDivElement>(null);
+  const resetBtnRef = useRef<HTMLButtonElement>(null);
+  const screenContentRef = useRef<HTMLDivElement>(null);
+  
+  // State refs to avoid closure staleness in event listeners
+  const stateRef = useRef({
+    rotX: -10,
+    rotY: 0,
+    curRotX: -10,
+    curRotY: 0,
+    scale: 1,
+    isDragging: false,
+    startX: 0,
+    startY: 0,
+    autoRotate: true,
+    isLocked: false,
+    sequencePhase: 0
+  });
 
   useEffect(() => {
     const scene = sceneRef.current;
     const container = containerRef.current;
-    if (!scene || !container) return;
+    const uiText = uiRef.current;
+    const resetBtn = resetBtnRef.current;
+    const screenContent = screenContentRef.current;
+    
+    if (!scene || !container || !uiText || !resetBtn || !screenContent) return;
 
-    let rotX = -10;
-    let rotY = 0;
-    let curRotX = -10;
-    let curRotY = 0;
-    let isDragging = false;
-    let startX = 0;
-    let startY = 0;
     let animationFrameId: number;
 
     const updateTransform = () => {
-      curRotX += (rotX - curRotX) * 0.1;
-      curRotY += (rotY - curRotY) * 0.1;
+      const s = stateRef.current;
+      s.curRotX += (s.rotX - s.curRotX) * 0.1;
+      s.curRotY += (s.rotY - s.curRotY) * 0.1;
       
-      if (scene) {
-          if(phase === 0) {
-             scene.style.transform = `rotateX(${curRotX}deg) rotateY(${curRotY}deg) scale(1)`;
-             if (!isDragging) rotY += 0.2; // Auto rotate
-          } else {
-             // Centered and locked when active
-             scene.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
-          }
+      if (!s.isLocked) {
+          scene.style.transform = `rotateX(${s.curRotX}deg) rotateY(${s.curRotY}deg) scale(${s.scale})`;
+      } else {
+          scene.style.transform = `rotateX(0deg) rotateY(0deg) scale(${Math.max(1, s.scale)})`;
       }
+      
+      if (s.autoRotate && !s.isDragging && !s.isLocked) {
+          s.rotY += 0.3;
+      }
+      
       animationFrameId = requestAnimationFrame(updateTransform);
     };
     updateTransform();
 
+    // Event Handlers
     const handleMouseDown = (e: MouseEvent | TouchEvent) => {
-      if (phase !== 0) return;
-      isDragging = true;
+      if (stateRef.current.isLocked) return;
+      // Check if target is reset btn
+      if (e.target === resetBtn) return;
+
+      stateRef.current.isDragging = true;
+      stateRef.current.autoRotate = false;
+      
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-      startX = clientX;
-      startY = clientY;
-      scene.style.cursor = 'grabbing';
+      
+      stateRef.current.startX = clientX;
+      stateRef.current.startY = clientY;
+      scene.classList.add('grabbing');
+      if(uiText) uiText.style.opacity = '0';
     };
 
     const handleMouseMove = (e: MouseEvent | TouchEvent) => {
-      if (!isDragging || phase !== 0) return;
+      if (!stateRef.current.isDragging || stateRef.current.isLocked) return;
+      
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
       
-      const deltaX = clientX - startX;
-      const deltaY = clientY - startY;
+      const deltaX = clientX - stateRef.current.startX;
+      const deltaY = clientY - stateRef.current.startY;
       
-      rotY += deltaX * 0.5;
-      rotX -= deltaY * 0.5;
+      stateRef.current.rotY += deltaX * 0.5;
+      stateRef.current.rotX -= deltaY * 0.5;
       
-      startX = clientX;
-      startY = clientY;
+      stateRef.current.rotX = Math.max(-60, Math.min(60, stateRef.current.rotX));
+      
+      stateRef.current.startX = clientX;
+      stateRef.current.startY = clientY;
     };
 
     const handleMouseUp = () => {
-      isDragging = false;
-      if(scene) scene.style.cursor = 'grab';
+      stateRef.current.isDragging = false;
+      scene.classList.remove('grabbing');
     };
 
+    const handleWheel = (e: WheelEvent) => {
+       if(stateRef.current.isLocked) return;
+       e.preventDefault();
+       stateRef.current.scale += e.deltaY * -0.001;
+       stateRef.current.scale = Math.min(Math.max(0.5, stateRef.current.scale), 1.5);
+    };
+
+    // Attach Listeners
     container.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
-    container.addEventListener('touchstart', handleMouseDown);
-    window.addEventListener('touchmove', handleMouseMove);
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    
+    // Touch
+    container.addEventListener('touchstart', handleMouseDown, { passive: true });
+    window.addEventListener('touchmove', handleMouseMove, { passive: true });
     window.addEventListener('touchend', handleMouseUp);
 
     return () => {
@@ -197,122 +236,336 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
       container.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
+      container.removeEventListener('wheel', handleWheel);
       container.removeEventListener('touchstart', handleMouseDown);
       window.removeEventListener('touchmove', handleMouseMove);
       window.removeEventListener('touchend', handleMouseUp);
     };
-  }, [phase]);
+  }, []);
 
+  // Function to handle screen click sequence
   const handleScreenClick = () => {
-    if (phase > 0) return;
-    setPhase(1); // Start sequence
-    setIsLocked(true);
+    const s = stateRef.current;
+    if (s.sequencePhase > 0) return;
     
-    // Sequence Logic
-    setTimeout(() => setPhase(2), 2000); // Show Home after 2s
-    setTimeout(() => setPhase(3), 5000); // Show App after 5s
+    s.sequencePhase = 1;
+    s.isLocked = true;
+    const scene = sceneRef.current;
+    const uiText = uiRef.current;
+    const resetBtn = resetBtnRef.current;
+    const screenContent = screenContentRef.current;
+
+    if(scene) scene.classList.add('locked');
+    if(uiText) uiText.style.display = 'none';
+    
+    // Flash effect
+    if(screenContent) {
+       screenContent.style.filter = "brightness(1.5)";
+       setTimeout(() => screenContent.style.filter = "brightness(1)", 200);
+    }
+
+    // Update Layers manually via DOM manipulation to match original script logic exactly
+    const updateLayers = (idx: number) => {
+       const layers = document.querySelectorAll('.screen-layer');
+       layers.forEach(l => l.classList.remove('active'));
+       const target = document.getElementById(
+          idx === 0 ? 'boot-layer' : idx === 1 ? 'home-layer' : idx === 2 ? 'app-layer' : 'idle-layer'
+       );
+       if(target) target.classList.add('active');
+    };
+
+    // 1. Reset (Black) - already boot layer is black but we wait
+    
+    // 2. Boot (Apple)
+    setTimeout(() => updateLayers(0), 1000);
+
+    // 3. Home
+    setTimeout(() => updateLayers(1), 4000);
+
+    // 4. App Trigger
+    setTimeout(() => {
+       const starApp = document.querySelector('.star-app-icon');
+       if(starApp && screenContent) {
+          const rect = starApp.getBoundingClientRect();
+          const expander = document.createElement('div');
+          expander.classList.add('app-opening-animation');
+          // Need to match style manually or via class
+          expander.style.background = 'linear-gradient(135deg, #ff0080, #ff6600)';
+          screenContent.appendChild(expander);
+          
+          setTimeout(() => {
+             updateLayers(2);
+             if(expander.parentNode) expander.parentNode.removeChild(expander);
+             if(resetBtn) resetBtn.classList.add('visible');
+             initParticles();
+          }, 800);
+       }
+    }, 8000);
+  };
+
+  const initParticles = () => {
+     const canvas = document.getElementById('particles-canvas') as HTMLCanvasElement;
+     if(!canvas) return;
+     const ctx = canvas.getContext('2d');
+     if(!ctx) return;
+     
+     canvas.width = 300;
+     canvas.height = 600;
+     
+     const particles: any[] = [];
+     for(let i=0; i<30; i++) {
+        particles.push({
+           x: Math.random() * canvas.width,
+           y: canvas.height + Math.random() * 100,
+           speed: 1 + Math.random() * 2,
+           size: Math.random() * 2,
+           alpha: 0.1 + Math.random() * 0.4
+        });
+     }
+     
+     const animate = () => {
+        if(stateRef.current.sequencePhase !== 1 && document.getElementById('app-layer')?.classList.contains('active')) {
+           ctx.clearRect(0, 0, canvas.width, canvas.height);
+           particles.forEach(p => {
+              p.y -= p.speed;
+              if(p.y < -10) {
+                 p.y = canvas.height + Math.random() * 100;
+                 p.x = Math.random() * canvas.width;
+              }
+              ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+              ctx.fillRect(p.x, p.y, 1, p.size * 5);
+           });
+           requestAnimationFrame(animate);
+        }
+     };
+     animate();
   };
 
   const handleReset = () => {
-    setPhase(0);
-    setIsLocked(false);
+     const s = stateRef.current;
+     s.isLocked = false;
+     s.sequencePhase = 0;
+     s.autoRotate = true;
+     s.curRotX = -10; s.curRotY = 0; s.rotX = -10; s.rotY = 0;
+     
+     const scene = sceneRef.current;
+     const uiText = uiRef.current;
+     const resetBtn = resetBtnRef.current;
+     
+     if(scene) scene.classList.remove('locked');
+     
+     // Reset layers
+     const layers = document.querySelectorAll('.screen-layer');
+     layers.forEach(l => l.classList.remove('active'));
+     // Default showing nothing or idle? In React we might need state but here we manipulate DOM
+     // We need an 'idle' layer or similar. 
+     // Actually, let's just remove active from all, and the default static content shows if any?
+     // No, we need to show the idle state (09:41). I'll add an id to it.
+     const idleLayer = document.getElementById('idle-layer');
+     if(idleLayer) idleLayer.classList.add('active');
+
+     if(uiText) {
+        uiText.style.display = 'flex';
+        setTimeout(() => uiText.style.opacity = '1', 100);
+     }
+     if(resetBtn) resetBtn.classList.remove('visible');
   };
 
   return (
-    <section className="relative py-32 overflow-hidden bg-black" ref={containerRef}>
-       {/* CSS Styles embedded for the 3D iPhone */}
+    <section className="relative py-32 overflow-hidden bg-black" ref={containerRef} style={{minHeight: '100vh', display:'flex', alignItems:'center', justifyContent:'center', background: 'radial-gradient(circle at center, #1a1a1a 0%, #000000 100%)'}}>
+       
        <style>{`
-        .iphone-scene { perspective: 1200px; width: 300px; height: 600px; position: relative; transform-style: preserve-3d; cursor: grab; }
+        :root { --titanium-dark: #1a1a1a; --titanium-frame: #2c2c2c; --titanium-light: #4a4a4a; --neon-cyan: #00ffff; --neon-magenta: #ff00ff; }
+        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 50px; transition: opacity 0.5s ease; }
+        .instruction-pill { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 12px 24px; border-radius: 30px; color: rgba(255, 255, 255, 0.9); font-size: 14px; font-weight: 500; letter-spacing: 0.5px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); animation: float 3s ease-in-out infinite; }
+        .hand-icon { width: 20px; height: 20px; fill: white; animation: pulse-hand 2s infinite; }
+        #reset-btn { position: absolute; top: 20px; right: 20px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); padding: 8px 16px; border-radius: 20px; cursor: pointer; pointer-events: auto; transition: all 0.3s; opacity: 0; visibility: hidden; }
+        #reset-btn.visible { opacity: 1; visibility: visible; }
+        #reset-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+        
+        #scene { position: relative; width: 300px; height: 600px; transform-style: preserve-3d; cursor: grab; transition: transform 0.1s linear; }
+        #scene.grabbing { cursor: grabbing; }
+        #scene.locked { cursor: default; transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1); }
         .iphone-body { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; }
-        .face { position: absolute; background-color: #1a1a1a; border: 1px solid #333; backface-visibility: visible; }
+        .face { position: absolute; background-color: var(--titanium-dark); border: 1px solid #333; backface-visibility: visible; }
+        .face-front, .face-back { width: 300px; height: 600px; border-radius: 48px; box-shadow: inset 0 0 15px rgba(0,0,0,0.8); }
+        .face-front { transform: translateZ(15px); background: #000; border: 4px solid var(--titanium-frame); overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .face-front::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 44px; border: 1px solid rgba(255,255,255,0.15); pointer-events: none; z-index: 10; }
+        .face-back { transform: translateZ(-15px) rotateY(180deg); background: linear-gradient(135deg, #1c1c1c 0%, #111 100%); display: flex; justify-content: center; align-items: center; border: 1px solid #2a2a2a; }
+        .face-right, .face-left { width: 30px; height: 540px; top: 30px; left: 135px; background: linear-gradient(to right, var(--titanium-frame), var(--titanium-dark), var(--titanium-frame)); }
+        .face-right { transform: rotateY(90deg) translateZ(148px); }
+        .face-left { transform: rotateY(-90deg) translateZ(148px); }
+        .face-top, .face-bottom { width: 240px; height: 30px; left: 30px; top: 285px; background: linear-gradient(to bottom, var(--titanium-frame), var(--titanium-dark), var(--titanium-frame)); }
+        .face-top { transform: rotateX(90deg) translateZ(298px); }
+        .face-bottom { transform: rotateX(-90deg) translateZ(298px); }
+        .button { position: absolute; background: #4a4a4a; transform-style: preserve-3d; border-radius: 2px; box-shadow: inset 0 0 2px rgba(0,0,0,0.5); }
+        .btn-power { width: 4px; height: 60px; right: -4px; top: 150px; transform: translateZ(0px); }
         
-        .face-front { width: 300px; height: 600px; border-radius: 48px; transform: translateZ(15px); background: #000; border: 4px solid #2c2c2c; overflow: hidden; display: flex; justify-content: center; align-items: center; }
-        .face-back { width: 300px; height: 600px; border-radius: 48px; transform: translateZ(-15px) rotateY(180deg); background: linear-gradient(135deg, #1c1c1c 0%, #111 100%); border: 1px solid #2a2a2a; }
-        
-        .face-right { width: 30px; height: 540px; top: 30px; left: 135px; background: linear-gradient(to right, #2c2c2c, #1a1a1a, #2c2c2c); transform: rotateY(90deg) translateZ(148px); }
-        .face-left { width: 30px; height: 540px; top: 30px; left: 135px; background: linear-gradient(to right, #2c2c2c, #1a1a1a, #2c2c2c); transform: rotateY(-90deg) translateZ(148px); }
-        .face-top { width: 240px; height: 30px; left: 30px; top: 285px; background: linear-gradient(to bottom, #2c2c2c, #1a1a1a, #2c2c2c); transform: rotateX(90deg) translateZ(298px); }
-        .face-bottom { width: 240px; height: 30px; left: 30px; top: 285px; background: linear-gradient(to bottom, #2c2c2c, #1a1a1a, #2c2c2c); transform: rotateX(-90deg) translateZ(298px); }
-        
-        .screen-content { width: 100%; height: 100%; background: #000; position: relative; overflow: hidden; }
+        #screen-content { width: 100%; height: 100%; background-color: #000; position: relative; overflow: hidden; cursor: pointer; border-radius: 42px; }
         .dynamic-island { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 90px; height: 28px; background: #000; border-radius: 20px; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
         .island-cam { width: 10px; height: 10px; background: #1a1a1a; border-radius: 50%; box-shadow: inset 0 0 2px #333; }
         
-        .screen-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .screen-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease; pointer-events: none; }
         .screen-layer.active { opacity: 1; pointer-events: auto; }
         
-        /* App Grid */
-        .app-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px 10px; padding: 20px; margin-top: 50px; width: 100%; }
-        .app-icon { width: 55px; height: 55px; background: rgba(255,255,255,0.2); border-radius: 14px; margin: 0 auto; }
-        .star-app-icon { width: 70px; height: 70px; background: linear-gradient(135deg, #ff0080, #ff6600); border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 35px; margin-top: 30px; animation: pulse-icon 2s infinite; }
+        #boot-layer { display: flex; justify-content: center; align-items: center; background: #000; }
+        #apple-logo-svg { width: 80px; fill: white; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); animation: bootPulse 2s ease-in-out infinite; }
         
-        @keyframes pulse-icon { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,0,128,0.5); } }
+        #home-layer { background: linear-gradient(180deg, #4c1d95 0%, #2563eb 100%); color: white; display: flex; flex-direction: column; padding-top: 50px; }
+        .status-bar { position: absolute; top: 0; width: 100%; height: 44px; display: flex; justify-content: space-between; padding: 0 25px; align-items: center; font-size: 14px; font-weight: 600; box-sizing: border-box; z-index: 90; }
+        .app-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px 10px; padding: 20px; margin-top: 10px; }
+        .app-icon { width: 55px; height: 55px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 14px; display: flex; justify-content: center; align-items: center; font-size: 24px; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .featured-app-container { margin-top: 30px; display: flex; flex-direction: column; align-items: center; animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .star-app-icon { width: 70px; height: 70px; background: linear-gradient(135deg, #ff0080, #ff6600); border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 35px; box-shadow: 0 0 20px rgba(255, 0, 128, 0.5); animation: pulse-icon 2s infinite; position: relative; z-index: 50; }
+        .app-label { margin-top: 8px; font-size: 12px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        
+        #app-layer { background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e); overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #particles-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .app-content { z-index: 10; text-align: center; width: 100%; position: relative; }
+        .final-logo { font-size: 60px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6)); animation: wiggle 3s ease-in-out infinite; display: block; margin-bottom: 10px; }
+        .brand-name { font-size: 16px; font-weight: 700; letter-spacing: 2px; color: white; margin-bottom: 40px; text-transform: uppercase; }
+        .coming-soon { font-size: 32px; font-weight: 900; text-transform: uppercase; line-height: 1.1; background: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientText 3s linear infinite; margin-bottom: 20px; position: relative; }
+        .coming-soon::before { content: attr(data-text); position: absolute; left: 2px; text-shadow: -1px 0 red; top: 0; width: 100%; background: transparent; overflow: hidden; clip: rect(0, 900px, 0, 0); animation: glitch-anim 3s infinite linear alternate-reverse; }
+        .divider-line { height: 2px; width: 0%; background: #00ffff; margin: 0 auto 20px auto; box-shadow: 0 0 10px #00ffff; animation: expandLine 1s forwards ease-out; }
+        .subtext { color: #aaa; font-size: 12px; font-weight: 300; letter-spacing: 1px; opacity: 0; animation: fadeInSub 1s 0.5s forwards; }
+        .ripple-container { position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%) rotateX(60deg); width: 200px; height: 200px; z-index: 5; pointer-events: none; }
+        .ripple { position: absolute; border: 2px solid #00ffff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; animation: rippleAnim 4s infinite; }
+        .ripple:nth-child(2) { animation-delay: 1.3s; }
+        .ripple:nth-child(3) { animation-delay: 2.6s; }
+        .camera-bump-svg { position: absolute; top: 20px; left: 20px; width: 120px; height: 130px; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5)); transform: translateZ(2px); }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes pulse-hand { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.9); opacity: 0.7; } }
+        @keyframes bootPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.95); } }
+        @keyframes pulse-icon { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 0, 128, 0.5); } 50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 0, 128, 0.8); } }
+        @keyframes bounceIn { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        @keyframes gradientText { to { background-position: 200% center; } }
+        @keyframes expandLine { to { width: 60%; } }
+        @keyframes fadeInSub { to { opacity: 1; } }
+        @keyframes rippleAnim { 0% { width: 0; height: 0; opacity: 1; border-width: 4px; } 100% { width: 300px; height: 300px; opacity: 0; border-width: 0px; } }
+        @keyframes glitch-anim { 0% { clip: rect(24px, 9999px, 84px, 0); transform: translate(-2px); } 10% { clip: rect(62px, 9999px, 12px, 0); transform: translate(2px); } 20% { clip: rect(12px, 9999px, 54px, 0); transform: translate(-1px); } 100% { clip: rect(0, 0, 0, 0); transform: translate(0); } }
+        .app-opening-animation { animation: appExpand 0.8s cubic-bezier(0.7, 0, 0.3, 1) forwards; }
+        @keyframes appExpand { 0% { position: absolute; top: 75%; left: 50%; width: 70px; height: 70px; border-radius: 16px; transform: translate(-50%, 0); z-index: 1000; } 50% { width: 150px; height: 300px; border-radius: 30px; } 100% { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 42px; transform: translate(0, 0); z-index: 1000; } }
        `}</style>
 
-       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center gap-16">
-          
-          {/* Instructions */}
-          <div className="flex-1 text-center lg:text-left pointer-events-none z-20">
-             <h2 className="text-5xl font-bold text-white font-display mb-4">{t.ecosystem.app.title}</h2>
-             <p className="text-xl text-gray-400 mb-8">
-                {phase === 0 ? "Arrastra para rotar. Haz click en la pantalla para iniciar." : "Experiencia interactiva iniciada."}
-             </p>
-             {phase === 3 && (
-                <button onClick={handleReset} className="bg-white/10 border border-white/20 text-white px-6 py-2 rounded-full pointer-events-auto hover:bg-white/20 transition-colors">
-                   Reiniciar
-                </button>
-             )}
+       <div id="ui-layer" ref={uiRef}>
+          <div className="instruction-pill" id="instruction-text">
+              <svg className="hand-icon" viewBox="0 0 24 24">
+                  <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74z"/>
+                  <path d="M17.5 11c-.83 0-1.5-.67-1.5-1.5 0-.39.15-.74.39-1.01-.25-.27-.4-.63-.4-1.01 0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .38-.15.74-.4 1.01.25.27.39.62.39 1.01 0 .83-.67 1.5-1.5 1.5zM11.5 1C7.91 1 5 3.91 5 7.5c0 2.13 1.09 4.02 2.76 5.2-.3.41-.55.85-.74 1.32l-2.86 7.15C4.05 21.56 4.33 22 4.75 22h13.5c.42 0 .7-.44.59-.83l-2.86-7.15c-.19-.47-.44-.91-.74-1.32C16.91 11.52 18 9.63 18 7.5 18 3.91 15.09 1 11.5 1z"/>
+              </svg>
+              <span>Arrastra para rotar &bull; Click pantalla para iniciar</span>
           </div>
+          <button id="reset-btn" ref={resetBtnRef} onClick={handleReset}>Reiniciar Experiencia</button>
+       </div>
 
-          {/* 3D Scene */}
-          <div className="flex-1 flex justify-center h-[700px] items-center perspective-1200">
-             <div id="scene" ref={sceneRef} className="iphone-scene">
-                <div className="iphone-body">
-                   {/* Front */}
-                   <div className="face face-front">
-                      <div className="screen-content" onClick={handleScreenClick}>
-                         <div className="dynamic-island"><div className="island-cam"></div></div>
-                         
-                         {/* Boot Layer */}
-                         <div className={`screen-layer ${phase === 1 ? 'active' : ''}`} style={{ background: '#000' }}>
-                            <svg width="80" viewBox="0 0 384 512" fill="white"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 102.1 78 102.1 18 0 25.8-12.5 59.5-12.5 32.9 0 40.6 12.5 62.6 12.5 32 0 61.7-56 75.2-82.7-47-22.2-55.6-73.5-15-105.4zM249.4 92c18.9-27.4 30.4-63.9 26.4-92-24.4 2.6-60.3 20.8-81.2 48.1-19.2 24.7-31.1 61-26.1 90.9 29.4 3.5 62.3-20.1 80.9-47z"/></svg>
-                         </div>
+       <div id="scene-container">
+          <div id="scene" ref={sceneRef}>
+              <div className="iphone-body">
+                  
+                  {/* Cara FRONTAL */}
+                  <div className="face face-front">
+                      <div id="screen-content" ref={screenContentRef} onClick={handleScreenClick}>
+                          <div className="dynamic-island">
+                              <div className="island-cam"></div>
+                          </div>
 
-                         {/* Home Layer */}
-                         <div className={`screen-layer ${phase === 2 ? 'active' : ''}`} style={{ background: 'linear-gradient(180deg, #4c1d95 0%, #2563eb 100%)', justifyContent: 'flex-start' }}>
-                            <div className="app-grid">
-                               {[...Array(8)].map((_,i) => <div key={i} className="app-icon"></div>)}
-                            </div>
-                            <div className="star-app-icon">⭐</div>
-                         </div>
+                          {/* 1. Capa de Inicio (Negra / Boot) */}
+                          <div id="boot-layer" className="screen-layer">
+                              <svg id="apple-logo-svg" viewBox="0 0 384 512">
+                                  <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 102.1 78 102.1 18 0 25.8-12.5 59.5-12.5 32.9 0 40.6 12.5 62.6 12.5 32 0 61.7-56 75.2-82.7-47-22.2-55.6-73.5-15-105.4zM249.4 92c18.9-27.4 30.4-63.9 26.4-92-24.4 2.6-60.3 20.8-81.2 48.1-19.2 24.7-31.1 61-26.1 90.9 29.4 3.5 62.3-20.1 80.9-47z"/>
+                              </svg>
+                          </div>
 
-                         {/* App Layer */}
-                         <div className={`screen-layer ${phase === 3 ? 'active' : ''}`} style={{ background: '#0f0c29' }}>
-                            <h3 className="text-3xl font-bold text-white font-display">StarBiz</h3>
-                            <p className="text-brand-cyan">PRÓXIMAMENTE</p>
-                         </div>
-                         
-                         {/* Idle/Off Layer */}
-                         <div className={`screen-layer ${phase === 0 ? 'active' : ''}`} style={{ background: '#000' }}>
-                            <h3 className="text-6xl font-bold text-white/30 font-mono">09:41</h3>
-                         </div>
+                          {/* 2. Capa Home iOS */}
+                          <div id="home-layer" className="screen-layer">
+                              <div className="status-bar">
+                                  <span>9:41</span>
+                                  <span>🔋 100%</span>
+                              </div>
+                              <div className="app-grid">
+                                  <div className="app-icon">📞</div>
+                                  <div className="app-icon">💬</div>
+                                  <div className="app-icon">📷</div>
+                                  <div className="app-icon">🎵</div>
+                                  <div className="app-icon">🧭</div>
+                                  <div className="app-icon">⚙️</div>
+                                  <div className="app-icon">📧</div>
+                                  <div className="app-icon">☁️</div>
+                              </div>
+                              <div className="featured-app-container" id="trigger-app">
+                                  <div className="star-app-icon">⭐</div>
+                                  <div className="app-label">StarBiz</div>
+                              </div>
+                          </div>
+
+                          {/* 3. Capa App Final */}
+                          <div id="app-layer" className="screen-layer">
+                              <canvas id="particles-canvas"></canvas>
+                              <div className="app-content">
+                                  <span className="final-logo">⭐</span>
+                                  <div className="brand-name">StarBizAcademi</div>
+                                  <div className="coming-soon" data-text="PRÓXIMAMENTE">PRÓXIMAMENTE</div>
+                                  <div className="divider-line"></div>
+                                  <div className="subtext">Algo grande está por venir...</div>
+                              </div>
+                              <div className="ripple-container">
+                                  <div className="ripple"></div>
+                                  <div className="ripple"></div>
+                                  <div className="ripple"></div>
+                              </div>
+                          </div>
+
+                          {/* 0. Idle Layer (Default) */}
+                          <div id="idle-layer" className="screen-layer active" style={{ background: '#000' }}>
+                             <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#fff'}}>
+                                <h3 style={{fontSize: '60px', fontWeight: 'bold', opacity: 0.3}}>09:41</h3>
+                                <p style={{opacity: 0.2}}>Touch to Start</p>
+                             </div>
+                          </div>
+
                       </div>
-                   </div>
+                  </div>
 
-                   {/* Back */}
-                   <div className="face face-back">
-                      <svg width="60" viewBox="0 0 384 512" fill="#333"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 102.1 78 102.1 18 0 25.8-12.5 59.5-12.5 32.9 0 40.6 12.5 62.6 12.5 32 0 61.7-56 75.2-82.7-47-22.2-55.6-73.5-15-105.4zM249.4 92c18.9-27.4 30.4-63.9 26.4-92-24.4 2.6-60.3 20.8-81.2 48.1-19.2 24.7-31.1 61-26.1 90.9 29.4 3.5 62.3-20.1 80.9-47z"/></svg>
-                   </div>
+                  {/* Cara TRASERA */}
+                  <div className="face face-back">
+                      <svg className="camera-bump-svg" viewBox="0 0 120 130">
+                          <defs>
+                              <linearGradient id="lensGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                  <stop offset="0%" stopColor="#333" stopOpacity="1" />
+                                  <stop offset="50%" stopColor="#000" stopOpacity="1" />
+                                  <stop offset="100%" stopColor="#222" stopOpacity="1" />
+                              </linearGradient>
+                              <filter id="dropShadow">
+                                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.5"/>
+                              </filter>
+                          </defs>
+                          <rect x="0" y="0" width="120" height="130" rx="25" fill="#1f1f1f" filter="url(#dropShadow)" stroke="#333" strokeWidth="1"/>
+                          <circle cx="35" cy="35" r="22" fill="url(#lensGrad)" stroke="#444" strokeWidth="2"/>
+                          <circle cx="35" cy="95" r="22" fill="url(#lensGrad)" stroke="#444" strokeWidth="2"/>
+                          <circle cx="85" cy="65" r="22" fill="url(#lensGrad)" stroke="#444" strokeWidth="2"/>
+                          <circle cx="85" cy="25" r="8" fill="#fff" opacity="0.8"/>
+                          <circle cx="85" cy="105" r="4" fill="#000"/>
+                          <circle cx="35" cy="35" r="8" fill="#0f1b33" opacity="0.8"/>
+                          <circle cx="35" cy="95" r="8" fill="#0f1b33" opacity="0.8"/>
+                          <circle cx="85" cy="65" r="8" fill="#0f1b33" opacity="0.8"/>
+                      </svg>
+                      
+                      <svg width="50" height="60" viewBox="0 0 384 512" style={{opacity: 0.3, fill: 'white'}}>
+                          <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.9 102.1 78 102.1 18 0 25.8-12.5 59.5-12.5 32.9 0 40.6 12.5 62.6 12.5 32 0 61.7-56 75.2-82.7-47-22.2-55.6-73.5-15-105.4zM249.4 92c18.9-27.4 30.4-63.9 26.4-92-24.4 2.6-60.3 20.8-81.2 48.1-19.2 24.7-31.1 61-26.1 90.9 29.4 3.5 62.3-20.1 80.9-47z"/>
+                      </svg>
+                  </div>
 
-                   {/* Sides */}
-                   <div className="face face-right"></div>
-                   <div className="face face-left"></div>
-                   <div className="face face-top"></div>
-                   <div className="face face-bottom"></div>
-                </div>
-             </div>
+                  {/* LADOS */}
+                  <div className="face face-right">
+                      <div className="button btn-power"></div>
+                  </div>
+                  <div className="face face-left"></div>
+                  <div className="face face-top"></div>
+                  <div className="face face-bottom"></div>
+              </div>
           </div>
-
        </div>
     </section>
   );
