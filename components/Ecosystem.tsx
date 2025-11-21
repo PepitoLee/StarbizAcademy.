@@ -269,17 +269,17 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
                       </div>
                    </div>
 
-                   {/* --- THICKNESS (Polished Deep Purple Titanium) --- */}
+                   {/* --- THICKNESS (Polished Deep Purple Titanium - Seamless Corners) --- */}
                    {/* Right Side */}
-                   <div className="absolute top-0 right-0 w-[32px] h-full rounded-r-[24px]" 
+                   <div className="absolute top-[20px] right-0 w-[32px] h-[calc(100%-40px)]" 
                         style={{ 
                           transform: "rotateY(90deg) translateZ(-15px) translateX(15px)", 
                           transformOrigin: "right",
-                          background: "linear-gradient(90deg, #2e1065, #581c87 30%, #a855f7 50%, #581c87 70%, #2e1065)", // High gloss purple
-                          boxShadow: "inset 2px 0 4px rgba(255,255,255,0.2)" // Extra shine
+                          background: "linear-gradient(90deg, #2e1065, #581c87 30%, #a855f7 50%, #581c87 70%, #2e1065)", 
+                          boxShadow: "inset 2px 0 4px rgba(255,255,255,0.2)" 
                         }}></div>
                    {/* Left Side */}
-                   <div className="absolute top-0 left-0 w-[32px] h-full rounded-l-[24px]" 
+                   <div className="absolute top-[20px] left-0 w-[32px] h-[calc(100%-40px)]" 
                         style={{ 
                           transform: "rotateY(-90deg) translateZ(-15px) translateX(-15px)", 
                           transformOrigin: "left",
@@ -287,14 +287,14 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
                           boxShadow: "inset -2px 0 4px rgba(255,255,255,0.2)"
                         }}></div>
                    {/* Top Side */}
-                   <div className="absolute top-0 left-0 w-full h-[32px] rounded-t-[30px]" 
+                   <div className="absolute top-0 left-[20px] w-[calc(100%-40px)] h-[32px]" 
                         style={{ 
                           transform: "rotateX(90deg) translateZ(-15px) translateY(-15px)", 
                           transformOrigin: "top",
                           background: "linear-gradient(180deg, #2e1065, #581c87 30%, #a855f7 50%, #581c87 70%, #2e1065)",
                         }}></div>
                    {/* Bottom Side */}
-                   <div className="absolute bottom-0 left-0 w-full h-[32px] rounded-b-[30px]" 
+                   <div className="absolute bottom-0 left-[20px] w-[calc(100%-40px)] h-[32px]" 
                         style={{ 
                           transform: "rotateX(-90deg) translateZ(-15px) translateY(15px)", 
                           transformOrigin: "bottom",
@@ -306,6 +306,13 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
                           <div className="w-12 h-1 bg-[#1a0b2e] rounded-full shadow-[inset_0_0_2px_rgba(0,0,0,0.5)]"></div> 
                           <div className="absolute w-16 h-2 bg-[#0f0518] rounded-full border border-[#3b0764]"></div> 
                         </div>
+
+                   {/* --- CORNER FILLERS (Smooth Rounding) --- */}
+                   {/* These small spheres fill the gaps at the rounded corners in 3D space */}
+                   <div className="absolute top-0 right-0 w-[32px] h-[32px] rounded-full bg-[#581c87]" style={{ transform: "translateZ(-15px) rotateY(45deg) translate(10px, -10px)" }}></div> 
+                   <div className="absolute top-0 left-0 w-[32px] h-[32px] rounded-full bg-[#581c87]" style={{ transform: "translateZ(-15px) rotateY(-45deg) translate(-10px, -10px)" }}></div>
+                   <div className="absolute bottom-0 right-0 w-[32px] h-[32px] rounded-full bg-[#581c87]" style={{ transform: "translateZ(-15px) rotateY(45deg) translate(10px, 10px)" }}></div>
+                   <div className="absolute bottom-0 left-0 w-[32px] h-[32px] rounded-full bg-[#581c87]" style={{ transform: "translateZ(-15px) rotateY(-45deg) translate(-10px, 10px)" }}></div>
 
 
                    {/* --- BACK FACE (Glossy Deep Purple Glass) --- */}
