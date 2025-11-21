@@ -122,25 +122,28 @@ const Ecosystem: React.FC = () => {
   );
 };
 
-// --- SUB-COMPONENT: Interactive iPhone Section ---
+// --- SUB-COMPONENT: Interactive 3D iPhone Section ---
 const StarbooksAppSection = ({ t }: { t: any }) => {
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [appLaunched, setAppLaunched] = useState(false);
-
-  // Slide to Unlock Logic
-  const constraintsRef = useRef(null);
-  const x = useMotionValue(0);
-  const opacity = useTransform(x, [0, 200], [1, 0]);
-  const textOpacity = useTransform(x, [0, 150], [1, 0]);
+  const [powerState, setPowerState] = useState<'off' | 'booting' | 'on'>('off');
   
-  const handleDragEnd = () => {
-    if (x.get() > 150) {
-      setIsUnlocked(true);
+  // Rotation State
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useTransform(y, [300, -300], [180, -180]); // Inverted logic for natural feel
+  const rotateY = useTransform(x, [-300, 300], [-180, 180]);
+
+  const handlePowerOn = () => {
+    if (powerState === 'off') {
+      setPowerState('booting');
+      // Boot sequence
+      setTimeout(() => {
+        setPowerState('on');
+      }, 3500); // 3.5s boot time
     }
   };
 
   return (
-    <section className="relative py-32 overflow-hidden bg-black">
+    <section className="relative py-32 overflow-hidden bg-black perspective-2000">
        {/* Background Glow */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-orange/5 rounded-full blur-[120px] pointer-events-none"></div>
 
@@ -148,139 +151,171 @@ const StarbooksAppSection = ({ t }: { t: any }) => {
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
              
              {/* Text Content */}
-             <div className="flex-1 text-center lg:text-left">
+             <div className="flex-1 text-center lg:text-left pointer-events-none">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-brand-yellow mb-6">
                    <Smartphone size={14} />
-                   <span>APP STORE EXCLUSIVE</span>
+                   <span>INTERACTIVE 3D DEMO</span>
                 </div>
                 <h2 className="text-5xl md:text-7xl font-bold text-white font-display mb-6 tracking-tight">
                    {t.ecosystem.app.title}
                 </h2>
                 <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                   {t.ecosystem.app.desc_part1} <span className="text-white font-bold">{t.ecosystem.app.desc_part2}</span> {t.ecosystem.app.desc_part3}
+                   Desliza para girar. <span className="text-white font-bold">Haz click para encender.</span>
                 </p>
-                <button className="bg-white text-black px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:scale-105 transition-transform">
-                   {t.ecosystem.app.cta}
-                </button>
              </div>
 
-             {/* Interactive iPhone */}
-             <div className="flex-1 relative flex justify-center perspective-1000">
+             {/* 3D Interactive Area */}
+             <div className="flex-1 relative flex justify-center items-center h-[700px] w-full cursor-grab active:cursor-grabbing perspective-1000">
+                
+                {/* Draggable Area Overlay */}
                 <motion.div 
-                   className="relative w-[320px] h-[650px] bg-black rounded-[55px] border-[6px] border-[#3A3A3C] shadow-2xl overflow-hidden"
-                   initial={{ rotateY: -10, rotateX: 5 }}
-                   whileHover={{ rotateY: 0, rotateX: 0 }}
-                   transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                   style={{ boxShadow: "0 0 0 2px #B45309, 0 20px 50px -10px rgba(245,158,11,0.3)" }} // Titanium Orange Border
-                >
-                   {/* --- SCREEN CONTENT --- */}
-                   <div className="relative w-full h-full bg-black overflow-hidden">
-                      
-                      {/* 1. WALLPAPER (Starfield) */}
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1e1b4b_0%,#000000_100%)]">
-                         <div className="absolute inset-0 opacity-50" style={{ backgroundImage: 'radial-gradient(white 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-                      </div>
+                   className="absolute inset-0 z-50"
+                   style={{ x, y }}
+                   drag
+                   dragElastic={0.1}
+                   dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }} // Free drag feeling without moving element
+                   onDragEnd={() => {
+                     // Optional: Snap back or spin momentum could go here
+                   }}
+                ></motion.div>
 
-                      {/* 2. DYNAMIC ISLAND */}
-                      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[100px] h-[30px] bg-black rounded-full z-50 flex items-center justify-center gap-3 px-3">
-                         {/* Camera/FaceID sensors */}
+                {/* THE IPHONE 3D CONTAINER */}
+                <motion.div 
+                   className="relative w-[300px] h-[620px]"
+                   style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                   onClick={handlePowerOn}
+                >
+                   {/* --- FRONT FACE (Screen) --- */}
+                   <div 
+                     className="absolute inset-0 bg-black rounded-[55px] border-[4px] border-[#4A3828] overflow-hidden backface-hidden"
+                     style={{ 
+                       transform: "translateZ(12px)",
+                       boxShadow: "inset 0 0 20px rgba(255,255,255,0.1)" 
+                     }}
+                   >
+                      {/* Glass Reflection */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-white/20 via-transparent to-transparent opacity-30 z-50 pointer-events-none rounded-[50px]"></div>
+                      
+                      {/* Dynamic Island */}
+                      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[90px] h-[28px] bg-black rounded-full z-40 flex items-center justify-center gap-2">
                          <div className="w-2 h-2 rounded-full bg-[#1a1a1a]"></div>
                          <div className="w-1.5 h-1.5 rounded-full bg-[#0f0f0f]"></div>
                       </div>
 
-                      {/* 3. LOCKED SCREEN STATE */}
-                      <motion.div 
-                         className="absolute inset-0 flex flex-col items-center pt-20 z-20"
-                         animate={{ y: isUnlocked ? -700 : 0, opacity: isUnlocked ? 0 : 1 }}
-                         transition={{ duration: 0.5, ease: "easeInOut" }}
-                      >
-                         {/* Time */}
-                         <h3 className="text-7xl font-bold text-white/90 font-display tracking-tight drop-shadow-lg">09:41</h3>
-                         <p className="text-brand-orange font-semibold mt-2">Monday, June 5</p>
-                         
-                         {/* Notifications */}
-                         <div className="mt-8 w-[90%] bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 shadow-lg">
-                            <div className="flex items-center gap-3 mb-2">
-                               <div className="w-5 h-5 rounded bg-brand-cyan flex items-center justify-center text-[10px] font-bold text-black">S</div>
-                               <span className="text-xs text-gray-300 font-bold uppercase">STARBIZ • NOW</span>
-                            </div>
-                            <p className="text-white text-sm font-medium">Bienvenido al sistema operativo del líder.</p>
-                         </div>
-
-                         {/* SLIDE TO UNLOCK */}
-                         <div className="absolute bottom-10 w-[80%]" ref={constraintsRef}>
-                            <motion.div 
-                               className="w-full h-[60px] bg-white/10 backdrop-blur-xl rounded-full relative flex items-center px-2"
-                               style={{ opacity }}
-                            >
-                               <motion.div 
-                                  className="w-[52px] h-[52px] bg-white rounded-full flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing z-20"
-                                  drag="x"
-                                  dragConstraints={constraintsRef}
-                                  dragElastic={0.1}
-                                  onDragEnd={handleDragEnd}
-                                  style={{ x }}
-                               >
-                                  <ArrowRight size={24} className="text-black" />
-                               </motion.div>
-                               <motion.span style={{ opacity: textOpacity }} className="absolute w-full text-center text-white/50 text-sm font-medium pointer-events-none">
-                                  slide to unlock
-                               </motion.span>
-                            </motion.div>
-                         </div>
-                      </motion.div>
-
-                      {/* 4. UNLOCKED HOME SCREEN */}
-                      <motion.div 
-                         className="absolute inset-0 pt-32 px-6 grid grid-cols-4 gap-4 content-start z-10"
-                         initial={{ scale: 0.9, opacity: 0 }}
-                         animate={{ scale: isUnlocked ? 1 : 0.9, opacity: isUnlocked ? 1 : 0 }}
-                         transition={{ delay: 0.3 }}
-                      >
-                         {/* App Icons Grid */}
-                         {[...Array(12)].map((_, i) => (
-                            <div key={i} className="flex flex-col items-center gap-1">
-                               <div className="w-14 h-14 rounded-xl bg-white/10 backdrop-blur-sm"></div>
-                            </div>
-                         ))}
-
-                         {/* STARBIZ APP (Center Stage) */}
-                         <div className="col-span-4 flex justify-center mt-8">
-                            <motion.button 
-                               whileTap={{ scale: 0.9 }}
-                               onClick={() => setAppLaunched(true)}
-                               className="flex flex-col items-center gap-2 group"
-                            >
-                               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-orange via-red-500 to-brand-purple shadow-[0_0_30px_rgba(249,115,22,0.4)] flex items-center justify-center relative overflow-hidden group-hover:scale-110 transition-transform duration-300">
-                                  <Sparkles className="text-white w-10 h-10 animate-pulse" />
-                                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                               </div>
-                               <span className="text-white text-sm font-medium drop-shadow-md">StarbizApp</span>
-                            </motion.button>
-                         </div>
-                      </motion.div>
-
-                      {/* 5. APP LAUNCHED STATE (Full Screen) */}
-                      {appLaunched && (
-                         <motion.div 
-                            className="absolute inset-0 bg-[#0A0A0A] z-30 flex flex-col items-center justify-center"
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4, type: "spring" }}
-                         >
-                            <img src="/images/ceo-junior.png" alt="App Interface" className="w-full h-full object-cover opacity-50" />
-                            <div className="absolute inset-0 flex items-center justify-center">
-                               <h3 className="text-3xl font-bold text-white font-display">Welcome, CEO.</h3>
-                            </div>
-                            {/* Home Bar */}
-                            <div className="absolute bottom-2 w-[40%] h-1 bg-white rounded-full left-1/2 -translate-x-1/2"></div>
-                         </motion.div>
+                      {/* --- STATE: OFF --- */}
+                      {powerState === 'off' && (
+                        <div className="absolute inset-0 bg-black flex flex-col items-center justify-center">
+                           <p className="text-gray-800 font-mono text-xs animate-pulse">TAP TO POWER ON</p>
+                        </div>
                       )}
 
+                      {/* --- STATE: BOOTING (Apple Logo) --- */}
+                      {powerState === 'booting' && (
+                        <div className="absolute inset-0 bg-black flex items-center justify-center">
+                           <motion.div 
+                             initial={{ opacity: 0, scale: 0.8 }}
+                             animate={{ opacity: 1, scale: 1 }}
+                             transition={{ duration: 1 }}
+                           >
+                             {/* Apple Logo SVG */}
+                             <svg viewBox="0 0 384 512" width="80" fill="white">
+                               <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
+                             </svg>
+                           </motion.div>
+                        </div>
+                      )}
+
+                      {/* --- STATE: ON (Starbiz App) --- */}
+                      {powerState === 'on' && (
+                        <motion.div 
+                           className="absolute inset-0 bg-[#0A0A0A] flex flex-col"
+                           initial={{ opacity: 0 }}
+                           animate={{ opacity: 1 }}
+                           transition={{ duration: 0.5 }}
+                        >
+                           {/* App Content */}
+                           <div className="flex-1 relative">
+                              <img src="/images/ceo-junior.png" alt="App" className="w-full h-full object-cover opacity-60" />
+                              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black"></div>
+                              
+                              {/* UI Elements */}
+                              <div className="absolute top-20 left-6 right-6">
+                                 <h4 className="text-white text-2xl font-display font-bold">Hola, Líder.</h4>
+                                 <p className="text-brand-cyan text-sm">Nivel 7 Desbloqueado</p>
+                              </div>
+
+                              <div className="absolute bottom-10 left-6 right-6 flex flex-col gap-3">
+                                 <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                                    <p className="text-white text-xs font-bold mb-1">RENDIMIENTO SEMANAL</p>
+                                    <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
+                                       <motion.div 
+                                          className="h-full bg-brand-orange" 
+                                          initial={{ width: 0 }}
+                                          animate={{ width: "85%" }}
+                                          transition={{ delay: 0.5, duration: 1 }}
+                                       />
+                                    </div>
+                                 </div>
+                                 <div className="bg-brand-cyan text-black p-4 rounded-2xl font-bold text-center shadow-lg shadow-brand-cyan/20">
+                                    CONTINUAR CURSO
+                                 </div>
+                              </div>
+                           </div>
+                           
+                           {/* Home Indicator */}
+                           <div className="h-1 w-1/3 bg-white rounded-full mx-auto mb-2 opacity-50"></div>
+                        </motion.div>
+                      )}
                    </div>
-                   
-                   {/* Glass Reflection Overlay */}
-                   <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 to-transparent opacity-50 rounded-[50px]"></div>
+
+                   {/* --- THICKNESS (Sides) --- */}
+                   {/* We simulate 3D thickness with pseudo-elements transformed in 3D space */}
+                   {/* Right Side */}
+                   <div className="absolute top-0 right-0 w-[24px] h-full bg-[#7C2D12] rounded-r-[10px]" 
+                        style={{ transform: "rotateY(90deg) translateZ(-12px) translateX(12px)", transformOrigin: "right" }}></div>
+                   {/* Left Side */}
+                   <div className="absolute top-0 left-0 w-[24px] h-full bg-[#7C2D12] rounded-l-[10px]" 
+                        style={{ transform: "rotateY(-90deg) translateZ(-12px) translateX(-12px)", transformOrigin: "left" }}></div>
+                   {/* Top Side */}
+                   <div className="absolute top-0 left-0 w-full h-[24px] bg-[#7C2D12] rounded-t-[20px]" 
+                        style={{ transform: "rotateX(90deg) translateZ(-12px) translateY(-12px)", transformOrigin: "top" }}></div>
+                   {/* Bottom Side */}
+                   <div className="absolute bottom-0 left-0 w-full h-[24px] bg-[#7C2D12] rounded-b-[20px]" 
+                        style={{ transform: "rotateX(-90deg) translateZ(-12px) translateY(12px)", transformOrigin: "bottom" }}></div>
+
+
+                   {/* --- BACK FACE --- */}
+                   <div 
+                     className="absolute inset-0 bg-[#1c1917] rounded-[55px] border-[4px] border-[#4A3828]"
+                     style={{ 
+                       transform: "translateZ(-12px) rotateY(180deg)",
+                       backfaceVisibility: "visible" // Make sure we see it when rotated
+                     }}
+                   >
+                      {/* Matte Texture */}
+                      <div className="absolute inset-0 bg-white/5 rounded-[50px]"></div>
+                      {/* Apple Logo (Back) */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
+                         <svg viewBox="0 0 384 512" width="60" fill="white">
+                            <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
+                         </svg>
+                      </div>
+                      
+                      {/* Camera Bump */}
+                      <div className="absolute top-4 left-4 w-[110px] h-[110px] bg-[#2a2a2a] rounded-[30px] shadow-lg border border-white/5 flex flex-wrap gap-2 p-2 content-center justify-center">
+                         {/* Lenses */}
+                         <div className="w-10 h-10 rounded-full bg-[#0f0f0f] border-2 border-[#444] flex items-center justify-center shadow-inner">
+                            <div className="w-4 h-4 rounded-full bg-[#113] opacity-80"></div>
+                         </div>
+                         <div className="w-10 h-10 rounded-full bg-[#0f0f0f] border-2 border-[#444] flex items-center justify-center shadow-inner">
+                            <div className="w-4 h-4 rounded-full bg-[#113] opacity-80"></div>
+                         </div>
+                         <div className="w-10 h-10 rounded-full bg-[#0f0f0f] border-2 border-[#444] flex items-center justify-center shadow-inner">
+                            <div className="w-4 h-4 rounded-full bg-[#113] opacity-80"></div>
+                         </div>
+                      </div>
+                   </div>
+
                 </motion.div>
              </div>
 
