@@ -280,8 +280,31 @@ const Hero: React.FC = () => {
                                   stroke="#475569" strokeWidth="0.5"
                                 />
 
-                                {/* Window (Blue) */}
+                                {/* Window (Blue) - With Waving Kid */}
+                                <defs>
+                                  <clipPath id="windowClip">
+                                    <circle cx="50" cy="45" r="11" />
+                                  </clipPath>
+                                </defs>
+                                
+                                {/* Glass Background */}
                                 <circle cx="50" cy="45" r="12" fill="#38BDF8" stroke="#0F172A" strokeWidth="2" />
+
+                                {/* Kid Silhouette (Clipped) */}
+                                <g clipPath="url(#windowClip)">
+                                   {/* Head */}
+                                   <circle cx="49" cy="44" r="3.5" fill="#0F172A" />
+                                   {/* Body */}
+                                   <path d="M44 48 Q49 47 54 48 L56 60 L42 60 Z" fill="#0F172A" />
+                                   {/* Waving Arm (Animated) */}
+                                   <motion.path
+                                      stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" fill="none"
+                                      animate={{ d: ["M53 49 Q57 45 56 40", "M53 49 Q59 46 60 43", "M53 49 Q57 45 56 40"] }}
+                                      transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+                                   />
+                                </g>
+
+                                {/* Window Glint */}
                                 <path d="M50 45 A 12 12 0 0 1 58 37" fill="none" stroke="white" strokeWidth="2" opacity="0.6" />
                                 
                                 {/* Shine/Details */}
