@@ -195,101 +195,67 @@ const Hero: React.FC = () => {
                                ))}
                             </div>
 
-                            {/* ROCKET SVG (Rotated 45deg) - CLASSIC HIGH-FIDELITY */}
+                            {/* ROCKET SVG (Rotated 45deg) - ORIGINAL CLASSIC */}
                             <svg 
                               viewBox="0 0 100 200" 
-                              className="w-64 h-[420px] drop-shadow-[0_0_30px_rgba(255,77,0,0.4)]" 
-                              style={{ transform: "rotate(45deg) translateY(40px)" }}
+                              className="w-48 h-[380px] drop-shadow-[0_0_50px_rgba(255,77,0,0.6)]" 
+                              style={{ transform: "rotate(45deg) translateY(30px)" }} 
                               preserveAspectRatio="xMidYMin slice"
                             >
                               <defs>
-                                {/* Body Gradient (Cylindrical Volume) */}
-                                <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="0%">
-                                  <stop offset="0%" stopColor="#E2E8F0" /> {/* Light Side */}
-                                  <stop offset="45%" stopColor="#F8FAFC" /> {/* Highlight */}
-                                  <stop offset="55%" stopColor="#CBD5E1" /> {/* Shadow Start */}
-                                  <stop offset="100%" stopColor="#64748B" /> {/* Dark Shadow */}
+                                <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                  <stop offset="0%" stopColor="#F8FAFC" /> 
+                                  <stop offset="100%" stopColor="#CBD5E1" /> 
                                 </linearGradient>
-
-                                {/* Fin Gradient */}
-                                <linearGradient id="finRed" x1="0%" y1="0%" x2="100%" y2="100%">
-                                  <stop offset="0%" stopColor="#EF4444" />
-                                  <stop offset="100%" stopColor="#991B1B" />
-                                </linearGradient>
-
-                                {/* Window Reflection */}
-                                <linearGradient id="glass" x1="0%" y1="0%" x2="100%" y2="100%">
-                                  <stop offset="0%" stopColor="#38BDF8" />
-                                  <stop offset="100%" stopColor="#0284C7" />
-                                </linearGradient>
-
-                                {/* Engine Plasma */}
-                                <linearGradient id="plasma" x1="0%" y1="0%" x2="0%" y2="100%">
-                                  <stop offset="0%" stopColor="#FFFFFF" />
-                                  <stop offset="20%" stopColor="#FDE047" />
-                                  <stop offset="60%" stopColor="#F97316" />
+                                <linearGradient id="infernoGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                  <stop offset="0%" stopColor="#FFFFFF" /> 
+                                  <stop offset="10%" stopColor="#FEF08A" /> 
+                                  <stop offset="30%" stopColor="#F97316" /> 
+                                  <stop offset="60%" stopColor="#EF4444" /> 
                                   <stop offset="100%" stopColor="transparent" />
                                 </linearGradient>
                               </defs>
 
-                              {/* --- FLAME EXHAUST --- */}
-                              <g className="mix-blend-screen" transform="translate(0, -15)"> 
+                              {/* --- MASSIVE FLAME TAIL --- */}
+                              <g className="mix-blend-screen" transform="translate(0, -20)"> 
+                                  {/* Core Blast */}
                                   <motion.path 
-                                    d="M35 135 Q50 300 65 135" 
-                                    fill="url(#plasma)"
+                                    d="M30 95 Q50 250 70 95" 
+                                    fill="url(#infernoGrad)"
                                     style={{ filter: "blur(6px)" }}
-                                    animate={{ d: ["M35 135 Q50 310 65 135", "M32 135 Q50 280 68 135", "M35 135 Q50 310 65 135"] }}
-                                    transition={{ duration: 0.2, repeat: Infinity }}
+                                    animate={{ d: ["M30 95 Q50 260 70 95", "M25 95 Q50 240 75 95", "M30 95 Q50 260 70 95"] }}
+                                    transition={{ duration: 0.4, repeat: Infinity }}
                                   />
+                                  {/* Inner Plasma */}
                                   <motion.path 
-                                    d="M42 135 Q50 220 58 135" 
+                                    d="M40 95 Q50 180 60 95" 
                                     fill="#FFF"
                                     style={{ filter: "blur(3px)" }}
-                                    animate={{ d: ["M42 135 Q50 230 58 135", "M40 135 Q50 200 60 135", "M42 135 Q50 230 58 135"] }}
-                                    transition={{ duration: 0.1, repeat: Infinity }}
+                                    animate={{ d: ["M42 95 Q50 190 58 95", "M40 95 Q50 160 60 95", "M42 95 Q50 190 58 95"] }}
+                                    transition={{ duration: 0.2, repeat: Infinity }}
                                   />
                               </g>
 
-                              {/* --- CLASSIC ROCKET BODY --- */}
-                              <g transform="translate(0, 35)">
-                                
-                                {/* Fins (Behind) */}
-                                <path d="M30 100 L10 135 L30 125 Z" fill="url(#finRed)" stroke="#7F1D1D" strokeWidth="0.5" />
-                                <path d="M70 100 L90 135 L70 125 Z" fill="url(#finRed)" stroke="#7F1D1D" strokeWidth="0.5" />
-                                <path d="M45 125 L55 125 L55 135 L45 135 Z" fill="#334155" /> {/* Center Nozzle */}
+                              {/* --- ROCKET SHIP (Classic) --- */}
+                              <g transform="translate(0, 20)">
+                                {/* Fins (Red) */}
+                                <path d="M30 70 L15 90 L30 80 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
+                                <path d="M70 70 L85 90 L70 80 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
+                                <path d="M50 75 L50 90 L40 80 L60 80 Z" fill="#B91C1C" />
 
-                                {/* Main Fuselage */}
+                                {/* Main Body */}
                                 <path 
-                                  d="M30 125 L30 50 Q30 0 50 0 Q70 0 70 50 L70 125 Q50 130 30 125 Z" 
-                                  fill="url(#rocketBody)" 
-                                  stroke="#94A3B8" strokeWidth="0.5"
+                                  d="M30 70 Q30 40 50 10 Q70 40 70 70 L70 75 Q50 75 30 75 Z" 
+                                  fill="url(#bodyGrad)" 
+                                  stroke="#475569" strokeWidth="0.5"
                                 />
+
+                                {/* Window (Blue) */}
+                                <circle cx="50" cy="40" r="12" fill="#38BDF8" stroke="#0F172A" strokeWidth="2" />
+                                <path d="M50 40 A 12 12 0 0 1 58 32" fill="none" stroke="white" strokeWidth="2" opacity="0.6" />
                                 
-                                {/* Porthole Window */}
-                                <circle cx="50" cy="40" r="12" fill="#1E293B" /> {/* Window Frame */}
-                                <circle cx="50" cy="40" r="10" fill="url(#glass)" stroke="#64748B" strokeWidth="0.5" />
-                                <path d="M50 40 A 10 10 0 0 1 58 33" fill="none" stroke="white" strokeWidth="2" opacity="0.5" /> {/* Glint */}
-
-                                {/* Branding Text "STAREDUCA" - Vertical on Body */}
-                                <g transform="translate(53.5, 85) rotate(-90)">
-                                   <text 
-                                     fontSize="6" 
-                                     fontFamily="sans-serif" 
-                                     fontWeight="900" 
-                                     fill="#334155"
-                                     style={{ letterSpacing: "1px" }}
-                                   >
-                                     STAREDUCA
-                                   </text>
-                                </g>
-
-                                {/* Detail Lines */}
-                                <path d="M30 50 L70 50" stroke="#94A3B8" strokeWidth="0.5" opacity="0.4" />
-                                <path d="M30 100 L70 100" stroke="#94A3B8" strokeWidth="0.5" opacity="0.4" />
-                                
-                                {/* Vertical fin shadow line */}
-                                <path d="M50 100 L50 125" stroke="#94A3B8" strokeWidth="0.5" opacity="0.3" />
-
+                                {/* Shine/Details */}
+                                <path d="M50 10 L50 75" stroke="#94A3B8" strokeWidth="0.5" strokeDasharray="2 2" fill="none" opacity="0.5"/>
                               </g>
                             </svg>
                       </motion.div>
