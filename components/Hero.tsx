@@ -236,26 +236,26 @@ const Hero: React.FC = () => {
                                   />
                               </g>
 
-                              {/* --- ROCKET SHIP (Classic) --- */}
-                              <g transform="translate(0, 20)">
-                                {/* Fins (Red) */}
-                                <path d="M30 70 L15 90 L30 80 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
-                                <path d="M70 70 L85 90 L70 80 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
-                                <path d="M50 75 L50 90 L40 80 L60 80 Z" fill="#B91C1C" />
+                              {/* --- ROCKET SHIP (Classic - Elongated) --- */}
+                              <g transform="translate(0, 10)">
+                                {/* Fins (Red) - Adjusted for height */}
+                                <path d="M30 90 L15 120 L30 105 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
+                                <path d="M70 90 L85 120 L70 105 Z" fill="#EF4444" stroke="#991B1B" strokeWidth="1" />
+                                <path d="M50 100 L50 120 L40 105 L60 105 Z" fill="#B91C1C" />
 
-                                {/* Main Body */}
+                                {/* Main Body - Elongated */}
                                 <path 
-                                  d="M30 70 Q30 40 50 10 Q70 40 70 70 L70 75 Q50 75 30 75 Z" 
+                                  d="M30 90 Q30 40 50 0 Q70 40 70 90 L70 100 Q50 100 30 100 Z" 
                                   fill="url(#bodyGrad)" 
                                   stroke="#475569" strokeWidth="0.5"
                                 />
 
-                                {/* Window (Blue) */}
-                                <circle cx="50" cy="40" r="12" fill="#38BDF8" stroke="#0F172A" strokeWidth="2" />
-                                <path d="M50 40 A 12 12 0 0 1 58 32" fill="none" stroke="white" strokeWidth="2" opacity="0.6" />
+                                {/* Window (Blue) - Positioned higher */}
+                                <circle cx="50" cy="45" r="12" fill="#38BDF8" stroke="#0F172A" strokeWidth="2" />
+                                <path d="M50 45 A 12 12 0 0 1 58 37" fill="none" stroke="white" strokeWidth="2" opacity="0.6" />
                                 
-                                {/* Shine/Details */}
-                                <path d="M50 10 L50 75" stroke="#94A3B8" strokeWidth="0.5" strokeDasharray="2 2" fill="none" opacity="0.5"/>
+                                {/* Shine/Details - Stretched */}
+                                <path d="M50 10 L50 95" stroke="#94A3B8" strokeWidth="0.5" strokeDasharray="2 2" fill="none" opacity="0.5"/>
                               </g>
                             </svg>
                       </motion.div>
