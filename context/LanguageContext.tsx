@@ -175,6 +175,13 @@ const translations = {
         ]
       }
     },
+    video: {
+      tag: "Presentación Oficial",
+      title: "CONOCE NUESTRA VISIÓN",
+      subtitle: "Descubre cómo estamos transformando el futuro de la educación empresarial hispana",
+      playText: "Click para reproducir",
+      cta: "Explorar Programas"
+    },
     contact: {
       form_title: "CONÉCTATE DIRECTAMENTE",
       form_subtitle: "// Inicia tu transformación hoy.",
@@ -369,6 +376,13 @@ const translations = {
           "Ethics in the Artificial Intelligence era."
         ]
       }
+    },
+    video: {
+      tag: "Official Presentation",
+      title: "DISCOVER OUR VISION",
+      subtitle: "Learn how we are transforming the future of Hispanic entrepreneurial education",
+      playText: "Click to play",
+      cta: "Explore Programs"
     },
     contact: {
       form_title: "CONNECT DIRECTLY",

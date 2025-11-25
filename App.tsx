@@ -12,6 +12,7 @@ import Ecosystem from './components/Ecosystem';
 import Testimonials from './components/Testimonials';
 import Events from './components/Events';
 import Contact from './components/Contact';
+import VideoInstitucional from './components/VideoInstitucional';
 import { LanguageProvider } from './context/LanguageContext';
 
 const AppContent: React.FC = () => {
@@ -37,6 +38,7 @@ const AppContent: React.FC = () => {
           <Navbar />
           <main>
             <Hero />
+            <VideoInstitucional />
             <About />
             <SevenIntelligences />
             <Ecosystem />
