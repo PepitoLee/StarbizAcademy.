@@ -47,11 +47,6 @@ const AppContent: React.FC = () => {
             <Events />
             <Contact />
           </main>
-          
-          {/* Mobile Floating CTA */}
-          <div className="md:hidden fixed bottom-0 left-0 right-0 bg-brand-orange p-4 z-40 shadow-2xl text-center">
-             <a href="#contacto" className="font-bold text-white uppercase tracking-wide">Únete Gratis Ahora</a>
-          </div>
         </div>
       )}
     </>

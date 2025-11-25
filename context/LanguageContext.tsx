@@ -81,7 +81,7 @@ const translations = {
       summer: {
         title: "VERANO 2026",
         subtitle: "Curso Intensivo de Verano (45 Días)",
-        desc: "Tu Lanzamiento de 45 Días hacia el Mindset de CEO. Del 5 de Enero al 15 de Febrero.",
+        desc: "45 DÍAS PARA DESPERTAR SU POTENCIAL. Convierte a tu hijo en un líder con mentalidad CEO (Inglés • Tecnología • Negocios • Mentalidad)",
         features: ["Inglés Profesional Avanzado", "Desarrollo Web y Apps", "Mentalidad de Éxito", "Visión Empresarial Global"],
         cta: "ASEGURAR CUPO"
       },

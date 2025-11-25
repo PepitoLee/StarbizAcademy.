@@ -65,8 +65,10 @@ const Programs: React.FC = () => {
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-                                    <a 
-                                        href="#contacto" 
+                                    <a
+                                        href="https://landingnueva-three.vercel.app/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="group relative px-8 py-4 bg-brand-orange text-black font-bold text-sm uppercase tracking-widest rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300"
                                     >
                                         <span className="relative z-10 flex items-center gap-2">

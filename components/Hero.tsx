@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Play } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import Starfield from './Starfield';
 
@@ -92,13 +91,6 @@ const Hero: React.FC = () => {
                   VER PROGRAMAS <span className="text-xl">→</span>
                 </span>
               </a>
-              
-              <button className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group">
-                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/10 group-hover:border-brand-cyan transition-all">
-                  <Play size={16} fill="currentColor" className="ml-1" />
-                </div>
-                <span className="font-display font-medium tracking-wide">{t.hero.cta_secondary}</span>
-              </button>
             </div>
           </motion.div>
 
