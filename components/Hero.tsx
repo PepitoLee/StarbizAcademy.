@@ -88,7 +88,7 @@ const Hero: React.FC = () => {
                 <div className="absolute inset-0 rounded-xl border-2 border-white/30 group-hover:border-white/80 transition-colors"></div>
 
                 <span className="relative z-10 flex items-center gap-2 drop-shadow-md">
-                  VER PROGRAMAS <span className="text-xl">→</span>
+                  {t.hero.cta_programs} <span className="text-xl">→</span>
                 </span>
               </a>
             </div>
