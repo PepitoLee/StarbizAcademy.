@@ -161,7 +161,7 @@ const VideoInstitucional: React.FC = () => {
                 onClick={togglePlay}
                 playsInline
                 preload="metadata"
-                poster="/videos/institutional-poster.jpg"
+                poster="/videos/institutional-poster.png"
                 key={language}
               >
                 <source src={getVideoSource()} type="video/mp4" />
