@@ -1,15 +1,38 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Volume2, VolumeX, Maximize, Pause } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const VideoInstitucional: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
   const [progress, setProgress] = useState(0);
+
+  // Get video source based on language
+  const getVideoSource = () => {
+    return `/videos/institutional-video-${language}.mp4`;
+  };
+
+  // Reset video when language changes
+  useEffect(() => {
+    if (videoRef.current) {
+      const currentTime = videoRef.current.currentTime;
+      const wasPlaying = isPlaying;
+
+      videoRef.current.load(); // Reload video with new source
+
+      if (wasPlaying) {
+        videoRef.current.currentTime = currentTime;
+        videoRef.current.play();
+      } else {
+        setShowOverlay(true);
+        setIsPlaying(false);
+      }
+    }
+  }, [language]);
 
   const handlePlay = () => {
     if (videoRef.current) {
@@ -139,9 +162,10 @@ const VideoInstitucional: React.FC = () => {
                 playsInline
                 preload="metadata"
                 poster="/videos/institutional-poster.jpg"
+                key={language}
               >
-                <source src="/videos/institutional-video.mp4" type="video/mp4" />
-                Tu navegador no soporta el elemento de video.
+                <source src={getVideoSource()} type="video/mp4" />
+                {language === 'es' ? 'Tu navegador no soporta el elemento de video.' : 'Your browser does not support the video element.'}
               </video>
 
               {/* Play Overlay */}

@@ -1,9 +1,78 @@
-import React from 'react';
-import { Mail, MessageSquare, MapPin, Instagram, Facebook, Twitter, Send } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, MessageSquare, MapPin, Instagram, Facebook, Twitter, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useContacts } from '../hooks/useContacts';
+
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+
+interface FormData {
+  nombre: string;
+  email: string;
+  asunto: string;
+  mensaje: string;
+}
 
 const Contact: React.FC = () => {
   const { t } = useLanguage();
+  const { addContact } = useContacts({ autoFetch: false });
+
+  const [formData, setFormData] = useState<FormData>({
+    nombre: '',
+    email: '',
+    asunto: '',
+    mensaje: ''
+  });
+
+  const [status, setStatus] = useState<FormStatus>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const validateForm = (): boolean => {
+    if (!formData.nombre.trim()) {
+      setErrorMessage('Por favor ingresa tu nombre');
+      return false;
+    }
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setErrorMessage('Por favor ingresa un email válido');
+      return false;
+    }
+    if (!formData.asunto) {
+      setErrorMessage('Por favor selecciona un asunto');
+      return false;
+    }
+    if (!formData.mensaje.trim()) {
+      setErrorMessage('Por favor escribe tu mensaje');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage('');
+
+    if (!validateForm()) {
+      setStatus('error');
+      return;
+    }
+
+    setStatus('loading');
+
+    const { success, error } = await addContact(formData);
+
+    if (success) {
+      setStatus('success');
+      setFormData({ nombre: '', email: '', asunto: '', mensaje: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } else {
+      setStatus('error');
+      setErrorMessage(error || 'Error al enviar el mensaje');
+    }
+  };
 
   return (
     <section id="contacto" className="py-32 bg-black relative border-t border-white/10 overflow-hidden">
@@ -19,34 +88,89 @@ const Contact: React.FC = () => {
             <h2 className="text-4xl font-bold text-white mb-2 font-display tracking-wider">{t.contact.form_title}</h2>
             <p className="text-gray-500 mb-8 font-mono text-sm">{t.contact.form_subtitle}</p>
             
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {/* Success Message */}
+              {status === 'success' && (
+                <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-center gap-3 text-green-400">
+                  <CheckCircle size={20} />
+                  <span>Mensaje enviado exitosamente. Nos pondremos en contacto pronto.</span>
+                </div>
+              )}
+
+              {/* Error Message */}
+              {status === 'error' && errorMessage && (
+                <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center gap-3 text-red-400">
+                  <AlertCircle size={20} />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2 group">
                    <label className="text-xs text-brand-cyan uppercase font-bold tracking-wider group-focus-within:text-white transition-colors">{t.contact.labels.name}</label>
-                   <input type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all font-mono" placeholder={t.contact.placeholders.name} />
+                   <input
+                     type="text"
+                     name="nombre"
+                     value={formData.nombre}
+                     onChange={handleChange}
+                     className="w-full bg-black/50 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all font-mono"
+                     placeholder={t.contact.placeholders.name}
+                   />
                 </div>
                 <div className="space-y-2 group">
                    <label className="text-xs text-brand-cyan uppercase font-bold tracking-wider group-focus-within:text-white transition-colors">{t.contact.labels.email}</label>
-                   <input type="email" className="w-full bg-black/50 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all font-mono" placeholder={t.contact.placeholders.email} />
+                   <input
+                     type="email"
+                     name="email"
+                     value={formData.email}
+                     onChange={handleChange}
+                     className="w-full bg-black/50 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all font-mono"
+                     placeholder={t.contact.placeholders.email}
+                   />
                 </div>
               </div>
-              
+
               <div className="space-y-2 group">
                    <label className="text-xs text-brand-cyan uppercase font-bold tracking-wider group-focus-within:text-white transition-colors">{t.contact.labels.subject}</label>
-                   <select className="w-full bg-black/50 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all appearance-none font-mono">
+                   <select
+                     name="asunto"
+                     value={formData.asunto}
+                     onChange={handleChange}
+                     className="w-full bg-black/50 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all appearance-none font-mono"
+                   >
+                      <option value="">Selecciona un asunto</option>
                       {t.contact.options.map((option: string, i: number) => (
-                         <option key={i}>{option}</option>
+                         <option key={i} value={option}>{option}</option>
                       ))}
                    </select>
               </div>
 
               <div className="space-y-2 group">
                    <label className="text-xs text-brand-cyan uppercase font-bold tracking-wider group-focus-within:text-white transition-colors">{t.contact.labels.message}</label>
-                   <textarea rows={5} className="w-full bg-black/50 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all font-mono" placeholder={t.contact.placeholders.message}></textarea>
+                   <textarea
+                     rows={5}
+                     name="mensaje"
+                     value={formData.mensaje}
+                     onChange={handleChange}
+                     className="w-full bg-black/50 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all font-mono"
+                     placeholder={t.contact.placeholders.message}
+                   ></textarea>
               </div>
 
-              <button className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-brand-cyan transition-colors flex items-center justify-center gap-2 font-display tracking-widest uppercase">
-                <Send size={18} /> {t.contact.btn_send}
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-brand-cyan transition-colors flex items-center justify-center gap-2 font-display tracking-widest uppercase disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {status === 'loading' ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" /> Enviando...
+                  </>
+                ) : (
+                  <>
+                    <Send size={18} /> {t.contact.btn_send}
+                  </>
+                )}
               </button>
             </form>
           </div>

@@ -79,7 +79,7 @@ const Programs: React.FC = () => {
                                     
                                     <div className="flex items-center gap-3 text-gray-500 text-sm font-mono">
                                         <Clock size={16} className="text-brand-orange" />
-                                        <span>DEADLINE: <span className="text-gray-300 border-b border-gray-600 pb-0.5">{t.programs.deadline}</span></span>
+                                        <span className="text-gray-300">{t.programs.deadline}</span>
                                     </div>
                                 </div>
                             </motion.div>
