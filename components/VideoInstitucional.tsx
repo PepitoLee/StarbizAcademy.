@@ -172,7 +172,7 @@ const VideoInstitucional: React.FC = () => {
               <AnimatePresence>
                 {showOverlay && (
                   <motion.div
-                    className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center cursor-pointer z-20"
+                    className="absolute inset-0 bg-black/30 flex items-center justify-center cursor-pointer z-20"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
