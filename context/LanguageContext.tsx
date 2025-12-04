@@ -30,7 +30,7 @@ const translations = {
       description: "\"Formamos a la nueva generación de líderes y empresarios digitales hispanos, con el carácter y la visión para dominar la era de la IA.\"",
       cta_primary: "UNIRSE AHORA",
       cta_secondary: "VER VIDEO",
-      cta_programs: "VER PROGRAMAS",
+      cta_programs: "Ver Comunidad",
       scroll: "Explorar Sistema"
     },
     about: {
@@ -237,7 +237,7 @@ const translations = {
       description: "\"Training the new generation of Hispanic digital leaders and entrepreneurs, with the character and vision to master the AI era.\"",
       cta_primary: "JOIN NOW",
       cta_secondary: "WATCH VIDEO",
-      cta_programs: "VIEW PROGRAMS",
+      cta_programs: "View Community",
       scroll: "Explore System"
     },
     about: {
