@@ -81,7 +81,7 @@ const translations = {
       deadline: "Inscripciones Cierran 15 de Diciembre 2025 - Inicio 05 Enero 2026",
       summer: {
         title: "VERANO 2026",
-        subtitle: "45 DÍAS PARA DESPERTAR SU POTENCIAL",
+        subtitle: "La comunidad de adolescentes empresarios más grande del mundo",
         desc: "Convierte a tu hijo en un líder con mentalidad CEO (Inglés • Tecnología • Negocios • Mentalidad)",
         features: ["Inglés Profesional Avanzado", "Desarrollo Web y Apps", "Mentalidad de Éxito", "Visión Empresarial Global"],
         cta: "VER DETALLES"
@@ -284,7 +284,7 @@ const translations = {
       deadline: "Registration Closes Dec 15, 2025 - Starts Jan 5, 2026",
       summer: {
         title: "SUMMER 2026",
-        subtitle: "45 DAYS TO AWAKEN THEIR POTENTIAL",
+        subtitle: "The world's largest community of teen entrepreneurs",
         desc: "Transform your child into a leader with a CEO mindset (English • Technology • Business • Mindset)",
         features: ["Advanced Business English", "Web & App Development", "Success Mindset", "Global Business Vision"],
         cta: "VIEW DETAILS"
