@@ -154,66 +154,6 @@ const Programs: React.FC = () => {
             </div>
         </div>
 
-        {/* SECTION 2: CEO JUNIOR (Clean Minimal) */}
-        <div className="relative w-full py-32 bg-[#050510] border-t border-white/5">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid lg:grid-cols-12 gap-12 items-center">
-                    <div className="lg:col-span-7">
-                        <div className="flex items-center gap-4 mb-6">
-                           <span className="text-brand-cyan text-6xl font-display font-bold">CEO</span>
-                           <span className="text-white/20 text-6xl font-display font-bold">JR</span>
-                        </div>
-                        <span className="block text-brand-cyan font-mono text-sm uppercase tracking-[0.2em] mb-6">
-                            {t.programs.ceo.badge}
-                        </span>
-                        <h3 className="text-4xl font-bold text-white mb-6">
-                            {t.programs.ceo.title}
-                        </h3>
-                        <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                            {t.programs.ceo.desc}
-                        </p>
-                        
-                        <div className="p-6 border-l-2 border-brand-cyan bg-brand-cyan/5 mb-10">
-                            <p className="text-brand-cyan font-bold text-lg mb-1">{t.programs.ceo.highlight}</p>
-                            <p className="text-gray-500 text-sm">Utah, USA Exchange Eligibility Verified.</p>
-                        </div>
-
-                        <div className="grid sm:grid-cols-2 gap-8 mb-10">
-                            <div>
-                                <h4 className="text-white font-bold mb-2">{t.programs.ceo.f1_title}</h4>
-                                <p className="text-sm text-gray-500">{t.programs.ceo.f1_desc}</p>
-                            </div>
-                            <div>
-                                <h4 className="text-white font-bold mb-2">{t.programs.ceo.f2_title}</h4>
-                                <p className="text-sm text-gray-500">{t.programs.ceo.f2_desc}</p>
-                            </div>
-                        </div>
-
-                        <a href="#contacto" className="group inline-flex items-center gap-2 text-white font-bold text-lg border-b border-brand-cyan pb-1 hover:text-brand-cyan transition-colors">
-                            {t.programs.ceo.cta} <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                        </a>
-                    </div>
-
-                    <div className="lg:col-span-5 relative h-[300px] lg:h-[500px] block w-full order-first lg:order-last mb-8 lg:mb-0 group overflow-hidden rounded-2xl border border-white/10 shadow-2xl will-change-transform">
-                        {/* Image Background */}
-                        <img 
-                            src="/images/ceo-junior.png" 
-                            alt="CEO Junior Vision" 
-                            loading="lazy"
-                            decoding="async"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        
-                        {/* Gradient Overlay for Mood */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#050510] via-transparent to-transparent opacity-80"></div>
-                        <div className="absolute inset-0 bg-brand-cyan/10 mix-blend-overlay"></div>
-
-                        {/* Decorative Elements (kept for style) */}
-                        <div className="absolute bottom-8 right-8 text-8xl font-display font-bold text-white/10 z-10">JR</div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
   );
 };
