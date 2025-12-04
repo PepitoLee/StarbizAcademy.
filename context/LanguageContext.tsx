@@ -87,7 +87,7 @@ const translations = {
         cta: "ÚNETE"
       },
       ceo: {
-        badge: "Programa Insignia",
+        badge: "Comunidad Insignia",
         title: "CEO JUNIOR",
         desc: "La Inmersión Total. El adolescente no solo aprende, sino que aplica la metodología para diseñar, lanzar y escalar un proyecto digital real.",
         highlight: "Incluye elegibilidad para el Programa de Intercambio en EE. UU.",
@@ -102,7 +102,7 @@ const translations = {
       pretitle: "Ecosistema Starbiz",
       title: "COMUNIDADES",
       ceojr: {
-        badge: "Programa Insignia",
+        badge: "Comunidad Insignia",
         title: "CEO JUNIOR",
         desc: "La Inmersión Total. El adolescente no solo aprende, sino que aplica la metodología para diseñar, lanzar y escalar un proyecto digital real.",
         highlight: "Incluye elegibilidad para el Programa de Intercambio en EE. UU.",
@@ -294,7 +294,7 @@ const translations = {
         cta: "JOIN"
       },
       ceo: {
-        badge: "Flagship Program",
+        badge: "Flagship Community",
         title: "JUNIOR CEO",
         desc: "Total Immersion. The teen not only learns but applies the methodology to design, launch, and scale a real digital project.",
         highlight: "Includes eligibility for Exchange Program in the USA.",
@@ -309,7 +309,7 @@ const translations = {
       pretitle: "Starbiz Ecosystem",
       title: "COMMUNITIES",
       ceojr: {
-        badge: "Flagship Program",
+        badge: "Flagship Community",
         title: "CEO JUNIOR",
         desc: "Total Immersion. The teenager not only learns but applies the methodology to design, launch, and scale a real digital project.",
         highlight: "Includes eligibility for the U.S. Exchange Program.",
