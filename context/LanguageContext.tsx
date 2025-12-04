@@ -78,7 +78,7 @@ const translations = {
     programs: {
       title: "PROGRAMAS ELITE",
       urgent: "Jóvenes empresarios",
-      deadline: "Inscripciones Cierran 15 de Diciembre 2025 - Inicio 05 Enero 2026",
+      deadline: "Inscripciones 15 de diciembre - Inicio 5 de enero",
       summer: {
         title: "VERANO 2026",
         subtitle: "La comunidad de adolescentes empresarios más grande del mundo",
@@ -281,7 +281,7 @@ const translations = {
     programs: {
       title: "ELITE PROGRAMS",
       urgent: "Young entrepreneurs",
-      deadline: "Registration Closes Dec 15, 2025 - Starts Jan 5, 2026",
+      deadline: "Registration Dec 15 - Starts Jan 5",
       summer: {
         title: "SUMMER 2026",
         subtitle: "The world's largest community of teen entrepreneurs",
