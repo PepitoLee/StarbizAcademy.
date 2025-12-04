@@ -53,7 +53,7 @@ const Programs: React.FC = () => {
                                 </div>
 
                                 <h2 className="text-5xl md:text-7xl font-bold text-white font-display mb-4 tracking-tight">
-                                    VERANO <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-yellow">2026</span>
+                                    CEO JUNIOR <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-yellow">2026</span>
                                 </h2>
                                 
                                 <p className="text-2xl text-white/80 font-light mb-8 border-l-2 border-brand-orange/50 pl-6 italic">
