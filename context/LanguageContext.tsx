@@ -99,14 +99,18 @@ const translations = {
       }
     },
     ecosystem: {
-      pretitle: "Ecosistema Stareduca",
+      pretitle: "Ecosistema Starbiz",
       title: "COMUNIDADES",
-      stareduca: {
-        title: "STAREDUCA",
-        subtitle: "Jóvenes Empresarios",
-        desc: "¡Acceso Gratuito! La Plataforma Educativa Oficial. Un espacio de alto rendimiento donde el joven se forma en las 7 Inteligencias.",
-        features: ["Foros Privados con Mentores", "Retos Semanales Prácticos", "Masterclass Mensuales", "Espacio de Ideas de Negocio"],
-        cta: "UNIRSE GRATIS"
+      ceojr: {
+        badge: "Programa Insignia",
+        title: "CEO JUNIOR",
+        desc: "La Inmersión Total. El adolescente no solo aprende, sino que aplica la metodología para diseñar, lanzar y escalar un proyecto digital real.",
+        highlight: "Incluye elegibilidad para el Programa de Intercambio en EE. UU.",
+        f1_title: "Focus IA",
+        f1_desc: "Automatización y creación de contenido avanzado.",
+        f2_title: "Focus Finanzas",
+        f2_desc: "Modelos de negocio y primeros ingresos.",
+        cta: "VER DETALLES COMPLETOS"
       },
       parents: {
         title: "PADRES 3.0",
@@ -302,14 +306,18 @@ const translations = {
       }
     },
     ecosystem: {
-      pretitle: "Stareduca Ecosystem",
+      pretitle: "Starbiz Ecosystem",
       title: "COMMUNITIES",
-      stareduca: {
-        title: "STAREDUCA",
-        subtitle: "Young Entrepreneurs",
-        desc: "Free Access! The Official Educational Platform. A high-performance space where youth are trained in the 7 Intelligences.",
-        features: ["Private Mentor Forums", "Weekly Practical Challenges", "Monthly Masterclasses", "Business Idea Space"],
-        cta: "JOIN FREE"
+      ceojr: {
+        badge: "Flagship Program",
+        title: "CEO JUNIOR",
+        desc: "Total Immersion. The teenager not only learns but applies the methodology to design, launch, and scale a real digital project.",
+        highlight: "Includes eligibility for the U.S. Exchange Program.",
+        f1_title: "AI Focus",
+        f1_desc: "Automation and advanced content creation.",
+        f2_title: "Finance Focus",
+        f2_desc: "Business models and first income.",
+        cta: "VIEW FULL DETAILS"
       },
       parents: {
         title: "PARENTS 3.0",

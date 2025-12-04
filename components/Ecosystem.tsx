@@ -23,44 +23,50 @@ const Ecosystem: React.FC = () => {
           <h2 className="text-5xl md:text-7xl font-bold text-white mt-4 font-display">{t.ecosystem.title}</h2>
       </div>
 
-      {/* Community 1: Stareduca (Full Width) */}
+      {/* Community 1: CEO Junior (Full Width) */}
       <section className="relative py-24 md:py-32 border-y border-white/5 overflow-hidden backdrop-blur-sm bg-black/20">
          <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-cyan/5 skew-x-12 pointer-events-none"></div>
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-16 items-center">
-               <div className="flex-1">
-                  <div className="w-16 h-16 rounded-2xl bg-brand-cyan text-black flex items-center justify-center mb-8">
-                     <Users size={32} />
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
+               <div className="lg:col-span-7">
+                  <div className="flex items-center gap-4 mb-6">
+                     <span className="text-brand-cyan text-6xl font-display font-bold">CEO</span>
+                     <span className="text-white/20 text-6xl font-display font-bold">JR</span>
                   </div>
-                  <h3 className="text-4xl md:text-5xl font-bold text-white font-display mb-2">{t.ecosystem.stareduca.title}</h3>
-                  <p className="text-brand-cyan font-mono text-sm uppercase tracking-widest mb-6">{t.ecosystem.stareduca.subtitle}</p>
-                  <p className="text-gray-400 text-xl leading-relaxed mb-8">
-                     {t.ecosystem.stareduca.desc}
+                  <span className="block text-brand-cyan font-mono text-sm uppercase tracking-[0.2em] mb-6">{t.ecosystem.ceojr.badge}</span>
+                  <h3 className="text-4xl font-bold text-white mb-6">{t.ecosystem.ceojr.title}</h3>
+                  <p className="text-xl text-gray-400 mb-8 leading-relaxed">
+                     {t.ecosystem.ceojr.desc}
                   </p>
-                  <ul className="space-y-3 mb-10">
-                     {t.ecosystem.stareduca.features.map((f: string, i: number) => (
-                        <li key={i} className="flex items-center gap-3 text-gray-300">
-                           <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full"></span> {f}
-                        </li>
-                     ))}
-                  </ul>
-                  <a href="#contacto" className="text-white border-b border-brand-cyan pb-1 hover:text-brand-cyan transition-colors font-bold uppercase tracking-wide">
-                     {t.ecosystem.stareduca.cta}
+                  <div className="p-6 border-l-2 border-brand-cyan bg-brand-cyan/5 mb-10 rounded-r-xl">
+                     <p className="text-brand-cyan font-bold text-lg mb-1">{t.ecosystem.ceojr.highlight}</p>
+                     <p className="text-gray-500 text-sm">Utah, USA Exchange Eligibility Verified.</p>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-8 mb-10">
+                     <div>
+                        <h4 className="text-white font-bold mb-2">{t.ecosystem.ceojr.f1_title}</h4>
+                        <p className="text-sm text-gray-500">{t.ecosystem.ceojr.f1_desc}</p>
+                     </div>
+                     <div>
+                        <h4 className="text-white font-bold mb-2">{t.ecosystem.ceojr.f2_title}</h4>
+                        <p className="text-sm text-gray-500">{t.ecosystem.ceojr.f2_desc}</p>
+                     </div>
+                  </div>
+                  <a href="#contacto" className="group inline-flex items-center gap-2 text-white font-bold text-lg border-b border-brand-cyan pb-1 hover:text-brand-cyan transition-colors">
+                     {t.ecosystem.ceojr.cta} <ArrowRight className="group-hover:translate-x-2 transition-transform" />
                   </a>
                </div>
-               <div className="flex-1 w-full md:w-auto relative group perspective-1000">
-                   <div className="relative w-full aspect-video md:aspect-square max-w-[500px] mx-auto transform transition-transform duration-700 group-hover:rotate-y-12 group-hover:rotate-x-6 will-change-transform">
-                      <div className="absolute inset-0 bg-brand-cyan/20 blur-3xl rounded-full opacity-40 group-hover:opacity-60 transition-opacity"></div>
-                      <img 
-                        src="/images/stareduca-community.png" 
-                        alt="Comunidad StarEduca" 
-                        loading="lazy"
-                        decoding="async"
-                        className="relative z-10 w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl shadow-brand-cyan/20 group-hover:shadow-brand-cyan/40 transition-all duration-500"
-                      />
-                      {/* Overlay Glint */}
-                      <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 rounded-3xl pointer-events-none mix-blend-overlay"></div>
-                   </div>
+               <div className="lg:col-span-5 relative h-[300px] lg:h-[500px] block w-full order-first lg:order-last mb-8 lg:mb-0 group overflow-hidden rounded-2xl border border-white/10 shadow-2xl will-change-transform">
+                  <img
+                     src="/images/ceo-junior.png"
+                     alt="CEO Junior Vision"
+                     loading="lazy"
+                     decoding="async"
+                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050510] via-transparent to-transparent opacity-80"></div>
+                  <div className="absolute inset-0 bg-brand-cyan/10 mix-blend-overlay"></div>
+                  <div className="absolute bottom-8 right-8 text-8xl font-display font-bold text-white/10 z-10">JR</div>
                </div>
             </div>
          </div>
