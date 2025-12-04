@@ -16,7 +16,7 @@ const Programs: React.FC = () => {
         {/* Section Header */}
         <div className="bg-transparent pt-32 pb-10 text-center px-4 relative z-10">
             <span className="text-gray-500 uppercase tracking-[0.3em] text-sm font-bold">// STARBIZ ACADEMY</span>
-            <h2 className="text-5xl md:text-7xl font-bold text-white mt-4 font-display">PROGRAMAS</h2>
+            <h2 className="text-5xl md:text-7xl font-bold text-white mt-4 font-display">COMUNIDAD</h2>
         </div>
 
         {/* SECTION 1: SUMMER 2026 - "THE GOLDEN ECLIPSE" DESIGN */}

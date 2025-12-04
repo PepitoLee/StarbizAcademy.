@@ -76,7 +76,7 @@ const translations = {
       ]
     },
     programs: {
-      title: "PROGRAMAS ELITE",
+      title: "COMUNIDAD ELITE",
       urgent: "Jóvenes empresarios",
       deadline: "Inscripciones 15 de diciembre - Inicio 5 de enero",
       summer: {
@@ -283,7 +283,7 @@ const translations = {
       ]
     },
     programs: {
-      title: "ELITE PROGRAMS",
+      title: "ELITE COMMUNITY",
       urgent: "Young entrepreneurs",
       deadline: "Registration Dec 15 - Starts Jan 5",
       summer: {
