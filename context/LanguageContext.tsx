@@ -16,7 +16,7 @@ const translations = {
     navbar: {
       home: "Inicio",
       about: "Quiénes Somos",
-      intelligence: "7 Inteligencias",
+      intelligence: "Metodología",
       programs: "Programas",
       cta: "ÚNETE GRATIS"
     },
@@ -219,7 +219,7 @@ const translations = {
     navbar: {
       home: "Home",
       about: "About Us",
-      intelligence: "7 Intelligences",
+      intelligence: "Methodology",
       programs: "Programs",
       cta: "JOIN FREE"
     },
