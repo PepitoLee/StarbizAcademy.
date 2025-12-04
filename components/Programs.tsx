@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'framer-motion';
 
 const Programs: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <section id="programas" className="bg-[#020205] relative overflow-hidden">
@@ -127,7 +127,15 @@ const Programs: React.FC = () => {
                                        </motion.div>
                                    ))}
                                 </div>
-                                
+
+                                {/* Exchange Program Eligibility */}
+                                <div className="p-6 border-l-2 border-brand-cyan bg-brand-cyan/5 mt-8 rounded-r-xl">
+                                    <p className="text-brand-cyan font-bold text-lg mb-1">
+                                        {language === 'es' ? 'Incluye elegibilidad para el Programa de Intercambio en EE. UU.' : 'Includes eligibility for the U.S. Exchange Program'}
+                                    </p>
+                                    <p className="text-gray-500 text-sm">Utah, USA Exchange Eligibility Verified.</p>
+                                </div>
+
                                 <div className="mt-8 pt-8 border-t border-white/5 flex justify-between items-center text-xs font-mono text-gray-600 uppercase tracking-widest">
                                     <span>Slots: Limited</span>
                                     <span>Batch: #2026_ALPHA</span>
