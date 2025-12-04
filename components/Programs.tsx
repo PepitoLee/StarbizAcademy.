@@ -129,11 +129,17 @@ const Programs: React.FC = () => {
                                 </div>
 
                                 {/* Exchange Program Eligibility */}
-                                <div className="p-6 border-l-2 border-brand-cyan bg-brand-cyan/5 mt-8 rounded-r-xl">
-                                    <p className="text-brand-cyan font-bold text-lg mb-1">
-                                        {language === 'es' ? 'Incluye elegibilidad para el Programa de Intercambio en EE. UU.' : 'Includes eligibility for the U.S. Exchange Program'}
-                                    </p>
-                                    <p className="text-gray-500 text-sm">Utah, USA Exchange Eligibility Verified.</p>
+                                <div className="group flex items-center justify-between p-4 rounded-xl bg-[#050508] border border-brand-cyan/30 hover:border-brand-cyan/50 transition-colors mt-4">
+                                    <div className="flex items-center gap-3 text-gray-300 group-hover:text-white transition-colors">
+                                        <CheckCircle2 size={16} className="text-brand-cyan group-hover:text-brand-cyan transition-colors" />
+                                        <span className="text-sm font-medium">
+                                            {language === 'es' ? 'Incluye elegibilidad para el Programa de Intercambio en EE. UU.' : 'Includes eligibility for the U.S. Exchange Program'}
+                                        </span>
+                                    </div>
+                                    <div className="flex gap-1">
+                                        <div className="w-1 h-1 rounded-full bg-brand-cyan/30 group-hover:bg-brand-cyan transition-colors"></div>
+                                        <div className="w-1 h-1 rounded-full bg-white/10"></div>
+                                    </div>
                                 </div>
 
                                 <div className="mt-8 pt-8 border-t border-white/5 flex justify-between items-center text-xs font-mono text-gray-600 uppercase tracking-widest">
