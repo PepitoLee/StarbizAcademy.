@@ -48,7 +48,7 @@ const Programs: React.FC = () => {
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-orange"></span>
                                     </span>
                                     <span className="text-brand-orange font-mono text-xs font-bold uppercase tracking-[0.2em]">
-                                        {t.programs.urgent} // PROTOCOL_INIT
+                                        {t.programs.urgent}
                                     </span>
                                 </div>
 

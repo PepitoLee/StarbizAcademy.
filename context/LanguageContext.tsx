@@ -77,7 +77,7 @@ const translations = {
     },
     programs: {
       title: "PROGRAMAS ELITE",
-      urgent: "¡URGENTE!",
+      urgent: "Jóvenes empresarios",
       deadline: "Inscripciones Cierran 15 de Diciembre 2025 - Inicio 05 Enero 2026",
       summer: {
         title: "VERANO 2026",
@@ -280,7 +280,7 @@ const translations = {
     },
     programs: {
       title: "ELITE PROGRAMS",
-      urgent: "URGENT!",
+      urgent: "Young entrepreneurs",
       deadline: "Registration Closes Dec 15, 2025 - Starts Jan 5, 2026",
       summer: {
         title: "SUMMER 2026",
