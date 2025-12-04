@@ -185,7 +185,7 @@ const translations = {
       title: "CONOCE NUESTRA VISIÓN",
       subtitle: "Descubre cómo estamos transformando el futuro de la educación empresarial hispana",
       playText: "Click para reproducir",
-      cta: "Explorar Programas"
+      cta: "Explorar Comunidad"
     },
     contact: {
       form_title: "CONÉCTATE DIRECTAMENTE",
@@ -392,7 +392,7 @@ const translations = {
       title: "DISCOVER OUR VISION",
       subtitle: "Learn how we are transforming the future of Hispanic entrepreneurial education",
       playText: "Click to play",
-      cta: "Explore Programs"
+      cta: "Explore Community"
     },
     contact: {
       form_title: "CONNECT DIRECTLY",
