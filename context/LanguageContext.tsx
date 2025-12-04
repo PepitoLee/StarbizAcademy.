@@ -84,7 +84,7 @@ const translations = {
         subtitle: "La comunidad de adolescentes empresarios más grande del mundo",
         desc: "Convierte a tu hijo en un líder con mentalidad CEO (Inglés • Tecnología • Negocios • Mentalidad)",
         features: ["Inglés Profesional Avanzado", "Desarrollo Web y Apps", "Mentalidad de Éxito", "Visión Empresarial Global"],
-        cta: "VER DETALLES"
+        cta: "ÚNETE"
       },
       ceo: {
         badge: "Programa Insignia",
@@ -287,7 +287,7 @@ const translations = {
         subtitle: "The world's largest community of teen entrepreneurs",
         desc: "Transform your child into a leader with a CEO mindset (English • Technology • Business • Mindset)",
         features: ["Advanced Business English", "Web & App Development", "Success Mindset", "Global Business Vision"],
-        cta: "VIEW DETAILS"
+        cta: "JOIN"
       },
       ceo: {
         badge: "Flagship Program",
