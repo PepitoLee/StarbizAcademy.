@@ -52,7 +52,7 @@ const Ecosystem: React.FC = () => {
                         <p className="text-sm text-gray-500">{t.ecosystem.ceojr.f2_desc}</p>
                      </div>
                   </div>
-                  <a href="#contacto" className="group inline-flex items-center gap-2 text-white font-bold text-lg border-b border-brand-cyan pb-1 hover:text-brand-cyan transition-colors">
+                  <a href="https://landingnueva-three.vercel.app/" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 text-white font-bold text-lg border-b border-brand-cyan pb-1 hover:text-brand-cyan transition-colors">
                      {t.ecosystem.ceojr.cta} <ArrowRight className="group-hover:translate-x-2 transition-transform" />
                   </a>
                </div>
