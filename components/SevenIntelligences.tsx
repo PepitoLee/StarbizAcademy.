@@ -86,7 +86,7 @@ const SevenIntelligences: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-20">
           <h2 className="text-4xl md:text-7xl font-bold text-white font-display tracking-wide uppercase drop-shadow-[0_0_25px_rgba(255,255,255,0.2)]">
-            METODOLOGÍA: <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">GÉNESIS 7</span><span className="font-calligraphy text-[1.4em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case">i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>
+            METODOLOGÍA: <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">GÉNESIS 7</span><span className="italic font-serif text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case">i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>
             <span className="block text-2xl md:text-4xl mt-2 text-brand-yellow font-bold tracking-[0.1em]">
               7 Inteligencias, Mil Oportunidades
             </span>
@@ -192,7 +192,7 @@ const SevenIntelligences: React.FC = () => {
                 Conoce más sobre nuestra metodología
               </h3>
               <p className="text-gray-400 text-sm mb-6 max-w-md mx-auto">
-                Descubre GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold">7</span><span className="font-calligraphy text-[1.4em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold normal-case">i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold">™</span>, el sistema integral que transforma adolescentes y familias.
+                Descubre GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold">7</span><span className="italic font-serif text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold normal-case">i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold">™</span>, el sistema integral que transforma adolescentes y familias.
               </p>
 
               <button
@@ -244,7 +244,7 @@ const SevenIntelligences: React.FC = () => {
                 <div className="text-center">
                   <span className="text-brand-cyan font-mono text-xs uppercase tracking-[0.3em] mb-2 block">Metodología Exclusiva</span>
                   <h2 className="text-4xl md:text-5xl font-bold font-display mb-2">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">GÉNESIS 7</span><span className="font-calligraphy text-[1.4em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case">i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">GÉNESIS 7</span><span className="italic font-serif text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case">i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>
                   </h2>
                   <p className="text-xl text-brand-yellow font-light italic">"7 Inteligencias, Mil Oportunidades"</p>
                   <p className="text-gray-500 text-sm mt-3">Creado por Jimy Henry Orellana Domínguez • Utah, EE.UU. • 2025</p>
@@ -258,7 +258,7 @@ const SevenIntelligences: React.FC = () => {
                 <div>
                   <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
                     <Target size={20} className="text-brand-cyan" />
-                    ¿Qué es GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="font-calligraphy text-[1.4em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case">i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>?
+                    ¿Qué es GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="italic font-serif text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case">i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>?
                   </h3>
                   <p className="text-gray-400 leading-relaxed">
                     Una metodología educativa integral diseñada para transformar la vida de adolescentes y sus familias en la era digital.
