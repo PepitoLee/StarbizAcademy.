@@ -74,8 +74,8 @@ const Hero: React.FC = () => {
             
             <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
               {/* SUPER CTA: PROGRAMS */}
-              <a 
-                href="#programas" 
+              <a
+                href="#comunidades"
                 className="group relative px-10 py-5 bg-transparent overflow-hidden rounded-xl text-white font-bold font-display tracking-widest text-lg shadow-[0_0_30px_rgba(255,107,0,0.6)] hover:shadow-[0_0_60px_rgba(255,107,0,0.8)] transition-all hover:scale-105"
               >
                 {/* Animated Gradient Background */}

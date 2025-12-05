@@ -283,7 +283,7 @@ const VideoInstitucional: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <a
-            href="#programas"
+            href="#comunidades"
             className="inline-flex items-center gap-3 px-8 py-4 bg-transparent border-2 border-white/20 rounded-full text-white font-bold uppercase tracking-wider hover:bg-white/5 hover:border-brand-cyan transition-all group"
           >
             <span>{t.video?.cta || 'Explorar Programas'}</span>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Users, Sparkles, Smartphone, ArrowRight, X } from 'lucide-react';
+import { Users, Sparkles, Smartphone, ArrowRight, X, CheckCircle, Clock, Globe } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Ecosystem: React.FC = () => {
@@ -29,19 +29,38 @@ const Ecosystem: React.FC = () => {
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid lg:grid-cols-12 gap-12 items-center">
                <div className="lg:col-span-7">
-                  <div className="flex items-center gap-4 mb-6">
-                     <span className="text-brand-cyan text-6xl font-display font-bold">CEO</span>
-                     <span className="text-white/20 text-6xl font-display font-bold">JR</span>
+                  {/* Badge Urgente */}
+                  <div className="inline-flex items-center gap-2 mb-4">
+                     <span className="flex h-2 w-2 relative">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-cyan"></span>
+                     </span>
+                     <span className="text-brand-cyan font-mono text-xs font-bold uppercase tracking-[0.2em]">
+                        {t.ecosystem.ceojr.urgent}
+                     </span>
                   </div>
-                  <span className="block text-brand-cyan font-mono text-sm uppercase tracking-[0.2em] mb-6">{t.ecosystem.ceojr.badge}</span>
-                  <h3 className="text-4xl font-bold text-white mb-6">{t.ecosystem.ceojr.title}</h3>
-                  <p className="text-xl text-gray-400 mb-8 leading-relaxed">
+
+                  {/* Título con año */}
+                  <h3 className="text-5xl md:text-6xl font-bold text-white font-display mb-4 tracking-tight">
+                     CEO JUNIOR <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">2026</span>
+                  </h3>
+
+                  {/* Subtítulo */}
+                  <p className="text-xl text-white/80 font-light mb-6 border-l-2 border-brand-cyan/50 pl-4 italic">
+                     {t.ecosystem.ceojr.subtitle}
+                  </p>
+
+                  {/* Descripción */}
+                  <p className="text-lg text-gray-400 mb-6 leading-relaxed">
                      {t.ecosystem.ceojr.desc}
                   </p>
-                  <div className="p-6 border-l-2 border-brand-cyan bg-brand-cyan/5 mb-10 rounded-r-xl">
-                     <p className="text-brand-cyan font-bold text-lg mb-1">{t.ecosystem.ceojr.highlight}</p>
-                     <p className="text-gray-500 text-sm">Utah, USA Exchange Eligibility Verified.</p>
+
+                  {/* Deadline */}
+                  <div className="flex items-center gap-3 text-sm font-mono mb-8">
+                     <Clock size={16} className="text-brand-cyan" />
+                     <span className="text-gray-300">{t.ecosystem.ceojr.deadline}</span>
                   </div>
+
                   <div className="grid sm:grid-cols-2 gap-8 mb-10">
                      <div>
                         <h4 className="text-white font-bold mb-2">{t.ecosystem.ceojr.f1_title}</h4>
@@ -52,8 +71,58 @@ const Ecosystem: React.FC = () => {
                         <p className="text-sm text-gray-500">{t.ecosystem.ceojr.f2_desc}</p>
                      </div>
                   </div>
-                  <a href="https://landingnueva-three.vercel.app/" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 text-white font-bold text-lg border-b border-brand-cyan pb-1 hover:text-brand-cyan transition-colors">
-                     {t.ecosystem.ceojr.cta} <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+
+                  {/* Modules Section */}
+                  <div className="mb-10">
+                     <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <Globe className="text-brand-cyan" size={20} />
+                        {t.ecosystem.ceojr.modules_title || 'Módulos del Programa'}
+                     </h4>
+                     <div className="grid grid-cols-2 gap-3">
+                        <div className="bg-[#050508] border border-white/5 rounded-xl p-4 flex items-start gap-3 hover:border-brand-cyan/30 transition-colors">
+                           <CheckCircle className="text-brand-cyan mt-0.5 flex-shrink-0" size={18} />
+                           <span className="text-gray-300 text-sm font-medium">{t.ecosystem.ceojr.mod1 || 'Inglés Profesional Avanzado'}</span>
+                        </div>
+                        <div className="bg-[#050508] border border-white/5 rounded-xl p-4 flex items-start gap-3 hover:border-brand-cyan/30 transition-colors">
+                           <CheckCircle className="text-brand-cyan mt-0.5 flex-shrink-0" size={18} />
+                           <span className="text-gray-300 text-sm font-medium">{t.ecosystem.ceojr.mod2 || 'Desarrollo Web y Apps'}</span>
+                        </div>
+                        <div className="bg-[#050508] border border-white/5 rounded-xl p-4 flex items-start gap-3 hover:border-brand-cyan/30 transition-colors">
+                           <CheckCircle className="text-brand-cyan mt-0.5 flex-shrink-0" size={18} />
+                           <span className="text-gray-300 text-sm font-medium">{t.ecosystem.ceojr.mod3 || 'Mentalidad de Éxito'}</span>
+                        </div>
+                        <div className="bg-[#050508] border border-white/5 rounded-xl p-4 flex items-start gap-3 hover:border-brand-cyan/30 transition-colors">
+                           <CheckCircle className="text-brand-cyan mt-0.5 flex-shrink-0" size={18} />
+                           <span className="text-gray-300 text-sm font-medium">{t.ecosystem.ceojr.mod4 || 'Visión Empresarial Global'}</span>
+                        </div>
+                     </div>
+
+                     {/* Exchange Program Highlight */}
+                     <div className="mt-4 bg-brand-cyan/10 border border-brand-cyan/30 rounded-xl p-4 flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-brand-cyan/20 flex items-center justify-center flex-shrink-0">
+                           <Sparkles className="text-brand-cyan" size={20} />
+                        </div>
+                        <div>
+                           <span className="text-brand-cyan font-bold text-sm">{t.ecosystem.ceojr.exchange_title || 'Elegibilidad para Intercambio'}</span>
+                           <p className="text-gray-400 text-xs mt-0.5">{t.ecosystem.ceojr.exchange_desc || 'Utah, USA • Experiencia inmersiva verificada'}</p>
+                        </div>
+                     </div>
+
+                     {/* Batch Info */}
+                     <div className="mt-4 flex items-center gap-4 text-xs text-gray-500">
+                        <span className="flex items-center gap-1">
+                           <Clock size={12} />
+                           {t.ecosystem.ceojr.slots || 'Cupos: Limitados'}
+                        </span>
+                        <span className="text-brand-cyan/60 font-mono">{t.ecosystem.ceojr.batch || 'Lote: #2026_ALPHA'}</span>
+                     </div>
+                  </div>
+
+                  <a href="https://landingnueva-three.vercel.app/" target="_blank" rel="noopener noreferrer" className="group relative inline-flex px-8 py-4 bg-brand-cyan text-black font-bold text-sm uppercase tracking-widest rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
+                     <span className="relative z-10 flex items-center gap-2">
+                        ÚNETE <ArrowRight size={16} />
+                     </span>
+                     <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                   </a>
                </div>
                <div className="lg:col-span-5 relative h-[300px] lg:h-[500px] block w-full order-first lg:order-last mb-8 lg:mb-0 group overflow-hidden rounded-2xl border border-white/10 shadow-2xl will-change-transform">
@@ -83,21 +152,23 @@ const Ecosystem: React.FC = () => {
                   </div>
                   <h3 className="text-4xl md:text-5xl font-bold text-white font-display mb-2">{t.ecosystem.parents.title}</h3>
                   <p className="text-brand-orange font-mono text-sm uppercase tracking-widest mb-6">{t.ecosystem.parents.subtitle}</p>
-                  <p className="text-gray-400 text-xl leading-relaxed mb-8">
+                  <p className="text-gray-400 text-xl leading-relaxed mb-6">
                      {t.ecosystem.parents.desc}
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
-                     <div>
-                        <h4 className="text-white font-bold mb-1">{t.ecosystem.parents.f1_title}</h4>
-                        <p className="text-sm text-gray-500">{t.ecosystem.parents.f1_desc}</p>
-                     </div>
-                     <div>
-                        <h4 className="text-white font-bold mb-1">{t.ecosystem.parents.f2_title}</h4>
-                        <p className="text-sm text-gray-500">{t.ecosystem.parents.f2_desc}</p>
-                     </div>
+
+                  {/* Community Call to Action */}
+                  <div className="bg-brand-orange/10 border border-brand-orange/30 rounded-xl p-6 mb-8">
+                     <p className="text-white text-lg font-bold mb-2">{t.ecosystem.parents.community_title}</p>
+                     <p className="text-gray-300 text-sm leading-relaxed">
+                        {t.ecosystem.parents.community_desc}
+                     </p>
                   </div>
-                  <a href="#contacto" className="text-white border-b border-brand-orange pb-1 hover:text-brand-orange transition-colors font-bold uppercase tracking-wide">
-                     {t.ecosystem.parents.cta}
+
+                  <a href="#contacto" className="group relative inline-flex px-8 py-4 bg-brand-orange text-black font-bold text-sm uppercase tracking-widest rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
+                     <span className="relative z-10 flex items-center gap-2">
+                        {t.ecosystem.parents.cta} <ArrowRight size={16} />
+                     </span>
+                     <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                   </a>
                </div>
                <div className="flex-1 w-full md:w-auto relative group perspective-1000">
