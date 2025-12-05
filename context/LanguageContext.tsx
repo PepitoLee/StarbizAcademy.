@@ -22,7 +22,7 @@ const translations = {
         ceojr: "CEO Junior",
         parents: "Padres 3.0"
       },
-      cta: "ÚNETE GRATIS"
+      cta: "CONTÁCTANOS"
     },
     hero: {
       tag: "Liderazgo Digital & IA",
@@ -233,7 +233,7 @@ const translations = {
         ceojr: "CEO Junior",
         parents: "Parents 3.0"
       },
-      cta: "JOIN FREE"
+      cta: "CONTACT US"
     },
     hero: {
       tag: "Digital Leadership & AI",
