@@ -31,7 +31,7 @@ const translations = {
         line2: "DE LA NUEVA",
         line3: "GENERACIÓN Z"
       },
-      description: "\"Formamos a la nueva generación de líderes y empresarios digitales hispanos, con el carácter y la visión para dominar la era de la IA.\"",
+      description: "\"Formamos a la nueva generación de líderes y empresarios digitales globales, con el carácter y la visión para dominar la era de la IA.\"",
       cta_primary: "UNIRSE AHORA",
       cta_secondary: "VER VIDEO",
       cta_programs: "Ver Comunidad",
@@ -40,7 +40,7 @@ const translations = {
     about: {
       title: "IDENTIDAD Y ORIGEN",
       main_title: "Descubre a Starbiz",
-      intro_desc: "Starbiz Academy es la PRIMERA academia en el mundo hispano en formar a jóvenes y adolescentes como empresarios digitales, fusionando el desarrollo personal, la tecnología a través de la Inteligencia Artificial, y los sólidos valores cristianos",
+      intro_desc: "Starbiz Academy es la PRIMERA academia en el mundo en formar a jóvenes y adolescentes como empresarios digitales, fusionando el desarrollo personal, la tecnología a través de la Inteligencia Artificial, y los sólidos valores cristianos",
       card1: {
         title: "El Origen: StarbizAcademy",
         desc: "Starbiz Academy no es solo una institución; es el resultado de la visión de su fundador, Henry Orellana. Tras años de experiencia, Henry identificó una desconexión: el sistema tradicional no prepara para la velocidad de la IA. Por eso nace Starbiz: donde el potencial brillante (Star) se convierte en ejecución empresarial (Biz).",
@@ -242,7 +242,7 @@ const translations = {
         line2: "OF THE NEW",
         line3: "GENERATION Z"
       },
-      description: "\"Training the new generation of Hispanic digital leaders and entrepreneurs, with the character and vision to master the AI era.\"",
+      description: "\"Training the new generation of global digital leaders and entrepreneurs, with the character and vision to master the AI era.\"",
       cta_primary: "JOIN NOW",
       cta_secondary: "WATCH VIDEO",
       cta_programs: "View Community",
@@ -251,7 +251,7 @@ const translations = {
     about: {
       title: "IDENTITY AND ORIGEN",
       main_title: "Discover Starbiz",
-      intro_desc: "Starbiz Academy is the FIRST academy in the Hispanic world to train youth and teenagers as digital entrepreneurs, merging personal development, technology through Artificial Intelligence, and solid Christian values.",
+      intro_desc: "Starbiz Academy is the FIRST academy in the world to train youth and teenagers as digital entrepreneurs, merging personal development, technology through Artificial Intelligence, and solid Christian values.",
       card1: {
         title: "The Origin: Henry Orellana",
         desc: "Starbiz Academy is the result of founder Henry Orellana's vision. Identifying a disconnect in traditional education regarding AI speed, Starbiz was born: where brilliant potential (Star) becomes business execution (Biz).",
