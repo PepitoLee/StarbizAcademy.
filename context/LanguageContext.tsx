@@ -69,6 +69,8 @@ const translations = {
     intelligences: {
       title: "LAS 7 INTELIGENCIAS",
       subtitle: "Nuestro mapa comprobado para forjar empresarios digitales con propósito. Mil Oportunidades™ para el éxito integral.",
+      section: "METODOLOGÍA",
+      description: "El mapa integral para formar adolescentes con propósito, carácter y mentalidad digital.",
       list: [
         { title: "Mental", subtitle: "Dominio Cognitivo", description: "Capacidad de análisis, pensamiento crítico y aprendizaje acelerado. La base neurocientífica para entender, procesar y usar la IA a tu favor." },
         { title: "Física", subtitle: "Energía y Vitalidad", description: "Hábitos de nutrición, ejercicio y sueño para optimizar la función cerebral. Sin un hardware biológico optimizado, no hay alto rendimiento." },
@@ -77,7 +79,12 @@ const translations = {
         { title: "Espiritual", subtitle: "Propósito y Ética", description: "Ancla moral en valores cristianos, visión a largo plazo e integridad. El liderazgo ético es el único que perdura en el tiempo." },
         { title: "Financiera", subtitle: "Creación de Riqueza", description: "Dominio de la administración, la inversión inteligente y la generación de flujos de ingresos. De consumidor a creador de capital." },
         { title: "Tecnológica", subtitle: "Dominio Digital & IA", description: "Uso estratégico de la Inteligencia Artificial como socio para automatizar, innovar y escalar negocios en el mercado global." }
-      ]
+      ],
+      learnMore: {
+        title: "Conoce más sobre nuestra metodología",
+        desc: "Descubre GÉNESIS 7i™, el sistema integral que transforma adolescentes y familias.",
+        cta: "DESCUBRIR"
+      }
     },
     programs: {
       title: "COMUNIDAD ELITE",
@@ -228,6 +235,218 @@ const translations = {
       info_phone: "WhatsApp Business",
       info_loc: "Sede Corporativa",
       loc_val: "Utah, Estados Unidos"
+    },
+    modal: {
+      header: {
+        tag: "Metodología Exclusiva",
+        title: "GÉNESIS 7i™",
+        tagline: "7 Inteligencias, Mil Oportunidades",
+        author: "Creado por Jimy Henry Orellana Domínguez • Utah, EE.UU. • 2025"
+      },
+      tabs: {
+        fundamentos: "Fundamentos",
+        inteligencias: "7 Inteligencias",
+        ecosistema: "Ecosistema"
+      },
+      fundamentos: {
+        intro: {
+          title: "¿Qué es GÉNESIS 7i™?",
+          p1: "Una metodología educativa integral diseñada para transformar la vida de adolescentes y sus familias en la era digital. Basada en el desarrollo articulado de siete inteligencias esenciales que activan el propósito personal, fortalecen la identidad espiritual y preparan a los jóvenes para enfrentar con éxito los desafíos del siglo XXI.",
+          p2: "GÉNESIS 7i™ es una metodología educativa integral que busca despertar y desarrollar en los adolescentes siete inteligencias fundamentales, cada una esencial para su éxito personal, profesional y espiritual en el mundo digital actual."
+        },
+        pilares: {
+          title: "Los 3 Pilares Inseparables",
+          espiritual: { title: "Fundamento Espiritual", desc: "Dios como fuente de toda inteligencia, propósito eterno y origen de nuestra identidad." },
+          cientifico: { title: "Fundamento Científico", desc: "Neurociencia, psicología positiva, educación basada en evidencia y desarrollo contemporáneo." },
+          practico: { title: "Fundamento Práctico", desc: "Herramientas aplicables, estrategias medibles y resultados tangibles para la transformación real." }
+        },
+        proposito: {
+          title: "Propósito de Vida del Autor",
+          p1: "Desde los 15 años sentí un llamado profundo: formar una nueva generación de adolescentes que se conviertan en empresarios digitales con valores cristianos, capaces de crear impacto económico y transformar sus familias.",
+          p2: "Esta visión surge de mi propia crisis personal y búsqueda de sentido. GÉNESIS 7i™ nace como respuesta a una generación perdida, sin dirección clara ni herramientas para navegar la revolución digital actual."
+        },
+        problema: {
+          title: "Problema que Resuelve",
+          items: [
+            { title: "Padres confundidos", desc: "No saben cómo guiar a sus hijos en la era digital sin principios claros." },
+            { title: "Adolescentes sin dirección", desc: "Crecen sin propósito claro, navegando sin brújula moral o espiritual." },
+            { title: "Escuela tradicional desconectada", desc: "No prepara para la realidad digital ni para el emprendimiento real." },
+            { title: "Tecnología más rápida que educación", desc: "La velocidad del cambio supera la capacidad de adaptación educativa." }
+          ]
+        },
+        fundamento: {
+          title: "Fundamento Espiritual y Filosófico",
+          dios: { title: "Dios como Inteligencia Suprema", desc: "La metodología reconoce a Dios no solo como creador, sino como la fuente infinita de toda inteligencia. Cada una de las 7 inteligencias encuentra su origen y máxima expresión en Su naturaleza divina." },
+          humano: { title: "El ser humano como inteligencia eterna", desc: "No somos cuerpos que tienen un espíritu, sino espíritus eternos que habitan un cuerpo temporal. Esta identidad espiritual es el fundamento de nuestro propósito y potencial infinito." },
+          genesis: { title: "Sentido de \"GÉNESIS\"", desc: "GÉNESIS significa principio, origen, creación. Esta metodología lleva a los adolescentes a su origen divino, a recordar quiénes son y por qué están aquí, activando su propósito desde el principio eterno." }
+        },
+        definicion: {
+          title: "Definición de \"Inteligencia\" en GÉNESIS 7i™",
+          intro: "La inteligencia NO es solo coeficiente intelectual o capacidad cognitiva. En GÉNESIS 7i™, definimos inteligencia como:",
+          quote: "La chispa eterna que procede de Dios, manifestada en la capacidad de pensar, crear, sentir, decidir y amar."
+        },
+        orden: {
+          title: "Orden Estructural: Inteligencia Espiritual como Génesis",
+          intro: "El orden NO es arbitrario. La Inteligencia Espiritual es el génesis (el principio) de todas las demás porque:",
+          items: [
+            "Define la identidad eterna del adolescente (quién es realmente)",
+            "Establece el propósito trascendente (por qué está aquí)",
+            "Conecta con la fuente de sabiduría infinita (Dios)",
+            "Produce un efecto cascada: cuando la espiritual está activa, todas las demás fluyen con mayor claridad"
+          ]
+        }
+      },
+      inteligencias: {
+        title: "Las 7 Inteligencias: Sistema Integrado",
+        intro: "Cada inteligencia tiene tres dimensiones inseparables: Espiritual (conexión con Dios), Científica (evidencia y método), y Práctica (herramientas aplicables). Haz clic en cada una para explorar su contenido completo.",
+        list: [
+          {
+            name: "Espiritual",
+            lema: "Recordar quién eres y por qué estás aquí",
+            espiritual: {
+              title: "Dimensión Espiritual",
+              content: "Es la conexión directa con Dios, el Padre de los espíritus. Despierta identidad eterna, fe y sentido de misión. Recordamos que no somos cuerpos que tienen un espíritu, sino espíritus eternos que habitan un cuerpo."
+            },
+            cientifica: {
+              title: "Dimensión Científica",
+              content: "Se relaciona con la llamada 'conciencia trascendental': la capacidad del cerebro para buscar sentido, propósito y conexión con algo más grande que uno mismo. Favorece paz interior, resiliencia y equilibrio emocional."
+            },
+            practica: {
+              title: "Dimensión Práctica",
+              items: ["Oración diaria", "Meditación consciente", "Práctica de gratitud", "Servicio a otros", "Reflexión sobre propósito", "Decisiones basadas en principios"]
+            }
+          },
+          {
+            name: "Mental",
+            lema: "El poder de pensar como Dios piensa",
+            espiritual: {
+              title: "Dimensión Espiritual",
+              content: "Dios es inteligencia suprema y fuente de toda sabiduría. Conectar con Él despierta claridad mental, discernimiento y pensamientos elevados. La mente es el puente entre el espíritu y el mundo físico."
+            },
+            cientifica: {
+              title: "Dimensión Científica",
+              content: "Incluye pensamiento crítico, memoria, capacidad de aprendizaje, atención consciente y neuroplasticidad. El cerebro puede reorganizarse y fortalecerse mediante el aprendizaje continuo."
+            },
+            practica: {
+              title: "Dimensión Práctica",
+              items: ["Técnicas de estudio efectivas", "Fijación de objetivos SMART", "Mapas mentales y esquemas", "Lectura activa diaria", "Resolución de problemas", "Aprendizaje continuo"]
+            }
+          },
+          {
+            name: "Física",
+            lema: "El cuerpo: templo del propósito",
+            espiritual: {
+              title: "Dimensión Espiritual",
+              content: "El cuerpo no es un enemigo ni un objeto, es un templo sagrado que alberga el espíritu. Cuidarlo es honrar a Dios y prepararse para cumplir la misión de vida con energía y vitalidad."
+            },
+            cientifica: {
+              title: "Dimensión Científica",
+              content: "Abarca salud integral: actividad física regular, nutrición balanceada, descanso reparador y prevención de enfermedades. La ciencia confirma el vínculo directo entre cuerpo saludable y rendimiento mental/emocional."
+            },
+            practica: {
+              title: "Dimensión Práctica",
+              items: ["Ejercicio regular (mínimo 30 min/día)", "Alimentación consciente y balanceada", "Dormir 7-9 horas diarias", "Hidratación adecuada", "Prevención y chequeos médicos", "Manejo del estrés físico"]
+            }
+          },
+          {
+            name: "Emocional",
+            lema: "Dominar el corazón antes que el mundo",
+            espiritual: {
+              title: "Dimensión Espiritual",
+              content: "Las emociones son el lenguaje del alma. Dios nos dio emociones para sentir, conectar y actuar. Aprender a gestionarlas es desarrollar dominio propio, uno de los frutos del Espíritu."
+            },
+            cientifica: {
+              title: "Dimensión Científica",
+              content: "Comprende regulación emocional, resiliencia, inteligencia emocional (identificar, comprender y gestionar emociones propias y ajenas). Influye directamente en toma de decisiones y relaciones interpersonales."
+            },
+            practica: {
+              title: "Dimensión Práctica",
+              items: ["Identificar y nombrar emociones", "Técnicas de respiración y relajación", "Journaling emocional", "Manejo de ansiedad y estrés", "Desarrollo de empatía", "Resiliencia ante adversidades"]
+            }
+          },
+          {
+            name: "Social",
+            lema: "Conectar y liderar con empatía",
+            espiritual: {
+              title: "Dimensión Espiritual",
+              content: "Dios es relación perfecta (Padre, Hijo, Espíritu Santo). Fuimos creados para conectar, servir y liderar con amor. La inteligencia social refleja nuestra capacidad de ser luz en comunidad."
+            },
+            cientifica: {
+              title: "Dimensión Científica",
+              content: "Incluye empatía, comunicación asertiva, trabajo en equipo, liderazgo, negociación y resolución de conflictos. Fundamental para el éxito personal y profesional en la era digital."
+            },
+            practica: {
+              title: "Dimensión Práctica",
+              items: ["Escucha activa", "Comunicación clara y respetuosa", "Trabajo colaborativo", "Liderazgo de servicio", "Networking consciente", "Gestión de conflictos"]
+            }
+          },
+          {
+            name: "Financiera",
+            lema: "Administrar con sabiduría divina",
+            espiritual: {
+              title: "Dimensión Espiritual",
+              content: "Dios es abundancia y orden perfecto. El dinero es una herramienta para bendecir, servir y cumplir propósitos. La mayordomía fiel honra a Dios y multiplica recursos para impacto eterno."
+            },
+            cientifica: {
+              title: "Dimensión Científica",
+              content: "Comprende toma de decisiones financieras, planificación, inversión, gestión de riesgos y educación económica. Desarrolla pensamiento estratégico y visión a largo plazo."
+            },
+            practica: {
+              title: "Dimensión Práctica",
+              items: ["Presupuesto personal mensual", "Ahorro sistemático (10-20%)", "Inversión consciente", "Generación de ingresos múltiples", "Educación financiera continua", "Generosidad estratégica"]
+            }
+          },
+          {
+            name: "Tecnológica",
+            lema: "Usar la tecnología para crear, no para perderse",
+            espiritual: {
+              title: "Dimensión Espiritual",
+              content: "Somos creados a imagen del Creador supremo. La tecnología bien usada refleja nuestra capacidad divina de crear, innovar y transformar. Es una herramienta para expandir el Reino, no para perdernos en lo temporal."
+            },
+            cientifica: {
+              title: "Dimensión Científica",
+              content: "Incluye competencias digitales, programación, inteligencia artificial, marketing digital, análisis de datos y alfabetización tecnológica. Esencial para competir en el mundo digital actual."
+            },
+            practica: {
+              title: "Dimensión Práctica",
+              items: ["Uso consciente de redes sociales", "Aprendizaje de herramientas digitales", "Marketing digital básico", "Programación y automatización", "IA aplicada", "Emprendimiento digital"]
+            }
+          }
+        ],
+        synthesis: {
+          title: "Síntesis Estructural",
+          desc: "Las 7 inteligencias NO trabajan aisladas. Son un sistema integrado donde la Inteligencia Espiritual es el génesis (principio) que activa y da sentido a todas las demás. Cuando se desarrollan juntas, el efecto multiplicador transforma completamente la vida del adolescente."
+        }
+      },
+      ecosistema: {
+        titulo: "Ecosistema Educativo Completo",
+        starbiz: { title: "Starbiz Academy LLC", desc: "El \"Silicon Valley educativo para Latinoamérica\" - Centro neurálgico donde se imparten todos los programas, recursos y metodologías educativas de vanguardia." },
+        padres: { title: "Padres 3.0", desc: "Comunidad de padres conscientes que se capacitan para guiar a sus hijos en la era digital con valores cristianos y herramientas prácticas." },
+        stareduca: { title: "Stareduca.com", desc: "Plataforma educativa digital donde se alojan cursos, recursos y contenido formativo para toda la comunidad." },
+        starbooks: { title: "Starbooks (App)", desc: "Aplicación móvil educativa que facilita el aprendizaje continuo, seguimiento de progreso y conexión comunitaria." },
+        ceojr: { title: "CEO Junior", desc: "Programa insignia para adolescentes emprendedores (13-18 años) que los transforma en líderes digitales con mentalidad de CEO, combinando valores cristianos con habilidades de emprendimiento digital." }
+      },
+      originalidad: {
+        title: "Originalidad y Carácter Distintivo",
+        intro: "GÉNESIS 7i™ es único en el mercado por 5 razones fundamentales:",
+        items: [
+          { title: "Integración Espíritu-Ciencia-Práctica", desc: "No separa lo espiritual de lo científico ni de lo práctico." },
+          { title: "Enfoque en Identidad Eterna", desc: "No solo desarrolla habilidades, despierta identidad divina." },
+          { title: "Diseñado para Era Digital", desc: "Nativo digital, no adaptación forzada de métodos antiguos." },
+          { title: "Sistema Integrado de 7 Inteligencias", desc: "No trata cada inteligencia aislada, sino como sistema interconectado." },
+          { title: "Orientación a Emprendimiento Digital", desc: "No solo educa, prepara para crear empresas digitales con impacto." }
+        ]
+      },
+      autoria: {
+        title: "Autoría y Propiedad Intelectual",
+        p1: "Jimy Henry Orellana Domínguez declara ser el autor original de la metodología GÉNESIS 7i™.",
+        p2: "Esta metodología surge de su experiencia personal, formación espiritual, estudios en educación y emprendimiento, y su compromiso con la transformación de la juventud latinoamericana.",
+        p3_label: "Propiedad:",
+        p3: "La metodología es propiedad de Starbiz Academy LLC, empresa legalmente constituida en Utah, Estados Unidos.",
+        p4_label: "Finalidad:",
+        p4: "Educativa, social y de transformación generacional. Se comparte para el beneficio de familias y adolescentes que buscan propósito en la era digital."
+      },
+      close: "Cerrar"
     }
   },
   en: {
@@ -290,6 +509,8 @@ const translations = {
     intelligences: {
       title: "THE 7 INTELLIGENCES",
       subtitle: "Our proven map to forge digital entrepreneurs with purpose. A Thousand Opportunities™ for integral success.",
+      section: "METHODOLOGY",
+      description: "The comprehensive roadmap to form teenagers with purpose, character and digital mindset.",
       list: [
         { title: "Mental", subtitle: "Cognitive Mastery", description: "Analytical capacity and accelerated learning. The neuroscience basis for understanding and processing AI." },
         { title: "Physical", subtitle: "Energy & Vitality", description: "Nutrition, exercise, and sleep habits to optimize brain function. Without optimized biological hardware, there is no high performance." },
@@ -298,7 +519,12 @@ const translations = {
         { title: "Spiritual", subtitle: "Purpose & Ethics", description: "Moral anchor in Christian values and long-term vision. Ethical leadership is the only kind that lasts." },
         { title: "Financial", subtitle: "Wealth Creation", description: "Mastery of administration, smart investment, and income stream generation. From consumer to capital creator." },
         { title: "Technological", subtitle: "Digital Mastery & AI", description: "Strategic use of Artificial Intelligence as a partner to automate, innovate, and scale businesses globally." }
-      ]
+      ],
+      learnMore: {
+        title: "Learn more about our methodology",
+        desc: "Discover GENESIS 7i™, the comprehensive system that transforms teenagers and families.",
+        cta: "DISCOVER"
+      }
     },
     programs: {
       title: "ELITE COMMUNITY",
@@ -449,6 +675,218 @@ const translations = {
       info_phone: "WhatsApp Business",
       info_loc: "Corporate HQ",
       loc_val: "Utah, United States"
+    },
+    modal: {
+      header: {
+        tag: "Exclusive Methodology",
+        title: "GENESIS 7i™",
+        tagline: "7 Intelligences, A Thousand Opportunities",
+        author: "Created by Jimy Henry Orellana Domínguez • Utah, USA • 2025"
+      },
+      tabs: {
+        fundamentos: "Foundations",
+        inteligencias: "7 Intelligences",
+        ecosistema: "Ecosystem"
+      },
+      fundamentos: {
+        intro: {
+          title: "What is GENESIS 7i™?",
+          p1: "A comprehensive educational methodology designed to transform the lives of teenagers and their families in the digital age. Based on the articulated development of seven essential intelligences that activate personal purpose, strengthen spiritual identity and prepare young people to successfully face the challenges of the 21st century.",
+          p2: "GENESIS 7i™ is a comprehensive educational methodology that seeks to awaken and develop in teenagers seven fundamental intelligences, each essential for their personal, professional and spiritual success in today's digital world."
+        },
+        pilares: {
+          title: "The 3 Inseparable Pillars",
+          espiritual: { title: "Spiritual Foundation", desc: "God as the source of all intelligence, eternal purpose and origin of our identity." },
+          cientifico: { title: "Scientific Foundation", desc: "Neuroscience, positive psychology, evidence-based education and contemporary development." },
+          practico: { title: "Practical Foundation", desc: "Applicable tools, measurable strategies and tangible results for real transformation." }
+        },
+        proposito: {
+          title: "Author's Life Purpose",
+          p1: "Since I was 15 years old I felt a deep calling: to form a new generation of teenagers who become digital entrepreneurs with Christian values, capable of creating economic impact and transforming their families.",
+          p2: "This vision arises from my own personal crisis and search for meaning. GENESIS 7i™ is born as a response to a lost generation, without clear direction or tools to navigate the current digital revolution."
+        },
+        problema: {
+          title: "Problem It Solves",
+          items: [
+            { title: "Confused Parents", desc: "They don't know how to guide their children in the digital age without clear principles." },
+            { title: "Directionless Teenagers", desc: "Growing up without clear purpose, navigating without moral or spiritual compass." },
+            { title: "Disconnected Traditional School", desc: "Doesn't prepare for digital reality or real entrepreneurship." },
+            { title: "Technology Faster Than Education", desc: "The speed of change exceeds educational adaptation capacity." }
+          ]
+        },
+        fundamento: {
+          title: "Spiritual and Philosophical Foundation",
+          dios: { title: "God as Supreme Intelligence", desc: "The methodology recognizes God not only as creator, but as the infinite source of all intelligence. Each of the 7 intelligences finds its origin and maximum expression in His divine nature." },
+          humano: { title: "The human being as eternal intelligence", desc: "We are not bodies that have a spirit, but eternal spirits inhabiting a temporary body. This spiritual identity is the foundation of our purpose and infinite potential." },
+          genesis: { title: "Meaning of \"GENESIS\"", desc: "GENESIS means beginning, origin, creation. This methodology leads teenagers to their divine origin, to remember who they are and why they are here, activating their purpose from the eternal beginning." }
+        },
+        definicion: {
+          title: "Definition of \"Intelligence\" in GENESIS 7i™",
+          intro: "Intelligence is NOT just intellectual quotient or cognitive capacity. In GENESIS 7i™, we define intelligence as:",
+          quote: "The eternal spark that comes from God, manifested in the capacity to think, create, feel, decide and love."
+        },
+        orden: {
+          title: "Structural Order: Spiritual Intelligence as Genesis",
+          intro: "The order is NOT arbitrary. Spiritual Intelligence is the genesis (the beginning) of all others because:",
+          items: [
+            "It defines the teenager's eternal identity (who they really are)",
+            "It establishes transcendent purpose (why they are here)",
+            "It connects with the source of infinite wisdom (God)",
+            "It produces a cascade effect: when the spiritual is active, all others flow with greater clarity"
+          ]
+        }
+      },
+      inteligencias: {
+        title: "The 7 Intelligences: Integrated System",
+        intro: "Each intelligence has three inseparable dimensions: Spiritual (connection with God), Scientific (evidence and method), and Practical (applicable tools). Click on each one to explore its complete content.",
+        list: [
+          {
+            name: "Spiritual",
+            lema: "Remember who you are and why you're here",
+            espiritual: {
+              title: "Spiritual Dimension",
+              content: "It is the direct connection with God, the Father of spirits. It awakens eternal identity, faith and sense of mission. We remember that we are not bodies that have a spirit, but eternal spirits that inhabit a body."
+            },
+            cientifica: {
+              title: "Scientific Dimension",
+              content: "It relates to what is called 'transcendental consciousness': the brain's capacity to seek meaning, purpose and connection with something greater than oneself. It promotes inner peace, resilience and emotional balance."
+            },
+            practica: {
+              title: "Practical Dimension",
+              items: ["Daily prayer", "Mindful meditation", "Gratitude practice", "Service to others", "Purpose reflection", "Principle-based decisions"]
+            }
+          },
+          {
+            name: "Mental",
+            lema: "The power to think as God thinks",
+            espiritual: {
+              title: "Spiritual Dimension",
+              content: "God is supreme intelligence and source of all wisdom. Connecting with Him awakens mental clarity, discernment and elevated thoughts. The mind is the bridge between the spirit and the physical world."
+            },
+            cientifica: {
+              title: "Scientific Dimension",
+              content: "Includes critical thinking, memory, learning capacity, conscious attention and neuroplasticity. The brain can reorganize and strengthen itself through continuous learning."
+            },
+            practica: {
+              title: "Practical Dimension",
+              items: ["Effective study techniques", "SMART goal setting", "Mind maps and diagrams", "Daily active reading", "Problem solving", "Continuous learning"]
+            }
+          },
+          {
+            name: "Physical",
+            lema: "The body: temple of purpose",
+            espiritual: {
+              title: "Spiritual Dimension",
+              content: "The body is not an enemy or an object, it is a sacred temple that houses the spirit. Taking care of it is honoring God and preparing to fulfill life's mission with energy and vitality."
+            },
+            cientifica: {
+              title: "Scientific Dimension",
+              content: "Encompasses comprehensive health: regular physical activity, balanced nutrition, restorative rest and disease prevention. Science confirms the direct link between healthy body and mental/emotional performance."
+            },
+            practica: {
+              title: "Practical Dimension",
+              items: ["Regular exercise (minimum 30 min/day)", "Conscious and balanced eating", "Sleep 7-9 hours daily", "Adequate hydration", "Prevention and medical checkups", "Physical stress management"]
+            }
+          },
+          {
+            name: "Emotional",
+            lema: "Master the heart before the world",
+            espiritual: {
+              title: "Spiritual Dimension",
+              content: "Emotions are the language of the soul. God gave us emotions to feel, connect and act. Learning to manage them is developing self-control, one of the fruits of the Spirit."
+            },
+            cientifica: {
+              title: "Scientific Dimension",
+              content: "Includes emotional regulation, resilience, emotional intelligence (identify, understand and manage one's own and others' emotions). Directly influences decision-making and interpersonal relationships."
+            },
+            practica: {
+              title: "Practical Dimension",
+              items: ["Identify and name emotions", "Breathing and relaxation techniques", "Emotional journaling", "Anxiety and stress management", "Empathy development", "Resilience in adversity"]
+            }
+          },
+          {
+            name: "Social",
+            lema: "Connect and lead with empathy",
+            espiritual: {
+              title: "Spiritual Dimension",
+              content: "God is perfect relationship (Father, Son, Holy Spirit). We were created to connect, serve and lead with love. Social intelligence reflects our capacity to be light in community."
+            },
+            cientifica: {
+              title: "Scientific Dimension",
+              content: "Includes empathy, assertive communication, teamwork, leadership, negotiation and conflict resolution. Fundamental for personal and professional success in the digital age."
+            },
+            practica: {
+              title: "Practical Dimension",
+              items: ["Active listening", "Clear and respectful communication", "Collaborative work", "Service leadership", "Conscious networking", "Conflict management"]
+            }
+          },
+          {
+            name: "Financial",
+            lema: "Manage with divine wisdom",
+            espiritual: {
+              title: "Spiritual Dimension",
+              content: "God is abundance and perfect order. Money is a tool to bless, serve and fulfill purposes. Faithful stewardship honors God and multiplies resources for eternal impact."
+            },
+            cientifica: {
+              title: "Scientific Dimension",
+              content: "Includes financial decision-making, planning, investment, risk management and economic education. Develops strategic thinking and long-term vision."
+            },
+            practica: {
+              title: "Practical Dimension",
+              items: ["Monthly personal budget", "Systematic saving (10-20%)", "Conscious investment", "Multiple income generation", "Continuous financial education", "Strategic generosity"]
+            }
+          },
+          {
+            name: "Technological",
+            lema: "Use technology to create, not to get lost",
+            espiritual: {
+              title: "Spiritual Dimension",
+              content: "We are created in the image of the supreme Creator. Well-used technology reflects our divine capacity to create, innovate and transform. It is a tool to expand the Kingdom, not to get lost in the temporal."
+            },
+            cientifica: {
+              title: "Scientific Dimension",
+              content: "Includes digital competencies, programming, artificial intelligence, digital marketing, data analysis and technological literacy. Essential to compete in today's digital world."
+            },
+            practica: {
+              title: "Practical Dimension",
+              items: ["Conscious social media use", "Digital tools learning", "Basic digital marketing", "Programming and automation", "Applied AI", "Digital entrepreneurship"]
+            }
+          }
+        ],
+        synthesis: {
+          title: "Structural Synthesis",
+          desc: "The 7 intelligences DO NOT work in isolation. They are an integrated system where Spiritual Intelligence is the genesis (beginning) that activates and gives meaning to all others. When developed together, the multiplier effect completely transforms the teenager's life."
+        }
+      },
+      ecosistema: {
+        titulo: "Complete Educational Ecosystem",
+        starbiz: { title: "Starbiz Academy LLC", desc: "The \"Silicon Valley of Education for Latin America\" - Nerve center where all programs, resources and cutting-edge educational methodologies are taught." },
+        padres: { title: "Parents 3.0", desc: "Community of conscious parents who train to guide their children in the digital age with Christian values and practical tools." },
+        stareduca: { title: "Stareduca.com", desc: "Digital educational platform where courses, resources and training content for the entire community are hosted." },
+        starbooks: { title: "Starbooks (App)", desc: "Educational mobile application that facilitates continuous learning, progress tracking and community connection." },
+        ceojr: { title: "CEO Junior", desc: "Flagship program for teenage entrepreneurs (13-18 years) that transforms them into digital leaders with CEO mindset, combining Christian values with digital entrepreneurship skills." }
+      },
+      originalidad: {
+        title: "Originality and Distinctive Character",
+        intro: "GENESIS 7i™ is unique in the market for 5 fundamental reasons:",
+        items: [
+          { title: "Spirit-Science-Practice Integration", desc: "Doesn't separate the spiritual from the scientific or the practical." },
+          { title: "Focus on Eternal Identity", desc: "Not only develops skills, awakens divine identity." },
+          { title: "Designed for Digital Era", desc: "Digital native, not forced adaptation of old methods." },
+          { title: "Integrated System of 7 Intelligences", desc: "Doesn't treat each intelligence in isolation, but as an interconnected system." },
+          { title: "Digital Entrepreneurship Orientation", desc: "Not only educates, prepares to create digital businesses with impact." }
+        ]
+      },
+      autoria: {
+        title: "Authorship and Intellectual Property",
+        p1: "Jimy Henry Orellana Domínguez declares to be the original author of the GENESIS 7i™ methodology.",
+        p2: "This methodology arises from his personal experience, spiritual formation, studies in education and entrepreneurship, and his commitment to the transformation of Latin American youth.",
+        p3_label: "Property:",
+        p3: "The methodology is property of Starbiz Academy LLC, legally established company in Utah, United States.",
+        p4_label: "Purpose:",
+        p4: "Educational, social and generational transformation. Shared for the benefit of families and teenagers seeking purpose in the digital age."
+      },
+      close: "Close"
     }
   }
 };

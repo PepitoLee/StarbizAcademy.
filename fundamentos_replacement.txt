@@ -1,0 +1,14 @@
+This is a temporary file to help with the Fundamentos tab replacement.
+
+I need to replace all hardcoded Spanish text in the Fundamentos tab with translation keys from t.modal.fundamentos.
+
+The structure includes:
+- Introducción (intro.title, intro.p1, intro.p2)
+- Los 3 Pilares (pilares.title, pilares.espiritual, pilares.cientifico, pilares.practico)
+- Propósito del Autor (proposito.title, proposito.p1, proposito.p2)
+- Problema que Resuelve (problema.title, problema.items[])
+- Fundamento Espiritual (fundamento.title, fundamento.dios, fundamento.humano, fundamento.genesis)
+- Definición de Inteligencia (definicion.title, definicion.intro, definicion.quote)
+- Orden Estructural (orden.title, orden.intro, orden.items[])
+
+This is a complex refactoring that will require a large edit due to the extensive content.

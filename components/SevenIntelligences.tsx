@@ -64,163 +64,23 @@ const SevenIntelligences: React.FC = () => {
     }
   ];
 
-  // Complete data for the 7 intelligences
-  const intelligencesData = [
-    {
-      id: 1,
-      name: "Espiritual",
-      icon: Zap,
-      color: "purple",
-      borderColor: "border-purple-500/20",
-      bgColor: "bg-purple-500/10",
-      textColor: "text-purple-400",
-      lema: "Recordar quién eres y por qué estás aquí",
-      espiritual: {
-        title: "Dimensión Espiritual",
-        content: "Es la conexión directa con Dios, el Padre de los espíritus. Despierta identidad eterna, fe y sentido de misión. Recordamos que no somos cuerpos que tienen un espíritu, sino espíritus eternos que habitan un cuerpo."
-      },
-      cientifica: {
-        title: "Dimensión Científica",
-        content: "Se relaciona con la llamada 'conciencia trascendental': la capacidad del cerebro para buscar sentido, propósito y conexión con algo más grande que uno mismo. Favorece paz interior, resiliencia y equilibrio emocional."
-      },
-      practica: {
-        title: "Dimensión Práctica",
-        items: ["Oración diaria", "Meditación consciente", "Práctica de gratitud", "Servicio a otros", "Reflexión sobre propósito", "Decisiones basadas en principios"]
-      }
-    },
-    {
-      id: 2,
-      name: "Mental",
-      icon: Brain,
-      color: "blue",
-      borderColor: "border-blue-500/20",
-      bgColor: "bg-blue-500/10",
-      textColor: "text-blue-400",
-      lema: "El poder de pensar como Dios piensa",
-      espiritual: {
-        title: "Dimensión Espiritual",
-        content: "Dios es inteligencia suprema y fuente de toda sabiduría. Conectar con Él despierta claridad mental, discernimiento y pensamientos elevados. La mente es el puente entre el espíritu y el mundo físico."
-      },
-      cientifica: {
-        title: "Dimensión Científica",
-        content: "Incluye pensamiento crítico, memoria, capacidad de aprendizaje, atención consciente y neuroplasticidad. El cerebro puede reorganizarse y fortalecerse mediante el aprendizaje continuo."
-      },
-      practica: {
-        title: "Dimensión Práctica",
-        items: ["Técnicas de estudio efectivas", "Fijación de objetivos SMART", "Mapas mentales y esquemas", "Lectura activa diaria", "Resolución de problemas", "Aprendizaje continuo"]
-      }
-    },
-    {
-      id: 3,
-      name: "Física",
-      icon: Activity,
-      color: "orange",
-      borderColor: "border-orange-500/20",
-      bgColor: "bg-orange-500/10",
-      textColor: "text-orange-400",
-      lema: "El cuerpo: templo del propósito",
-      espiritual: {
-        title: "Dimensión Espiritual",
-        content: "El cuerpo no es un enemigo ni un objeto, es un templo sagrado que alberga el espíritu. Cuidarlo es honrar a Dios y prepararse para cumplir la misión de vida con energía y vitalidad."
-      },
-      cientifica: {
-        title: "Dimensión Científica",
-        content: "Abarca salud integral: actividad física regular, nutrición balanceada, descanso reparador y prevención de enfermedades. La ciencia confirma el vínculo directo entre cuerpo saludable y rendimiento mental/emocional."
-      },
-      practica: {
-        title: "Dimensión Práctica",
-        items: ["Ejercicio regular (mínimo 30 min/día)", "Alimentación consciente y balanceada", "Dormir 7-9 horas diarias", "Hidratación adecuada", "Prevención y chequeos médicos", "Manejo del estrés físico"]
-      }
-    },
-    {
-      id: 4,
-      name: "Emocional",
-      icon: Heart,
-      color: "pink",
-      borderColor: "border-pink-500/20",
-      bgColor: "bg-pink-500/10",
-      textColor: "text-pink-400",
-      lema: "Dominar el corazón antes que el mundo",
-      espiritual: {
-        title: "Dimensión Espiritual",
-        content: "Las emociones son el lenguaje del alma. Dios nos dio emociones para sentir, conectar y actuar. Aprender a gestionarlas es desarrollar dominio propio, uno de los frutos del Espíritu."
-      },
-      cientifica: {
-        title: "Dimensión Científica",
-        content: "Comprende regulación emocional, resiliencia, inteligencia emocional (identificar, comprender y gestionar emociones propias y ajenas). Influye directamente en toma de decisiones y relaciones interpersonales."
-      },
-      practica: {
-        title: "Dimensión Práctica",
-        items: ["Identificar y nombrar emociones", "Técnicas de respiración y relajación", "Journaling emocional", "Manejo de ansiedad y estrés", "Desarrollo de empatía", "Resiliencia ante adversidades"]
-      }
-    },
-    {
-      id: 5,
-      name: "Social",
-      icon: Users,
-      color: "cyan",
-      borderColor: "border-cyan-500/20",
-      bgColor: "bg-cyan-500/10",
-      textColor: "text-cyan-400",
-      lema: "Conectar y liderar con empatía",
-      espiritual: {
-        title: "Dimensión Espiritual",
-        content: "Dios es relación perfecta (Padre, Hijo, Espíritu Santo). Fuimos creados para conectar, servir y liderar con amor. La inteligencia social refleja nuestra capacidad de ser luz en comunidad."
-      },
-      cientifica: {
-        title: "Dimensión Científica",
-        content: "Incluye empatía, comunicación asertiva, trabajo en equipo, liderazgo, negociación y resolución de conflictos. Fundamental para el éxito personal y profesional en la era digital."
-      },
-      practica: {
-        title: "Dimensión Práctica",
-        items: ["Escucha activa", "Comunicación clara y respetuosa", "Trabajo colaborativo", "Liderazgo de servicio", "Networking consciente", "Gestión de conflictos"]
-      }
-    },
-    {
-      id: 6,
-      name: "Financiera",
-      icon: DollarSign,
-      color: "green",
-      borderColor: "border-green-500/20",
-      bgColor: "bg-green-500/10",
-      textColor: "text-green-400",
-      lema: "Administrar con sabiduría divina",
-      espiritual: {
-        title: "Dimensión Espiritual",
-        content: "Dios es abundancia y orden perfecto. El dinero es una herramienta para bendecir, servir y cumplir propósitos. La mayordomía fiel honra a Dios y multiplica recursos para impacto eterno."
-      },
-      cientifica: {
-        title: "Dimensión Científica",
-        content: "Comprende toma de decisiones financieras, planificación, inversión, gestión de riesgos y educación económica. Desarrolla pensamiento estratégico y visión a largo plazo."
-      },
-      practica: {
-        title: "Dimensión Práctica",
-        items: ["Presupuesto personal mensual", "Ahorro sistemático (10-20%)", "Inversión consciente", "Generación de ingresos múltiples", "Educación financiera continua", "Generosidad estratégica"]
-      }
-    },
-    {
-      id: 7,
-      name: "Tecnológica",
-      icon: Cpu,
-      color: "indigo",
-      borderColor: "border-indigo-500/20",
-      bgColor: "bg-indigo-500/10",
-      textColor: "text-indigo-400",
-      lema: "Usar la tecnología para crear, no para perderse",
-      espiritual: {
-        title: "Dimensión Espiritual",
-        content: "Somos creados a imagen del Creador supremo. La tecnología bien usada refleja nuestra capacidad divina de crear, innovar y transformar. Es una herramienta para expandir el Reino, no para perdernos en lo temporal."
-      },
-      cientifica: {
-        title: "Dimensión Científica",
-        content: "Incluye competencias digitales, programación, inteligencia artificial, marketing digital, análisis de datos y alfabetización tecnológica. Esencial para competir en el mundo digital actual."
-      },
-      practica: {
-        title: "Dimensión Práctica",
-        items: ["Uso consciente de redes sociales", "Aprendizaje de herramientas digitales", "Marketing digital básico", "Programación y automatización", "IA aplicada", "Emprendimiento digital"]
-      }
-    }
+  // Styling configuration for each intelligence (icons and colors)
+  const intelligenceStyling = [
+    { icon: Zap, color: "purple", borderColor: "border-purple-500/20", bgColor: "bg-purple-500/10", textColor: "text-purple-400" },
+    { icon: Brain, color: "blue", borderColor: "border-blue-500/20", bgColor: "bg-blue-500/10", textColor: "text-blue-400" },
+    { icon: Activity, color: "orange", borderColor: "border-orange-500/20", bgColor: "bg-orange-500/10", textColor: "text-orange-400" },
+    { icon: Heart, color: "pink", borderColor: "border-pink-500/20", bgColor: "bg-pink-500/10", textColor: "text-pink-400" },
+    { icon: Users, color: "cyan", borderColor: "border-cyan-500/20", bgColor: "bg-cyan-500/10", textColor: "text-cyan-400" },
+    { icon: DollarSign, color: "green", borderColor: "border-green-500/20", bgColor: "bg-green-500/10", textColor: "text-green-400" },
+    { icon: Cpu, color: "indigo", borderColor: "border-indigo-500/20", bgColor: "bg-indigo-500/10", textColor: "text-indigo-400" }
   ];
+
+  // Merge translations with styling
+  const intelligencesData = t.modal.inteligencias.list.map((intelligence: any, index: number) => ({
+    id: index + 1,
+    ...intelligence,
+    ...intelligenceStyling[index]
+  }));
 
   return (
     <section id="metodologia" className="relative bg-[#030014] py-24 md:py-32 overflow-hidden">
@@ -246,14 +106,14 @@ const SevenIntelligences: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-20">
           <h2 className="text-4xl md:text-7xl font-bold text-white font-display tracking-wide uppercase drop-shadow-[0_0_25px_rgba(255,255,255,0.2)]">
-            METODOLOGÍA: <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">GÉNESIS 7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>
+            {t.intelligences.section}: <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">GÉNESIS 7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>
             <span className="block text-2xl md:text-4xl mt-2 text-brand-yellow font-bold tracking-[0.1em]">
-              7 Inteligencias, Mil Oportunidades
+              {t.modal.header.tagline}
             </span>
           </h2>
           <div className="w-24 h-1 bg-brand-orange mx-auto my-6 md:my-8 shadow-[0_0_15px_#FF6B00]"></div>
           <p className="text-gray-400 font-sans text-base md:text-lg tracking-wide max-w-3xl mx-auto leading-relaxed">
-            El mapa integral para formar adolescentes con propósito, carácter y mentalidad digital.
+            {t.intelligences.description}
           </p>
         </div>
 
@@ -349,10 +209,10 @@ const SevenIntelligences: React.FC = () => {
               </div>
 
               <h3 className="text-2xl font-bold text-white font-display mb-3">
-                Conoce más sobre nuestra metodología
+                {t.intelligences.learnMore.title}
               </h3>
               <p className="text-gray-400 text-sm mb-6 max-w-md mx-auto">
-                Descubre GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple font-bold">™</span>, el sistema integral que transforma adolescentes y familias.
+                {t.intelligences.learnMore.desc}
               </p>
 
               <button
@@ -360,7 +220,7 @@ const SevenIntelligences: React.FC = () => {
                 className="group/btn relative inline-flex px-8 py-3 bg-gradient-to-r from-brand-cyan to-brand-purple text-white font-bold text-sm uppercase tracking-widest rounded-full overflow-hidden hover:scale-105 transition-transform duration-300"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  DESCUBRIR <Sparkles size={16} />
+                  {t.intelligences.learnMore.cta} <Sparkles size={16} />
                 </span>
               </button>
             </div>
@@ -402,12 +262,12 @@ const SevenIntelligences: React.FC = () => {
               {/* Header */}
               <div className="relative p-4 md:p-8 pb-4 md:pb-6 border-b border-white/10 bg-gradient-to-br from-brand-cyan/10 to-brand-purple/10">
                 <div className="text-center">
-                  <span className="text-brand-cyan font-mono text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] mb-2 block">Metodología Exclusiva</span>
+                  <span className="text-brand-cyan font-mono text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] mb-2 block">{t.modal.header.tag}</span>
                   <h2 className="text-3xl md:text-5xl font-bold font-display mb-2 break-words">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">GÉNESIS 7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>
                   </h2>
-                  <p className="text-lg md:text-xl text-brand-yellow font-light italic break-words">"7 Inteligencias, Mil Oportunidades"</p>
-                  <p className="text-gray-500 text-xs md:text-sm mt-3 break-words px-2">Creado por Jimy Henry Orellana Domínguez • Utah, EE.UU. • 2025</p>
+                  <p className="text-lg md:text-xl text-brand-yellow font-light italic break-words">"{t.modal.header.tagline}"</p>
+                  <p className="text-gray-500 text-xs md:text-sm mt-3 break-words px-2">{t.modal.header.author}</p>
                 </div>
               </div>
 
@@ -422,7 +282,7 @@ const SevenIntelligences: React.FC = () => {
                         : 'text-gray-400 hover:text-white'
                     }`}
                   >
-                    Fundamentos
+                    {t.modal.tabs.fundamentos}
                     {activeTab === 'fundamentos' && (
                       <motion.div
                         layoutId="activeTab"
@@ -439,7 +299,7 @@ const SevenIntelligences: React.FC = () => {
                         : 'text-gray-400 hover:text-white'
                     }`}
                   >
-                    7 Inteligencias
+                    {t.modal.tabs.inteligencias}
                     {activeTab === '7inteligencias' && (
                       <motion.div
                         layoutId="activeTab"
@@ -456,7 +316,7 @@ const SevenIntelligences: React.FC = () => {
                         : 'text-gray-400 hover:text-white'
                     }`}
                   >
-                    Ecosistema
+                    {t.modal.tabs.ecosistema}
                     {activeTab === 'ecosistema' && (
                       <motion.div
                         layoutId="activeTab"
@@ -484,16 +344,13 @@ const SevenIntelligences: React.FC = () => {
                       <div>
                         <h3 className="text-xl md:text-2xl font-bold text-white mb-3 flex items-start gap-2 break-words">
                           <Target size={18} className="text-brand-cyan flex-shrink-0 mt-1" />
-                          <span className="break-words">¿Qué es GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>?</span>
+                          <span className="break-words">{t.modal.fundamentos.intro.title}</span>
                         </h3>
                         <p className="text-gray-400 leading-relaxed mb-4">
-                          Una metodología educativa integral diseñada para transformar la vida de adolescentes y sus familias en la era digital.
-                          Basada en el desarrollo articulado de siete inteligencias esenciales que activan el propósito personal, fortalecen la
-                          identidad espiritual y preparan a los jóvenes para enfrentar con éxito los desafíos del siglo XXI.
+                          {t.modal.fundamentos.intro.p1}
                         </p>
                         <p className="text-gray-400 leading-relaxed">
-                          GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span> es una metodología educativa integral que busca despertar y desarrollar en los adolescentes siete inteligencias fundamentales,
-                          cada una esencial para su éxito personal, profesional y espiritual en el mundo digital actual.
+                          {t.modal.fundamentos.intro.p2}
                         </p>
                       </div>
 
@@ -501,34 +358,34 @@ const SevenIntelligences: React.FC = () => {
                       <div>
                         <h3 className="text-xl md:text-2xl font-bold text-white mb-4 flex items-start gap-2 break-words">
                           <Lightbulb size={18} className="text-brand-yellow flex-shrink-0 mt-1" />
-                          <span className="break-words">Los 3 Pilares Inseparables</span>
+                          <span className="break-words">{t.modal.fundamentos.pilares.title}</span>
                         </h3>
                         <div className="grid md:grid-cols-3 gap-4">
                           <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-5">
                             <div className="w-12 h-12 rounded-full bg-brand-purple/20 flex items-center justify-center mb-3">
                               <Zap size={20} className="text-brand-purple" />
                             </div>
-                            <h4 className="text-white font-bold mb-2 text-lg">Fundamento Espiritual</h4>
+                            <h4 className="text-white font-bold mb-2 text-lg">{t.modal.fundamentos.pilares.espiritual.title}</h4>
                             <p className="text-gray-400 text-sm leading-relaxed">
-                              Dios como fuente de toda inteligencia, propósito eterno y origen de nuestra identidad.
+                              {t.modal.fundamentos.pilares.espiritual.desc}
                             </p>
                           </div>
                           <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-5">
                             <div className="w-12 h-12 rounded-full bg-brand-cyan/20 flex items-center justify-center mb-3">
                               <Brain size={20} className="text-brand-cyan" />
                             </div>
-                            <h4 className="text-white font-bold mb-2 text-lg">Fundamento Científico</h4>
+                            <h4 className="text-white font-bold mb-2 text-lg">{t.modal.fundamentos.pilares.cientifico.title}</h4>
                             <p className="text-gray-400 text-sm leading-relaxed">
-                              Neurociencia, psicología positiva, educación basada en evidencia y desarrollo contemporáneo.
+                              {t.modal.fundamentos.pilares.cientifico.desc}
                             </p>
                           </div>
                           <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-5">
                             <div className="w-12 h-12 rounded-full bg-brand-orange/20 flex items-center justify-center mb-3">
                               <Target size={20} className="text-brand-orange" />
                             </div>
-                            <h4 className="text-white font-bold mb-2 text-lg">Fundamento Práctico</h4>
+                            <h4 className="text-white font-bold mb-2 text-lg">{t.modal.fundamentos.pilares.practico.title}</h4>
                             <p className="text-gray-400 text-sm leading-relaxed">
-                              Herramientas aplicables, estrategias medibles y resultados tangibles para la transformación real.
+                              {t.modal.fundamentos.pilares.practico.desc}
                             </p>
                           </div>
                         </div>
@@ -536,63 +393,48 @@ const SevenIntelligences: React.FC = () => {
 
                       {/* Propósito del Autor */}
                       <div className="bg-gradient-to-br from-brand-purple/5 to-brand-cyan/5 border border-white/10 rounded-xl p-4 md:p-6">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Propósito de Vida del Autor</h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">{t.modal.fundamentos.proposito.title}</h3>
                         <p className="text-gray-400 leading-relaxed mb-3">
-                          Desde los 15 años sentí un llamado profundo: formar una nueva generación de adolescentes que se conviertan en
-                          <span className="text-brand-cyan font-semibold"> empresarios digitales con valores cristianos</span>, capaces de crear impacto económico y transformar sus familias.
+                          {t.modal.fundamentos.proposito.p1}
                         </p>
                         <p className="text-gray-400 leading-relaxed">
-                          Esta visión surge de mi propia crisis personal y búsqueda de sentido. GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span> nace como respuesta a una generación
-                          perdida, sin dirección clara ni herramientas para navegar la revolución digital actual.
+                          {t.modal.fundamentos.proposito.p2}
                         </p>
                       </div>
 
                       {/* Problema que Resuelve */}
                       <div>
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Problema que Resuelve</h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">{t.modal.fundamentos.problema.title}</h3>
                         <div className="grid md:grid-cols-2 gap-3 md:gap-4">
-                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-4">
-                            <h4 className="text-red-400 font-bold mb-2 text-sm md:text-base break-words">❌ Padres confundidos</h4>
-                            <p className="text-gray-400 text-xs md:text-sm break-words">No saben cómo guiar a sus hijos en la era digital sin principios claros.</p>
-                          </div>
-                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-4">
-                            <h4 className="text-red-400 font-bold mb-2 text-sm md:text-base break-words">❌ Adolescentes sin dirección</h4>
-                            <p className="text-gray-400 text-xs md:text-sm break-words">Crecen sin propósito claro, navegando sin brújula moral o espiritual.</p>
-                          </div>
-                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-4">
-                            <h4 className="text-red-400 font-bold mb-2 text-sm md:text-base break-words">❌ Escuela tradicional desconectada</h4>
-                            <p className="text-gray-400 text-xs md:text-sm break-words">No prepara para la realidad digital ni para el emprendimiento real.</p>
-                          </div>
-                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-4">
-                            <h4 className="text-red-400 font-bold mb-2 text-sm md:text-base break-words">❌ Tecnología más rápida que educación</h4>
-                            <p className="text-gray-400 text-xs md:text-sm break-words">La velocidad del cambio supera la capacidad de adaptación educativa.</p>
-                          </div>
+                          {t.modal.fundamentos.problema.items.map((item: any, idx: number) => (
+                            <div key={idx} className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-4">
+                              <h4 className="text-red-400 font-bold mb-2 text-sm md:text-base break-words">❌ {item.title}</h4>
+                              <p className="text-gray-400 text-xs md:text-sm break-words">{item.desc}</p>
+                            </div>
+                          ))}
                         </div>
                       </div>
 
                       {/* Fundamento Espiritual */}
                       <div className="bg-gradient-to-br from-brand-purple/10 to-brand-cyan/10 border border-white/10 rounded-xl p-4 md:p-6">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Fundamento Espiritual y Filosófico</h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">{t.modal.fundamentos.fundamento.title}</h3>
                         <div className="space-y-4">
                           <div>
-                            <h4 className="text-brand-cyan font-bold mb-2 text-base md:text-lg break-words">Dios como Inteligencia Suprema</h4>
+                            <h4 className="text-brand-cyan font-bold mb-2 text-base md:text-lg break-words">{t.modal.fundamentos.fundamento.dios.title}</h4>
                             <p className="text-gray-400 text-sm leading-relaxed break-words">
-                              La metodología reconoce a Dios no solo como creador, sino como la fuente infinita de toda inteligencia.
-                              Cada una de las 7 inteligencias encuentra su origen y máxima expresión en Su naturaleza divina.
+                              {t.modal.fundamentos.fundamento.dios.desc}
                             </p>
                           </div>
                           <div>
-                            <h4 className="text-brand-cyan font-bold mb-2 text-base md:text-lg break-words">El ser humano como inteligencia eterna</h4>
+                            <h4 className="text-brand-cyan font-bold mb-2 text-base md:text-lg break-words">{t.modal.fundamentos.fundamento.humano.title}</h4>
                             <p className="text-gray-400 text-sm leading-relaxed break-words">
-                              No somos cuerpos que tienen un espíritu, sino espíritus eternos que habitan un cuerpo temporal.
-                              Esta identidad espiritual es el fundamento de nuestro propósito y potencial infinito.
+                              {t.modal.fundamentos.fundamento.humano.desc}
                             </p>
                           </div>
                           <div>
-                            <h4 className="text-brand-cyan font-bold mb-2 text-base md:text-lg break-words">Sentido de "GÉNESIS"</h4>
+                            <h4 className="text-brand-cyan font-bold mb-2 text-base md:text-lg break-words">{t.modal.fundamentos.fundamento.genesis.title}</h4>
                             <p className="text-gray-400 text-sm leading-relaxed break-words">
-                              GÉNESIS significa principio, origen, creación. Esta metodología lleva a los adolescentes a su origen divino,
-                              a recordar quiénes son y por qué están aquí, activando su propósito desde el principio eterno.
+                              {t.modal.fundamentos.fundamento.genesis.desc}
                             </p>
                           </div>
                         </div>
@@ -600,41 +442,30 @@ const SevenIntelligences: React.FC = () => {
 
                       {/* Definición de Inteligencia */}
                       <div>
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Definición de "Inteligencia" en GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span></h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">{t.modal.fundamentos.definicion.title}</h3>
                         <p className="text-gray-400 leading-relaxed mb-3">
-                          La inteligencia NO es solo coeficiente intelectual o capacidad cognitiva. En GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>, definimos inteligencia como:
+                          {t.modal.fundamentos.definicion.intro}
                         </p>
                         <div className="bg-gradient-to-r from-brand-cyan/10 to-brand-purple/10 border-l-4 border-brand-cyan p-4 md:p-5 rounded-r-xl">
                           <p className="text-white text-base md:text-lg font-semibold italic break-words">
-                            "La chispa eterna que procede de Dios, manifestada en la capacidad de pensar, crear, sentir, decidir y amar."
+                            "{t.modal.fundamentos.definicion.quote}"
                           </p>
                         </div>
                       </div>
 
                       {/* Orden Estructural */}
                       <div className="bg-gradient-to-br from-brand-cyan/5 to-brand-purple/5 border border-white/10 rounded-xl p-4 md:p-6">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Orden Estructural: Inteligencia Espiritual como Génesis</h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">{t.modal.fundamentos.orden.title}</h3>
                         <p className="text-gray-400 leading-relaxed mb-4">
-                          El orden NO es arbitrario. La Inteligencia Espiritual es el <span className="text-brand-cyan font-semibold">génesis</span> (el principio)
-                          de todas las demás porque:
+                          {t.modal.fundamentos.orden.intro}
                         </p>
                         <ul className="space-y-3 text-gray-400">
-                          <li className="flex items-start gap-3">
-                            <span className="text-brand-cyan mt-1">→</span>
-                            <span>Define la identidad eterna del adolescente (quién es realmente)</span>
-                          </li>
-                          <li className="flex items-start gap-3">
-                            <span className="text-brand-cyan mt-1">→</span>
-                            <span>Establece el propósito trascendente (por qué está aquí)</span>
-                          </li>
-                          <li className="flex items-start gap-3">
-                            <span className="text-brand-cyan mt-1">→</span>
-                            <span>Conecta con la fuente de sabiduría infinita (Dios)</span>
-                          </li>
-                          <li className="flex items-start gap-3">
-                            <span className="text-brand-cyan mt-1">→</span>
-                            <span>Produce un efecto cascada: cuando la espiritual está activa, todas las demás fluyen con mayor claridad</span>
-                          </li>
+                          {t.modal.fundamentos.orden.items.map((item: string, idx: number) => (
+                            <li key={idx} className="flex items-start gap-3">
+                              <span className="text-brand-cyan mt-1">→</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
                         </ul>
                       </div>
 
@@ -652,12 +483,11 @@ const SevenIntelligences: React.FC = () => {
                     >
                       <h3 className="text-xl md:text-2xl font-bold text-white mb-6 flex items-start gap-2 break-words">
                         <Sparkles size={20} className="text-brand-orange flex-shrink-0 mt-1" />
-                        <span className="break-words">Las 7 Inteligencias: Sistema Integrado</span>
+                        <span className="break-words">{t.modal.inteligencias.title}</span>
                       </h3>
 
                       <p className="text-gray-400 leading-relaxed mb-6">
-                        Cada inteligencia tiene tres dimensiones inseparables: Espiritual (conexión con Dios), Científica (evidencia y método),
-                        y Práctica (herramientas aplicables). Haz clic en cada una para explorar su contenido completo.
+                        {t.modal.inteligencias.intro}
                       </p>
 
                       {/* Expandable Intelligence Cards */}
@@ -754,11 +584,9 @@ const SevenIntelligences: React.FC = () => {
 
                       {/* Synthesis Note */}
                       <div className="mt-6 md:mt-8 bg-gradient-to-r from-brand-cyan/10 to-brand-purple/10 border-l-4 border-brand-cyan p-4 md:p-5 rounded-r-xl">
-                        <p className="text-white font-semibold mb-2">💡 Síntesis Estructural</p>
+                        <p className="text-white font-semibold mb-2">💡 {t.modal.inteligencias.synthesis.title}</p>
                         <p className="text-gray-400 text-sm leading-relaxed">
-                          Las 7 inteligencias NO trabajan aisladas. Son un <span className="text-brand-cyan font-semibold">sistema integrado</span> donde
-                          la Inteligencia Espiritual es el génesis (principio) que activa y da sentido a todas las demás.
-                          Cuando se desarrollan juntas, el efecto multiplicador transforma completamente la vida del adolescente.
+                          {t.modal.inteligencias.synthesis.desc}
                         </p>
                       </div>
 
@@ -776,44 +604,41 @@ const SevenIntelligences: React.FC = () => {
                     >
                       {/* Ecosistema */}
                       <div className="bg-gradient-to-br from-brand-cyan/5 to-brand-purple/5 border border-white/10 rounded-xl p-4 md:p-6">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 text-center break-words">Ecosistema Educativo Completo</h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 text-center break-words">{t.modal.ecosistema.titulo}</h3>
                         <div className="grid md:grid-cols-2 gap-4 md:gap-5">
                           <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5">
                             <div className="text-2xl md:text-3xl mb-3">🎓</div>
-                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">Starbiz Academy LLC</h4>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">{t.modal.ecosistema.starbiz.title}</h4>
                             <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
-                              El "Silicon Valley educativo para Latinoamérica" - Centro neurálgico donde se imparten todos los programas,
-                              recursos y metodologías educativas de vanguardia.
+                              {t.modal.ecosistema.starbiz.desc}
                             </p>
                           </div>
                           <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5">
                             <div className="text-2xl md:text-3xl mb-3">👨‍👩‍👧‍👦</div>
-                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">Padres 3.0</h4>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">{t.modal.ecosistema.padres.title}</h4>
                             <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
-                              Comunidad de padres conscientes que se capacitan para guiar a sus hijos en la era digital con valores
-                              cristianos y herramientas prácticas.
+                              {t.modal.ecosistema.padres.desc}
                             </p>
                           </div>
                           <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5">
                             <div className="text-2xl md:text-3xl mb-3">🌐</div>
-                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">Stareduca.com</h4>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">{t.modal.ecosistema.stareduca.title}</h4>
                             <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
-                              Plataforma educativa digital donde se alojan cursos, recursos y contenido formativo para toda la comunidad.
+                              {t.modal.ecosistema.stareduca.desc}
                             </p>
                           </div>
                           <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5">
                             <div className="text-2xl md:text-3xl mb-3">📱</div>
-                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">Starbooks (App)</h4>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">{t.modal.ecosistema.starbooks.title}</h4>
                             <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
-                              Aplicación móvil educativa que facilita el aprendizaje continuo, seguimiento de progreso y conexión comunitaria.
+                              {t.modal.ecosistema.starbooks.desc}
                             </p>
                           </div>
                           <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5 md:col-span-2">
                             <div className="text-2xl md:text-3xl mb-3">🚀</div>
-                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">CEO Junior</h4>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">{t.modal.ecosistema.ceojr.title}</h4>
                             <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
-                              Programa insignia para adolescentes emprendedores (13-18 años) que los transforma en líderes digitales
-                              con mentalidad de CEO, combinando valores cristianos con habilidades de emprendimiento digital.
+                              {t.modal.ecosistema.ceojr.desc}
                             </p>
                           </div>
                         </div>
@@ -821,68 +646,38 @@ const SevenIntelligences: React.FC = () => {
 
                       {/* Originalidad */}
                       <div>
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Originalidad y Carácter Distintivo</h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">{t.modal.originalidad.title}</h3>
                         <p className="text-gray-400 leading-relaxed mb-4">
-                          GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span> es único en el mercado por 5 razones fundamentales:
+                          {t.modal.originalidad.intro}
                         </p>
                         <div className="space-y-2 md:space-y-3">
-                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
-                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">1.</span>
-                            <div className="min-w-0 flex-1">
-                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Integración Espíritu-Ciencia-Práctica</h4>
-                              <p className="text-gray-400 text-xs md:text-sm break-words">No separa lo espiritual de lo científico ni de lo práctico.</p>
+                          {t.modal.originalidad.items.map((item: any, idx: number) => (
+                            <div key={idx} className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
+                              <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">{idx + 1}.</span>
+                              <div className="min-w-0 flex-1">
+                                <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">{item.title}</h4>
+                                <p className="text-gray-400 text-xs md:text-sm break-words">{item.desc}</p>
+                              </div>
                             </div>
-                          </div>
-                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
-                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">2.</span>
-                            <div className="min-w-0 flex-1">
-                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Enfoque en Identidad Eterna</h4>
-                              <p className="text-gray-400 text-xs md:text-sm break-words">No solo desarrolla habilidades, despierta identidad divina.</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
-                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">3.</span>
-                            <div className="min-w-0 flex-1">
-                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Diseñado para Era Digital</h4>
-                              <p className="text-gray-400 text-xs md:text-sm break-words">Nativo digital, no adaptación forzada de métodos antiguos.</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
-                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">4.</span>
-                            <div className="min-w-0 flex-1">
-                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Sistema Integrado de 7 Inteligencias</h4>
-                              <p className="text-gray-400 text-xs md:text-sm break-words">No trata cada inteligencia aislada, sino como sistema interconectado.</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
-                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">5.</span>
-                            <div className="min-w-0 flex-1">
-                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Orientación a Emprendimiento Digital</h4>
-                              <p className="text-gray-400 text-xs md:text-sm break-words">No solo educa, prepara para crear empresas digitales con impacto.</p>
-                            </div>
-                          </div>
+                          ))}
                         </div>
                       </div>
 
                       {/* Autoría */}
                       <div className="bg-gradient-to-br from-brand-purple/10 to-brand-cyan/10 border border-white/10 rounded-xl p-4 md:p-6">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Autoría y Propiedad Intelectual</h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">{t.modal.autoria.title}</h3>
                         <div className="space-y-3 text-gray-400">
                           <p className="leading-relaxed text-sm md:text-base break-words">
-                            <span className="text-white font-semibold">Jimy Henry Orellana Domínguez</span> declara ser el autor original
-                            de la metodología GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>.
+                            {t.modal.autoria.p1}
                           </p>
                           <p className="leading-relaxed text-sm md:text-base break-words">
-                            Esta metodología surge de su experiencia personal, formación espiritual, estudios en educación y emprendimiento,
-                            y su compromiso con la transformación de la juventud latinoamericana.
+                            {t.modal.autoria.p2}
                           </p>
                           <p className="leading-relaxed text-sm md:text-base break-words">
-                            <span className="text-brand-cyan font-semibold">Propiedad:</span> La metodología es propiedad de Starbiz Academy LLC,
-                            empresa legalmente constituida en Utah, Estados Unidos.
+                            <span className="text-brand-cyan font-semibold">{t.modal.autoria.p3_label}</span> {t.modal.autoria.p3}
                           </p>
                           <p className="leading-relaxed text-sm md:text-base break-words">
-                            <span className="text-brand-orange font-semibold">Finalidad:</span> Educativa, social y de transformación generacional.
-                            Se comparte para el beneficio de familias y adolescentes que buscan propósito en la era digital.
+                            <span className="text-brand-orange font-semibold">{t.modal.autoria.p4_label}</span> {t.modal.autoria.p4}
                           </p>
                         </div>
                       </div>
@@ -897,7 +692,7 @@ const SevenIntelligences: React.FC = () => {
                     onClick={() => setIsModalOpen(false)}
                     className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-bold uppercase tracking-wider rounded-full transition-colors"
                   >
-                    Cerrar
+                    {t.modal.close}
                   </button>
                 </div>
 
