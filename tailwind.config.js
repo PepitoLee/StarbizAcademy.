@@ -25,7 +25,7 @@ export default {
       fontFamily: {
         sans: ['Outfit', 'sans-serif'],
         display: ['Rajdhani', 'sans-serif'],
-        calligraphy: ['Allura', 'cursive'],
+        calligraphy: ['Pacifico', 'cursive'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
