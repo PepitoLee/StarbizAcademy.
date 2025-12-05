@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState(false);
   const { t, language, toggleLanguage } = useLanguage();
 
   useEffect(() => {
@@ -18,7 +19,11 @@ const Navbar: React.FC = () => {
     { name: t.navbar.home, href: '#inicio' },
     { name: t.navbar.about, href: '#quienes-somos' },
     { name: t.navbar.intelligence, href: '#metodologia' },
-    { name: t.navbar.programs, href: '#programas' },
+  ];
+
+  const communityLinks = [
+    { name: t.navbar.submenu?.ceojr || 'CEO Junior', href: '#ceo-junior' },
+    { name: t.navbar.submenu?.parents || 'Padres 3.0', href: '#padres-3' },
   ];
 
   return (
@@ -147,6 +152,27 @@ const Navbar: React.FC = () => {
                 {link.name}
               </a>
             ))}
+
+            {/* Communities Dropdown */}
+            <div className="relative group">
+              <button className="px-6 py-2 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 flex items-center gap-1">
+                {t.navbar.communities || 'Comunidades'}
+                <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
+              </button>
+              <div className="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 pt-2">
+                <div className="bg-[#1A1A2E] border border-white/10 rounded-xl p-2 min-w-[180px] shadow-xl shadow-black/50 backdrop-blur-xl">
+                  {communityLinks.map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all"
+                    >
+                      {link.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="hidden md:flex items-center gap-4">
@@ -213,6 +239,41 @@ const Navbar: React.FC = () => {
                   {link.name}
                 </a>
               ))}
+
+              {/* Mobile Communities Submenu */}
+              <div>
+                <button
+                  onClick={() => setMobileSubmenuOpen(!mobileSubmenuOpen)}
+                  className="w-full px-4 py-3 rounded-xl text-lg font-medium text-gray-300 hover:text-white hover:bg-white/5 flex items-center justify-between"
+                >
+                  {t.navbar.communities || 'Comunidades'}
+                  <ChevronDown size={18} className={`transition-transform ${mobileSubmenuOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {mobileSubmenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4 mt-1 space-y-1 border-l-2 border-brand-cyan/30 ml-4">
+                        {communityLinks.map((link) => (
+                          <a
+                            key={link.name}
+                            href={link.href}
+                            onClick={() => { setIsOpen(false); setMobileSubmenuOpen(false); }}
+                            className="block px-4 py-2 text-base text-gray-400 hover:text-white rounded-lg"
+                          >
+                            {link.name}
+                          </a>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <a
                 href="#contacto"
                 onClick={() => setIsOpen(false)}

@@ -17,7 +17,11 @@ const translations = {
       home: "Inicio",
       about: "Quiénes Somos",
       intelligence: "Metodología",
-      programs: "Programas",
+      communities: "Comunidades",
+      submenu: {
+        ceojr: "CEO Junior",
+        parents: "Padres 3.0"
+      },
       cta: "ÚNETE GRATIS"
     },
     hero: {
@@ -224,7 +228,11 @@ const translations = {
       home: "Home",
       about: "About Us",
       intelligence: "Methodology",
-      programs: "Programs",
+      communities: "Communities",
+      submenu: {
+        ceojr: "CEO Junior",
+        parents: "Parents 3.0"
+      },
       cta: "JOIN FREE"
     },
     hero: {

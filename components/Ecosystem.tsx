@@ -24,7 +24,7 @@ const Ecosystem: React.FC = () => {
       </div>
 
       {/* Community 1: CEO Junior (Full Width) */}
-      <section className="relative py-24 md:py-32 border-y border-white/5 overflow-hidden backdrop-blur-sm bg-black/20">
+      <section id="ceo-junior" className="relative py-24 md:py-32 border-y border-white/5 overflow-hidden backdrop-blur-sm bg-black/20">
          <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-cyan/5 skew-x-12 pointer-events-none"></div>
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid lg:grid-cols-12 gap-12 items-center">
@@ -73,7 +73,7 @@ const Ecosystem: React.FC = () => {
       </section>
 
       {/* Community 2: Padres 3.0 (Full Width) */}
-      <section className="relative py-24 md:py-32 bg-[#050505]">
+      <section id="padres-3" className="relative py-24 md:py-32 bg-[#050505]">
          <div className="absolute top-0 left-0 w-1/2 h-full bg-brand-orange/5 -skew-x-12 pointer-events-none"></div>
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="flex flex-col-reverse md:flex-row-reverse gap-8 md:gap-16 items-center">
