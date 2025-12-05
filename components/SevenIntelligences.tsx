@@ -400,23 +400,23 @@ const SevenIntelligences: React.FC = () => {
               </button>
 
               {/* Header */}
-              <div className="relative p-8 pb-6 border-b border-white/10 bg-gradient-to-br from-brand-cyan/10 to-brand-purple/10">
+              <div className="relative p-4 md:p-8 pb-4 md:pb-6 border-b border-white/10 bg-gradient-to-br from-brand-cyan/10 to-brand-purple/10">
                 <div className="text-center">
-                  <span className="text-brand-cyan font-mono text-xs uppercase tracking-[0.3em] mb-2 block">Metodología Exclusiva</span>
-                  <h2 className="text-4xl md:text-5xl font-bold font-display mb-2">
+                  <span className="text-brand-cyan font-mono text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] mb-2 block">Metodología Exclusiva</span>
+                  <h2 className="text-3xl md:text-5xl font-bold font-display mb-2 break-words">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">GÉNESIS 7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>
                   </h2>
-                  <p className="text-xl text-brand-yellow font-light italic">"7 Inteligencias, Mil Oportunidades"</p>
-                  <p className="text-gray-500 text-sm mt-3">Creado por Jimy Henry Orellana Domínguez • Utah, EE.UU. • 2025</p>
+                  <p className="text-lg md:text-xl text-brand-yellow font-light italic break-words">"7 Inteligencias, Mil Oportunidades"</p>
+                  <p className="text-gray-500 text-xs md:text-sm mt-3 break-words px-2">Creado por Jimy Henry Orellana Domínguez • Utah, EE.UU. • 2025</p>
                 </div>
               </div>
 
               {/* Tab Navigation */}
-              <div className="border-b border-white/10 px-8 pt-6">
-                <div className="flex gap-2 md:gap-4">
+              <div className="border-b border-white/10 px-4 md:px-8 pt-4 md:pt-6 overflow-x-hidden">
+                <div className="flex gap-1 md:gap-4 -mx-1">
                   <button
                     onClick={() => setActiveTab('fundamentos')}
-                    className={`pb-3 px-4 md:px-6 font-bold text-sm md:text-base transition-all relative ${
+                    className={`pb-3 px-2 md:px-6 font-bold text-xs md:text-base transition-all relative whitespace-nowrap ${
                       activeTab === 'fundamentos'
                         ? 'text-brand-cyan'
                         : 'text-gray-400 hover:text-white'
@@ -433,13 +433,13 @@ const SevenIntelligences: React.FC = () => {
                   </button>
                   <button
                     onClick={() => setActiveTab('7inteligencias')}
-                    className={`pb-3 px-4 md:px-6 font-bold text-sm md:text-base transition-all relative ${
+                    className={`pb-3 px-2 md:px-6 font-bold text-xs md:text-base transition-all relative whitespace-nowrap ${
                       activeTab === '7inteligencias'
                         ? 'text-brand-cyan'
                         : 'text-gray-400 hover:text-white'
                     }`}
                   >
-                    Las 7 Inteligencias
+                    7 Inteligencias
                     {activeTab === '7inteligencias' && (
                       <motion.div
                         layoutId="activeTab"
@@ -450,7 +450,7 @@ const SevenIntelligences: React.FC = () => {
                   </button>
                   <button
                     onClick={() => setActiveTab('ecosistema')}
-                    className={`pb-3 px-4 md:px-6 font-bold text-sm md:text-base transition-all relative ${
+                    className={`pb-3 px-2 md:px-6 font-bold text-xs md:text-base transition-all relative whitespace-nowrap ${
                       activeTab === 'ecosistema'
                         ? 'text-brand-cyan'
                         : 'text-gray-400 hover:text-white'
@@ -469,7 +469,7 @@ const SevenIntelligences: React.FC = () => {
               </div>
 
               {/* Tab Content */}
-              <div className="p-8">
+              <div className="p-4 md:p-8">
                 <AnimatePresence mode="wait">
                   {activeTab === 'fundamentos' && (
                     <motion.div
@@ -482,9 +482,9 @@ const SevenIntelligences: React.FC = () => {
                     >
                       {/* Introducción General */}
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-3 flex items-center gap-2">
-                          <Target size={20} className="text-brand-cyan" />
-                          ¿Qué es GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>?
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-3 flex items-start gap-2 break-words">
+                          <Target size={18} className="text-brand-cyan flex-shrink-0 mt-1" />
+                          <span className="break-words">¿Qué es GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>?</span>
                         </h3>
                         <p className="text-gray-400 leading-relaxed mb-4">
                           Una metodología educativa integral diseñada para transformar la vida de adolescentes y sus familias en la era digital.
@@ -499,9 +499,9 @@ const SevenIntelligences: React.FC = () => {
 
                       {/* Los 3 Pilares */}
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                          <Lightbulb size={20} className="text-brand-yellow" />
-                          Los 3 Pilares Inseparables
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 flex items-start gap-2 break-words">
+                          <Lightbulb size={18} className="text-brand-yellow flex-shrink-0 mt-1" />
+                          <span className="break-words">Los 3 Pilares Inseparables</span>
                         </h3>
                         <div className="grid md:grid-cols-3 gap-4">
                           <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-5">
@@ -535,8 +535,8 @@ const SevenIntelligences: React.FC = () => {
                       </div>
 
                       {/* Propósito del Autor */}
-                      <div className="bg-gradient-to-br from-brand-purple/5 to-brand-cyan/5 border border-white/10 rounded-xl p-6">
-                        <h3 className="text-2xl font-bold text-white mb-4">Propósito de Vida del Autor</h3>
+                      <div className="bg-gradient-to-br from-brand-purple/5 to-brand-cyan/5 border border-white/10 rounded-xl p-4 md:p-6">
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Propósito de Vida del Autor</h3>
                         <p className="text-gray-400 leading-relaxed mb-3">
                           Desde los 15 años sentí un llamado profundo: formar una nueva generación de adolescentes que se conviertan en
                           <span className="text-brand-cyan font-semibold"> empresarios digitales con valores cristianos</span>, capaces de crear impacto económico y transformar sus familias.
@@ -549,48 +549,48 @@ const SevenIntelligences: React.FC = () => {
 
                       {/* Problema que Resuelve */}
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-4">Problema que Resuelve</h3>
-                        <div className="grid md:grid-cols-2 gap-4">
-                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-5">
-                            <h4 className="text-red-400 font-bold mb-2">❌ Padres confundidos</h4>
-                            <p className="text-gray-400 text-sm">No saben cómo guiar a sus hijos en la era digital sin principios claros.</p>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Problema que Resuelve</h3>
+                        <div className="grid md:grid-cols-2 gap-3 md:gap-4">
+                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-4">
+                            <h4 className="text-red-400 font-bold mb-2 text-sm md:text-base break-words">❌ Padres confundidos</h4>
+                            <p className="text-gray-400 text-xs md:text-sm break-words">No saben cómo guiar a sus hijos en la era digital sin principios claros.</p>
                           </div>
-                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-5">
-                            <h4 className="text-red-400 font-bold mb-2">❌ Adolescentes sin dirección</h4>
-                            <p className="text-gray-400 text-sm">Crecen sin propósito claro, navegando sin brújula moral o espiritual.</p>
+                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-4">
+                            <h4 className="text-red-400 font-bold mb-2 text-sm md:text-base break-words">❌ Adolescentes sin dirección</h4>
+                            <p className="text-gray-400 text-xs md:text-sm break-words">Crecen sin propósito claro, navegando sin brújula moral o espiritual.</p>
                           </div>
-                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-5">
-                            <h4 className="text-red-400 font-bold mb-2">❌ Escuela tradicional desconectada</h4>
-                            <p className="text-gray-400 text-sm">No prepara para la realidad digital ni para el emprendimiento real.</p>
+                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-4">
+                            <h4 className="text-red-400 font-bold mb-2 text-sm md:text-base break-words">❌ Escuela tradicional desconectada</h4>
+                            <p className="text-gray-400 text-xs md:text-sm break-words">No prepara para la realidad digital ni para el emprendimiento real.</p>
                           </div>
-                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-5">
-                            <h4 className="text-red-400 font-bold mb-2">❌ Tecnología más rápida que educación</h4>
-                            <p className="text-gray-400 text-sm">La velocidad del cambio supera la capacidad de adaptación educativa.</p>
+                          <div className="bg-[#1A1A2E] border border-red-500/20 rounded-xl p-4">
+                            <h4 className="text-red-400 font-bold mb-2 text-sm md:text-base break-words">❌ Tecnología más rápida que educación</h4>
+                            <p className="text-gray-400 text-xs md:text-sm break-words">La velocidad del cambio supera la capacidad de adaptación educativa.</p>
                           </div>
                         </div>
                       </div>
 
                       {/* Fundamento Espiritual */}
-                      <div className="bg-gradient-to-br from-brand-purple/10 to-brand-cyan/10 border border-white/10 rounded-xl p-6">
-                        <h3 className="text-2xl font-bold text-white mb-4">Fundamento Espiritual y Filosófico</h3>
+                      <div className="bg-gradient-to-br from-brand-purple/10 to-brand-cyan/10 border border-white/10 rounded-xl p-4 md:p-6">
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Fundamento Espiritual y Filosófico</h3>
                         <div className="space-y-4">
                           <div>
-                            <h4 className="text-brand-cyan font-bold mb-2">Dios como Inteligencia Suprema</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                            <h4 className="text-brand-cyan font-bold mb-2 text-base md:text-lg break-words">Dios como Inteligencia Suprema</h4>
+                            <p className="text-gray-400 text-sm leading-relaxed break-words">
                               La metodología reconoce a Dios no solo como creador, sino como la fuente infinita de toda inteligencia.
                               Cada una de las 7 inteligencias encuentra su origen y máxima expresión en Su naturaleza divina.
                             </p>
                           </div>
                           <div>
-                            <h4 className="text-brand-cyan font-bold mb-2">El ser humano como inteligencia eterna</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                            <h4 className="text-brand-cyan font-bold mb-2 text-base md:text-lg break-words">El ser humano como inteligencia eterna</h4>
+                            <p className="text-gray-400 text-sm leading-relaxed break-words">
                               No somos cuerpos que tienen un espíritu, sino espíritus eternos que habitan un cuerpo temporal.
                               Esta identidad espiritual es el fundamento de nuestro propósito y potencial infinito.
                             </p>
                           </div>
                           <div>
-                            <h4 className="text-brand-cyan font-bold mb-2">Sentido de "GÉNESIS"</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                            <h4 className="text-brand-cyan font-bold mb-2 text-base md:text-lg break-words">Sentido de "GÉNESIS"</h4>
+                            <p className="text-gray-400 text-sm leading-relaxed break-words">
                               GÉNESIS significa principio, origen, creación. Esta metodología lleva a los adolescentes a su origen divino,
                               a recordar quiénes son y por qué están aquí, activando su propósito desde el principio eterno.
                             </p>
@@ -600,20 +600,20 @@ const SevenIntelligences: React.FC = () => {
 
                       {/* Definición de Inteligencia */}
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-4">Definición de "Inteligencia" en GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span></h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Definición de "Inteligencia" en GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span></h3>
                         <p className="text-gray-400 leading-relaxed mb-3">
                           La inteligencia NO es solo coeficiente intelectual o capacidad cognitiva. En GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>, definimos inteligencia como:
                         </p>
-                        <div className="bg-gradient-to-r from-brand-cyan/10 to-brand-purple/10 border-l-4 border-brand-cyan p-5 rounded-r-xl">
-                          <p className="text-white text-lg font-semibold italic">
+                        <div className="bg-gradient-to-r from-brand-cyan/10 to-brand-purple/10 border-l-4 border-brand-cyan p-4 md:p-5 rounded-r-xl">
+                          <p className="text-white text-base md:text-lg font-semibold italic break-words">
                             "La chispa eterna que procede de Dios, manifestada en la capacidad de pensar, crear, sentir, decidir y amar."
                           </p>
                         </div>
                       </div>
 
                       {/* Orden Estructural */}
-                      <div className="bg-gradient-to-br from-brand-cyan/5 to-brand-purple/5 border border-white/10 rounded-xl p-6">
-                        <h3 className="text-2xl font-bold text-white mb-4">Orden Estructural: Inteligencia Espiritual como Génesis</h3>
+                      <div className="bg-gradient-to-br from-brand-cyan/5 to-brand-purple/5 border border-white/10 rounded-xl p-4 md:p-6">
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Orden Estructural: Inteligencia Espiritual como Génesis</h3>
                         <p className="text-gray-400 leading-relaxed mb-4">
                           El orden NO es arbitrario. La Inteligencia Espiritual es el <span className="text-brand-cyan font-semibold">génesis</span> (el principio)
                           de todas las demás porque:
@@ -650,9 +650,9 @@ const SevenIntelligences: React.FC = () => {
                       transition={{ duration: 0.3 }}
                       className="space-y-4"
                     >
-                      <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                        <Sparkles size={24} className="text-brand-orange" />
-                        Las 7 Inteligencias: Sistema Integrado
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-6 flex items-start gap-2 break-words">
+                        <Sparkles size={20} className="text-brand-orange flex-shrink-0 mt-1" />
+                        <span className="break-words">Las 7 Inteligencias: Sistema Integrado</span>
                       </h3>
 
                       <p className="text-gray-400 leading-relaxed mb-6">
@@ -675,22 +675,23 @@ const SevenIntelligences: React.FC = () => {
                               {/* Card Header - Always visible */}
                               <button
                                 onClick={() => setExpandedIntelligence(isExpanded ? null : intelligence.id)}
-                                className="w-full p-5 flex items-center justify-between hover:bg-white/5 transition-colors"
+                                className="w-full p-4 md:p-5 flex items-center justify-between hover:bg-white/5 transition-colors gap-2"
                               >
-                                <div className="flex items-center gap-4">
-                                  <div className={`w-12 h-12 rounded-lg ${intelligence.bgColor} border ${intelligence.borderColor} flex items-center justify-center`}>
-                                    <Icon size={24} className={intelligence.textColor} />
+                                <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg ${intelligence.bgColor} border ${intelligence.borderColor} flex items-center justify-center flex-shrink-0`}>
+                                    <Icon size={20} className={intelligence.textColor} />
                                   </div>
-                                  <div className="text-left">
-                                    <h4 className="text-white text-lg font-bold">Inteligencia {intelligence.name}</h4>
-                                    <p className={`text-sm ${intelligence.textColor} italic`}>"{intelligence.lema}"</p>
+                                  <div className="text-left min-w-0 flex-1">
+                                    <h4 className="text-white text-base md:text-lg font-bold break-words">Inteligencia {intelligence.name}</h4>
+                                    <p className={`text-xs md:text-sm ${intelligence.textColor} italic break-words line-clamp-2`}>"{intelligence.lema}"</p>
                                   </div>
                                 </div>
                                 <motion.div
                                   animate={{ rotate: isExpanded ? 180 : 0 }}
                                   transition={{ duration: 0.3 }}
+                                  className="flex-shrink-0"
                                 >
-                                  <Sparkles size={20} className={intelligence.textColor} />
+                                  <Sparkles size={16} className={intelligence.textColor} />
                                 </motion.div>
                               </button>
 
@@ -704,7 +705,7 @@ const SevenIntelligences: React.FC = () => {
                                     transition={{ duration: 0.3 }}
                                     className="overflow-hidden"
                                   >
-                                    <div className="px-5 pb-5 pt-2 space-y-4 border-t border-white/10">
+                                    <div className="px-4 md:px-5 pb-4 md:pb-5 pt-2 space-y-3 md:space-y-4 border-t border-white/10">
                                       {/* Dimensión Espiritual */}
                                       <div className="bg-[#1A1A2E]/50 rounded-lg p-4">
                                         <h5 className="text-brand-purple font-bold mb-2 flex items-center gap-2">
@@ -752,7 +753,7 @@ const SevenIntelligences: React.FC = () => {
                       </div>
 
                       {/* Synthesis Note */}
-                      <div className="mt-8 bg-gradient-to-r from-brand-cyan/10 to-brand-purple/10 border-l-4 border-brand-cyan p-5 rounded-r-xl">
+                      <div className="mt-6 md:mt-8 bg-gradient-to-r from-brand-cyan/10 to-brand-purple/10 border-l-4 border-brand-cyan p-4 md:p-5 rounded-r-xl">
                         <p className="text-white font-semibold mb-2">💡 Síntesis Estructural</p>
                         <p className="text-gray-400 text-sm leading-relaxed">
                           Las 7 inteligencias NO trabajan aisladas. Son un <span className="text-brand-cyan font-semibold">sistema integrado</span> donde
@@ -774,43 +775,43 @@ const SevenIntelligences: React.FC = () => {
                       className="space-y-8"
                     >
                       {/* Ecosistema */}
-                      <div className="bg-gradient-to-br from-brand-cyan/5 to-brand-purple/5 border border-white/10 rounded-xl p-6">
-                        <h3 className="text-2xl font-bold text-white mb-6 text-center">Ecosistema Educativo Completo</h3>
-                        <div className="grid md:grid-cols-2 gap-5">
-                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-5">
-                            <div className="text-3xl mb-3">🎓</div>
-                            <h4 className="text-white text-lg font-bold mb-2">Starbiz Academy LLC</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                      <div className="bg-gradient-to-br from-brand-cyan/5 to-brand-purple/5 border border-white/10 rounded-xl p-4 md:p-6">
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 text-center break-words">Ecosistema Educativo Completo</h3>
+                        <div className="grid md:grid-cols-2 gap-4 md:gap-5">
+                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5">
+                            <div className="text-2xl md:text-3xl mb-3">🎓</div>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">Starbiz Academy LLC</h4>
+                            <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
                               El "Silicon Valley educativo para Latinoamérica" - Centro neurálgico donde se imparten todos los programas,
                               recursos y metodologías educativas de vanguardia.
                             </p>
                           </div>
-                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-5">
-                            <div className="text-3xl mb-3">👨‍👩‍👧‍👦</div>
-                            <h4 className="text-white text-lg font-bold mb-2">Padres 3.0</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5">
+                            <div className="text-2xl md:text-3xl mb-3">👨‍👩‍👧‍👦</div>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">Padres 3.0</h4>
+                            <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
                               Comunidad de padres conscientes que se capacitan para guiar a sus hijos en la era digital con valores
                               cristianos y herramientas prácticas.
                             </p>
                           </div>
-                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-5">
-                            <div className="text-3xl mb-3">🌐</div>
-                            <h4 className="text-white text-lg font-bold mb-2">Stareduca.com</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5">
+                            <div className="text-2xl md:text-3xl mb-3">🌐</div>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">Stareduca.com</h4>
+                            <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
                               Plataforma educativa digital donde se alojan cursos, recursos y contenido formativo para toda la comunidad.
                             </p>
                           </div>
-                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-5">
-                            <div className="text-3xl mb-3">📱</div>
-                            <h4 className="text-white text-lg font-bold mb-2">Starbooks (App)</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5">
+                            <div className="text-2xl md:text-3xl mb-3">📱</div>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">Starbooks (App)</h4>
+                            <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
                               Aplicación móvil educativa que facilita el aprendizaje continuo, seguimiento de progreso y conexión comunitaria.
                             </p>
                           </div>
-                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-5 md:col-span-2">
-                            <div className="text-3xl mb-3">🚀</div>
-                            <h4 className="text-white text-lg font-bold mb-2">CEO Junior</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                          <div className="bg-[#1A1A2E] border border-white/5 rounded-xl p-4 md:p-5 md:col-span-2">
+                            <div className="text-2xl md:text-3xl mb-3">🚀</div>
+                            <h4 className="text-white text-base md:text-lg font-bold mb-2 break-words">CEO Junior</h4>
+                            <p className="text-gray-400 text-xs md:text-sm leading-relaxed break-words">
                               Programa insignia para adolescentes emprendedores (13-18 años) que los transforma en líderes digitales
                               con mentalidad de CEO, combinando valores cristianos con habilidades de emprendimiento digital.
                             </p>
@@ -820,66 +821,66 @@ const SevenIntelligences: React.FC = () => {
 
                       {/* Originalidad */}
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-4">Originalidad y Carácter Distintivo</h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Originalidad y Carácter Distintivo</h3>
                         <p className="text-gray-400 leading-relaxed mb-4">
                           GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span> es único en el mercado por 5 razones fundamentales:
                         </p>
-                        <div className="space-y-3">
-                          <div className="flex items-start gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-4">
-                            <span className="text-brand-cyan font-bold">1.</span>
-                            <div>
-                              <h4 className="text-white font-bold mb-1">Integración Espíritu-Ciencia-Práctica</h4>
-                              <p className="text-gray-400 text-sm">No separa lo espiritual de lo científico ni de lo práctico.</p>
+                        <div className="space-y-2 md:space-y-3">
+                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
+                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">1.</span>
+                            <div className="min-w-0 flex-1">
+                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Integración Espíritu-Ciencia-Práctica</h4>
+                              <p className="text-gray-400 text-xs md:text-sm break-words">No separa lo espiritual de lo científico ni de lo práctico.</p>
                             </div>
                           </div>
-                          <div className="flex items-start gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-4">
-                            <span className="text-brand-cyan font-bold">2.</span>
-                            <div>
-                              <h4 className="text-white font-bold mb-1">Enfoque en Identidad Eterna</h4>
-                              <p className="text-gray-400 text-sm">No solo desarrolla habilidades, despierta identidad divina.</p>
+                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
+                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">2.</span>
+                            <div className="min-w-0 flex-1">
+                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Enfoque en Identidad Eterna</h4>
+                              <p className="text-gray-400 text-xs md:text-sm break-words">No solo desarrolla habilidades, despierta identidad divina.</p>
                             </div>
                           </div>
-                          <div className="flex items-start gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-4">
-                            <span className="text-brand-cyan font-bold">3.</span>
-                            <div>
-                              <h4 className="text-white font-bold mb-1">Diseñado para Era Digital</h4>
-                              <p className="text-gray-400 text-sm">Nativo digital, no adaptación forzada de métodos antiguos.</p>
+                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
+                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">3.</span>
+                            <div className="min-w-0 flex-1">
+                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Diseñado para Era Digital</h4>
+                              <p className="text-gray-400 text-xs md:text-sm break-words">Nativo digital, no adaptación forzada de métodos antiguos.</p>
                             </div>
                           </div>
-                          <div className="flex items-start gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-4">
-                            <span className="text-brand-cyan font-bold">4.</span>
-                            <div>
-                              <h4 className="text-white font-bold mb-1">Sistema Integrado de 7 Inteligencias</h4>
-                              <p className="text-gray-400 text-sm">No trata cada inteligencia aislada, sino como sistema interconectado.</p>
+                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
+                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">4.</span>
+                            <div className="min-w-0 flex-1">
+                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Sistema Integrado de 7 Inteligencias</h4>
+                              <p className="text-gray-400 text-xs md:text-sm break-words">No trata cada inteligencia aislada, sino como sistema interconectado.</p>
                             </div>
                           </div>
-                          <div className="flex items-start gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-4">
-                            <span className="text-brand-cyan font-bold">5.</span>
-                            <div>
-                              <h4 className="text-white font-bold mb-1">Orientación a Emprendimiento Digital</h4>
-                              <p className="text-gray-400 text-sm">No solo educa, prepara para crear empresas digitales con impacto.</p>
+                          <div className="flex items-start gap-2 md:gap-3 bg-[#1A1A2E] border border-white/5 rounded-lg p-3 md:p-4">
+                            <span className="text-brand-cyan font-bold flex-shrink-0 text-sm md:text-base">5.</span>
+                            <div className="min-w-0 flex-1">
+                              <h4 className="text-white font-bold mb-1 text-sm md:text-base break-words">Orientación a Emprendimiento Digital</h4>
+                              <p className="text-gray-400 text-xs md:text-sm break-words">No solo educa, prepara para crear empresas digitales con impacto.</p>
                             </div>
                           </div>
                         </div>
                       </div>
 
                       {/* Autoría */}
-                      <div className="bg-gradient-to-br from-brand-purple/10 to-brand-cyan/10 border border-white/10 rounded-xl p-6">
-                        <h3 className="text-2xl font-bold text-white mb-4">Autoría y Propiedad Intelectual</h3>
+                      <div className="bg-gradient-to-br from-brand-purple/10 to-brand-cyan/10 border border-white/10 rounded-xl p-4 md:p-6">
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-4 break-words">Autoría y Propiedad Intelectual</h3>
                         <div className="space-y-3 text-gray-400">
-                          <p className="leading-relaxed">
+                          <p className="leading-relaxed text-sm md:text-base break-words">
                             <span className="text-white font-semibold">Jimy Henry Orellana Domínguez</span> declara ser el autor original
                             de la metodología GÉNESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">7</span><span className="text-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple normal-case" style={{ fontFamily: "'Pacifico', cursive" }}>i</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">™</span>.
                           </p>
-                          <p className="leading-relaxed">
+                          <p className="leading-relaxed text-sm md:text-base break-words">
                             Esta metodología surge de su experiencia personal, formación espiritual, estudios en educación y emprendimiento,
                             y su compromiso con la transformación de la juventud latinoamericana.
                           </p>
-                          <p className="leading-relaxed">
+                          <p className="leading-relaxed text-sm md:text-base break-words">
                             <span className="text-brand-cyan font-semibold">Propiedad:</span> La metodología es propiedad de Starbiz Academy LLC,
                             empresa legalmente constituida en Utah, Estados Unidos.
                           </p>
-                          <p className="leading-relaxed">
+                          <p className="leading-relaxed text-sm md:text-base break-words">
                             <span className="text-brand-orange font-semibold">Finalidad:</span> Educativa, social y de transformación generacional.
                             Se comparte para el beneficio de familias y adolescentes que buscan propósito en la era digital.
                           </p>
@@ -891,7 +892,7 @@ const SevenIntelligences: React.FC = () => {
                 </AnimatePresence>
 
                 {/* Close Button */}
-                <div className="text-center pt-6 mt-6 border-t border-white/10">
+                <div className="text-center pt-4 md:pt-6 mt-4 md:mt-6 border-t border-white/10">
                   <button
                     onClick={() => setIsModalOpen(false)}
                     className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-bold uppercase tracking-wider rounded-full transition-colors"
