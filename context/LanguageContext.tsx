@@ -28,8 +28,8 @@ const translations = {
       tag: "Liderazgo Digital & IA",
       title: {
         line1: "EL DESPERTAR",
-        line2: "DE LAS 7",
-        line3: "INTELIGENCIAS"
+        line2: "DE LA NUEVA",
+        line3: "GENERACIÓN Z"
       },
       description: "\"Formamos a la nueva generación de líderes y empresarios digitales hispanos, con el carácter y la visión para dominar la era de la IA.\"",
       cta_primary: "UNIRSE AHORA",
@@ -239,8 +239,8 @@ const translations = {
       tag: "Digital Leadership & AI",
       title: {
         line1: "THE AWAKENING",
-        line2: "OF THE 7",
-        line3: "INTELLIGENCES"
+        line2: "OF THE NEW",
+        line3: "GENERATION Z"
       },
       description: "\"Training the new generation of Hispanic digital leaders and entrepreneurs, with the character and vision to master the AI era.\"",
       cta_primary: "JOIN NOW",
