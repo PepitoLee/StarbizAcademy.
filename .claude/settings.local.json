@@ -14,7 +14,12 @@
       "Bash(node -e:*)",
       "Bash(dir:*)",
       "Bash(ls:*)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(copy e:Inglees1.mp4 E:Codeeeexpublicvideospresentation-video-en.mp4)",
+      "Bash(copy:*)",
+      "Bash(lsof:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []

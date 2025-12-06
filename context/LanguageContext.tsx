@@ -84,7 +84,8 @@ const translations = {
         title: "Conoce más sobre nuestra metodología",
         desc: "Descubre GÉNESIS 7i™, el sistema integral que transforma adolescentes y familias.",
         cta: "DESCUBRIR"
-      }
+      },
+      watchPresentation: "Ver Presentación"
     },
     programs: {
       title: "COMUNIDAD ELITE",
@@ -524,7 +525,8 @@ const translations = {
         title: "Learn more about our methodology",
         desc: "Discover GENESIS 7i™, the comprehensive system that transforms teenagers and families.",
         cta: "DISCOVER"
-      }
+      },
+      watchPresentation: "Watch Presentation"
     },
     programs: {
       title: "ELITE COMMUNITY",

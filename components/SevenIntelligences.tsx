@@ -1,15 +1,44 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Activity, Heart, Users, Zap, DollarSign, Cpu, X, Sparkles, BookOpen, Target, Lightbulb } from 'lucide-react';
+import { Brain, Activity, Heart, Users, Zap, DollarSign, Cpu, X, Sparkles, BookOpen, Target, Lightbulb, Play } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const SevenIntelligences: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const data = t.intelligences.list;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'fundamentos' | '7inteligencias' | 'ecosistema'>('fundamentos');
   const [expandedIntelligence, setExpandedIntelligence] = useState<number | null>(null);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Handle ESC key to close video modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isVideoModalOpen) {
+        setIsVideoModalOpen(false);
+      }
+    };
+
+    if (isVideoModalOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isVideoModalOpen]);
+
+  // Pause video when modal closes
+  useEffect(() => {
+    if (!isVideoModalOpen && videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [isVideoModalOpen]);
 
   // Configuration for each card to match the specific aesthetic of the reference image
   const cardConfig = [
@@ -215,14 +244,28 @@ const SevenIntelligences: React.FC = () => {
                 {t.intelligences.learnMore.desc}
               </p>
 
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="group/btn relative inline-flex px-8 py-3 bg-gradient-to-r from-brand-cyan to-brand-purple text-white font-bold text-sm uppercase tracking-widest rounded-full overflow-hidden hover:scale-105 transition-transform duration-300"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  {t.intelligences.learnMore.cta} <Sparkles size={16} />
-                </span>
-              </button>
+              {/* Contenedor de Botones - Layout Responsivo */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                {/* Botón Existente - Metodología */}
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="group/btn relative inline-flex px-8 py-3 bg-gradient-to-r from-brand-cyan to-brand-purple text-white font-bold text-sm uppercase tracking-widest rounded-full overflow-hidden hover:scale-105 transition-transform duration-300"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    {t.intelligences.learnMore.cta} <Sparkles size={16} />
+                  </span>
+                </button>
+
+                {/* Nuevo Botón - Video Presentación */}
+                <button
+                  onClick={() => setIsVideoModalOpen(true)}
+                  className="group/btn relative inline-flex px-8 py-3 bg-gradient-to-r from-brand-orange to-brand-yellow text-white font-bold text-sm uppercase tracking-widest rounded-full overflow-hidden hover:scale-105 transition-transform duration-300"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Play size={16} /> {t.intelligences.watchPresentation}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -696,6 +739,53 @@ const SevenIntelligences: React.FC = () => {
                   </button>
                 </div>
 
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal de Video Presentación */}
+      <AnimatePresence>
+        {isVideoModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setIsVideoModalOpen(false)}
+          >
+            {/* Contenedor del Modal */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="relative w-full max-w-4xl bg-space-card rounded-2xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Botón Cerrar */}
+              <button
+                onClick={() => setIsVideoModalOpen(false)}
+                className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full transition-colors duration-200"
+                aria-label="Cerrar modal de video"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+
+              {/* Reproductor de Video */}
+              <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 w-full h-full"
+                  controls
+                  autoPlay
+                  controlsList="nodownload"
+                  src={`/videos/presentation-video-${language}.mp4`}
+                  key={language}
+                >
+                  Tu navegador no soporta la reproducción de video.
+                </video>
               </div>
             </motion.div>
           </motion.div>
