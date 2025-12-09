@@ -118,7 +118,7 @@ const Ecosystem: React.FC = () => {
                      </div>
                   </div>
 
-                  <a href="https://landingnueva-three.vercel.app/" target="_blank" rel="noopener noreferrer" className="group relative inline-flex px-8 py-4 bg-brand-cyan text-black font-bold text-sm uppercase tracking-widest rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
+                  <a href="/ceo-junior" className="group relative inline-flex px-8 py-4 bg-brand-cyan text-black font-bold text-sm uppercase tracking-widest rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
                      <span className="relative z-10 flex items-center gap-2">
                         ÚNETE <ArrowRight size={16} />
                      </span>
@@ -164,7 +164,7 @@ const Ecosystem: React.FC = () => {
                      </p>
                   </div>
 
-                  <a href="#contacto" className="group relative inline-flex px-8 py-4 bg-brand-orange text-black font-bold text-sm uppercase tracking-widest rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
+                  <a href="/padres-3" className="group relative inline-flex px-8 py-4 bg-brand-orange text-black font-bold text-sm uppercase tracking-widest rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
                      <span className="relative z-10 flex items-center gap-2">
                         {t.ecosystem.parents.cta} <ArrowRight size={16} />
                      </span>

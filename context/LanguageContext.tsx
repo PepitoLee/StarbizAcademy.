@@ -448,6 +448,172 @@ const translations = {
         p4: "Educativa, social y de transformación generacional. Se comparte para el beneficio de familias y adolescentes que buscan propósito en la era digital."
       },
       close: "Cerrar"
+    },
+    ceoJuniorLanding: {
+      hero: {
+        badge: "Comunidad Insignia",
+        year: "2026",
+        title: "CEO JUNIOR",
+        tagline: "La comunidad de adolescentes empresarios más grande del mundo",
+        description: "Convierte a tu hijo en un líder con mentalidad CEO",
+        skills: ["Inglés", "Tecnología", "Negocios", "Mentalidad"],
+        cta: "RESERVAR MI CUPO",
+        ctaSecondary: "Ver más información",
+        countdown: "El programa inicia en"
+      },
+      painPoints: {
+        title: "El Problema",
+        subtitle: "La educación tradicional no prepara para el futuro digital",
+        points: [
+          { icon: "School", title: "Escuela Desactualizada", desc: "El currículo no incluye IA, emprendimiento digital ni habilidades del futuro" },
+          { icon: "Compass", title: "Sin Rumbo Claro", desc: "Adolescentes sin propósito, pasando horas en redes sociales sin crear valor real" },
+          { icon: "Globe", title: "Inglés Limitado", desc: "Sin el idioma de los negocios globales, las oportunidades internacionales se reducen" },
+          { icon: "Briefcase", title: "Mentalidad de Empleado", desc: "Educados para buscar empleo, no para crear sus propias empresas y riqueza" }
+        ]
+      },
+      solution: {
+        title: "La Solución",
+        subtitle: "CEO Junior transforma adolescentes en líderes digitales",
+        desc: "Un programa intensivo que combina inglés profesional, desarrollo tecnológico, mentalidad de éxito y visión empresarial global."
+      },
+      modules: {
+        title: "4 Módulos Transformadores",
+        subtitle: "Un sistema completo para formar CEOs digitales",
+        list: [
+          { icon: "Globe", title: "Inglés Profesional", subtitle: "Comunicación Global", desc: "Business English para networking internacional y oportunidades globales", color: "cyan" },
+          { icon: "Code", title: "Desarrollo Digital", subtitle: "Creación Tecnológica", desc: "Diseña y construye productos digitales reales con tecnologías modernas", color: "purple" },
+          { icon: "Brain", title: "Mentalidad de Éxito", subtitle: "Psicología del Alto Rendimiento", desc: "Desarrolla resiliencia, disciplina y la mentalidad de un verdadero CEO", color: "orange" },
+          { icon: "Rocket", title: "Visión Empresarial", subtitle: "Estrategia y Negocios", desc: "Aprende a identificar oportunidades, crear valor y lanzar negocios rentables", color: "yellow" }
+        ]
+      },
+      focusTracks: {
+        title: "Elige tu Especialización",
+        subtitle: "Dos caminos de enfoque para maximizar tu potencial",
+        ai: {
+          icon: "Cpu",
+          title: "AI Focus",
+          subtitle: "Domina la Inteligencia Artificial",
+          desc: "Aprende a usar IA para automatizar procesos, crear contenido avanzado y escalar negocios digitales",
+          features: ["Automatización con IA", "Creación de contenido", "Herramientas AI avanzadas", "Prompting profesional"]
+        },
+        finance: {
+          icon: "TrendingUp",
+          title: "Finance Focus",
+          subtitle: "Crea tu Primer Ingreso",
+          desc: "Domina los fundamentos financieros, crea modelos de negocio rentables y genera tus primeros ingresos",
+          features: ["Modelos de negocio", "Flujos de ingresos", "Educación financiera", "Inversión básica"]
+        }
+      },
+      exchange: {
+        badge: "EXCLUSIVO",
+        title: "Programa de Intercambio",
+        location: "Utah, Estados Unidos",
+        desc: "Los participantes destacados obtienen elegibilidad para una experiencia inmersiva de networking global en nuestra sede de EE.UU.",
+        features: ["Inmersión cultural", "Networking internacional", "Mentoría presencial", "Experiencia verificada"]
+      },
+      testimonials: {
+        title: "Historias de Éxito",
+        subtitle: "Jóvenes que ya están transformando su futuro",
+        list: [
+          { name: "Carlos M.", age: "17 años", role: "Fundador de App", quote: "A los 17 ya lancé mi primera app con un socio de otro país que conocí en Starbiz. Ahora uso IA para todo mi marketing.", avatar: "C" },
+          { name: "María L.", age: "Madre de participante", role: "Mamá de Diego, 16", quote: "Mi hijo de 16 años ya desarrolla sitios web y tiene una visión financiera que ni yo tenía a los 30. Esto es lo que la escuela no enseña.", avatar: "M" },
+          { name: "Andrés R.", age: "15 años", role: "Creador de Contenido", quote: "Antes solo consumía contenido. Ahora lo creo, lo monetizo y estoy construyendo mi marca personal.", avatar: "A" }
+        ]
+      },
+      urgency: {
+        title: "Cupos Limitados",
+        batch: "Lote: #2026_ALPHA",
+        slots: "Solo quedan espacios limitados",
+        deadline: "Cierre de inscripciones: 15 de Diciembre",
+        cta: "ASEGURAR MI LUGAR AHORA",
+        guarantee: "Garantía de satisfacción de 7 días"
+      },
+      faq: {
+        title: "Preguntas Frecuentes",
+        list: [
+          { q: "¿Qué edad deben tener los participantes?", a: "El programa está diseñado para adolescentes de 13 a 18 años. Cada grupo se adapta al nivel de madurez y experiencia previa." },
+          { q: "¿Necesitan experiencia previa en tecnología o negocios?", a: "No, el programa está diseñado para comenzar desde cero. Lo único que necesitan es motivación y ganas de aprender." },
+          { q: "¿Cómo funciona el programa de intercambio?", a: "Los participantes que demuestren excelencia y compromiso pueden aplicar al programa de intercambio en Utah, EE.UU., donde vivirán una experiencia inmersiva de networking y mentoría." },
+          { q: "¿Cuánto dura el programa?", a: "El programa tiene una duración de 6 meses con sesiones semanales en vivo, más acceso a contenido y comunidad las 24/7." },
+          { q: "¿Los padres pueden participar?", a: "¡Sí! Recomendamos que los padres se unan a nuestra comunidad Padres 3.0 para apoyar el proceso de sus hijos y aprender junto a ellos." }
+        ]
+      },
+      finalCta: {
+        title: "El Futuro de tu Hijo Comienza Hoy",
+        subtitle: "No esperes a que el mundo cambie. Prepáralo para liderarlo.",
+        cta: "INSCRIBIR AHORA",
+        whatsapp: "Hablar por WhatsApp"
+      }
+    },
+    parents30Landing: {
+      hero: {
+        badge: "Comunidad Privada de Familias Conscientes",
+        title: "PADRES 3.0",
+        tagline: "Una comunidad de padres conscientes",
+        description: "Aprende a activar las 7 inteligencias en tu hogar con apoyo, mentoría, guías y contenido exclusivo",
+        cta: "UNIRME A LA COMUNIDAD",
+        ctaSecondary: "Conocer más"
+      },
+      painPoints: {
+        title: "El Desafío de Criar en la Era Digital",
+        subtitle: "No estás solo. Miles de padres enfrentan estos mismos retos.",
+        points: [
+          { icon: "Users", title: "Desconexión Generacional", desc: "Sientes que no entiendes su mundo digital y ellos no comprenden tus valores y preocupaciones" },
+          { icon: "Smartphone", title: "Tecnología vs Familia", desc: "Las pantallas parecen separar más que unir. El tiempo de calidad se pierde en el scroll infinito" },
+          { icon: "HelpCircle", title: "Sin Manual de Crianza", desc: "Los métodos tradicionales no funcionan con esta generación nativa digital" },
+          { icon: "Heart", title: "Preocupación Constante", desc: "¿Qué futuro les espera? ¿Cómo prepararlos realmente para un mundo que cambia tan rápido?" }
+        ]
+      },
+      solution: {
+        title: "La Solución: GÉNESIS 7i™",
+        subtitle: "Una metodología probada para familias conscientes",
+        desc: "Basado en la integración de desarrollo personal, valores cristianos y preparación digital. Las 7 inteligencias activan el potencial completo de tu familia.",
+        cta: "Conocer la Metodología"
+      },
+      benefits: {
+        title: "¿Qué Obtendrás?",
+        subtitle: "Todo lo que necesitas para transformar tu hogar",
+        list: [
+          { icon: "Users", title: "Comunidad de Apoyo", desc: "Conecta con otros padres conscientes que entienden tu camino y comparten tus valores" },
+          { icon: "BookOpen", title: "Guías Prácticas", desc: "Herramientas aplicables desde el primer día para implementar las 7 inteligencias en casa" },
+          { icon: "Video", title: "Masterclasses en Vivo", desc: "Sesiones exclusivas con expertos en crianza digital, psicología y desarrollo familiar" },
+          { icon: "MessageCircle", title: "Mentoría Personalizada", desc: "Acceso a orientación directa para resolver tus dudas específicas de crianza" }
+        ]
+      },
+      tools: {
+        title: "Herramientas Exclusivas",
+        subtitle: "Recursos únicos para tu transformación familiar",
+        enneagram: {
+          icon: "Fingerprint",
+          title: "Eneagrama Familiar",
+          desc: "Entiende la personalidad única de cada miembro de tu familia. Descubre cómo motivar a cada hijo según su tipo."
+        },
+        intelligences: {
+          icon: "Sparkles",
+          title: "Framework 7 Inteligencias",
+          desc: "Un sistema paso a paso para activar cada inteligencia en tu hogar: Espiritual, Mental, Física, Emocional, Social, Financiera y Tecnológica."
+        }
+      },
+      testimonials: {
+        title: "Familias Transformadas",
+        subtitle: "Historias reales de padres como tú",
+        list: [
+          { name: "Roberto G.", role: "Padre de 2 hijos", quote: "Por fin entiendo a mi hija adolescente. Gracias al Eneagrama y Padres 3.0, sé exactamente cómo motivarla sin frustrarla. Es mi mejor herramienta de crianza.", avatar: "R" },
+          { name: "Ana M.", role: "Madre de 3", quote: "Nuestra familia ahora tiene conversaciones reales sobre el futuro. Mis hijos entienden mis valores y yo entiendo su mundo digital. Ya no hay guerra.", avatar: "A" },
+          { name: "Carlos y Lucía", role: "Padres de adolescente", quote: "Pasamos de discutir por las pantallas a construir un negocio digital juntos como familia. Padres 3.0 cambió nuestra dinámica por completo.", avatar: "CL" }
+        ]
+      },
+      community: {
+        title: "Más que un Programa, una Familia",
+        desc: "Padres 3.0 no es un curso más. Es una comunidad privada donde encontrarás apoyo continuo, eventos exclusivos y la guía que necesitas para criar hijos exitosos en la era digital.",
+        features: ["Grupo privado 24/7", "Eventos mensuales en vivo", "Recursos descargables", "Red de familias conscientes"]
+      },
+      finalCta: {
+        title: "Tu Familia Merece las Mejores Herramientas",
+        subtitle: "No tienes que hacerlo solo. Únete a una comunidad que te entiende.",
+        cta: "UNIRME A PADRES 3.0",
+        whatsapp: "Consultar por WhatsApp"
+      }
     }
   },
   en: {
@@ -889,6 +1055,172 @@ const translations = {
         p4: "Educational, social and generational transformation. Shared for the benefit of families and teenagers seeking purpose in the digital age."
       },
       close: "Close"
+    },
+    ceoJuniorLanding: {
+      hero: {
+        badge: "Flagship Community",
+        year: "2026",
+        title: "CEO JUNIOR",
+        tagline: "The world's largest teen entrepreneur community",
+        description: "Transform your child into a leader with a CEO mindset",
+        skills: ["English", "Technology", "Business", "Mindset"],
+        cta: "RESERVE MY SPOT",
+        ctaSecondary: "Learn more",
+        countdown: "Program starts in"
+      },
+      painPoints: {
+        title: "The Problem",
+        subtitle: "Traditional education doesn't prepare for the digital future",
+        points: [
+          { icon: "School", title: "Outdated School", desc: "The curriculum doesn't include AI, digital entrepreneurship, or future skills" },
+          { icon: "Compass", title: "No Clear Direction", desc: "Teenagers without purpose, spending hours on social media without creating real value" },
+          { icon: "Globe", title: "Limited English", desc: "Without the language of global business, international opportunities are reduced" },
+          { icon: "Briefcase", title: "Employee Mindset", desc: "Educated to seek employment, not to create their own businesses and wealth" }
+        ]
+      },
+      solution: {
+        title: "The Solution",
+        subtitle: "CEO Junior transforms teenagers into digital leaders",
+        desc: "An intensive program combining professional English, tech development, success mindset, and global business vision."
+      },
+      modules: {
+        title: "4 Transformative Modules",
+        subtitle: "A complete system to form digital CEOs",
+        list: [
+          { icon: "Globe", title: "Professional English", subtitle: "Global Communication", desc: "Business English for international networking and global opportunities", color: "cyan" },
+          { icon: "Code", title: "Digital Development", subtitle: "Tech Creation", desc: "Design and build real digital products with modern technologies", color: "purple" },
+          { icon: "Brain", title: "Success Mindset", subtitle: "High Performance Psychology", desc: "Develop resilience, discipline, and the mindset of a true CEO", color: "orange" },
+          { icon: "Rocket", title: "Business Vision", subtitle: "Strategy & Business", desc: "Learn to identify opportunities, create value, and launch profitable businesses", color: "yellow" }
+        ]
+      },
+      focusTracks: {
+        title: "Choose Your Specialization",
+        subtitle: "Two focus paths to maximize your potential",
+        ai: {
+          icon: "Cpu",
+          title: "AI Focus",
+          subtitle: "Master Artificial Intelligence",
+          desc: "Learn to use AI to automate processes, create advanced content, and scale digital businesses",
+          features: ["AI Automation", "Content Creation", "Advanced AI Tools", "Professional Prompting"]
+        },
+        finance: {
+          icon: "TrendingUp",
+          title: "Finance Focus",
+          subtitle: "Create Your First Income",
+          desc: "Master financial fundamentals, create profitable business models, and generate your first income",
+          features: ["Business Models", "Income Streams", "Financial Education", "Basic Investment"]
+        }
+      },
+      exchange: {
+        badge: "EXCLUSIVE",
+        title: "Exchange Program",
+        location: "Utah, United States",
+        desc: "Outstanding participants gain eligibility for an immersive global networking experience at our US headquarters.",
+        features: ["Cultural Immersion", "International Networking", "In-person Mentorship", "Verified Experience"]
+      },
+      testimonials: {
+        title: "Success Stories",
+        subtitle: "Young people already transforming their future",
+        list: [
+          { name: "Carlos M.", age: "17 years old", role: "App Founder", quote: "At 17, I already launched my first app with a partner from another country I met at Starbiz. Now I use AI for all my marketing.", avatar: "C" },
+          { name: "Maria L.", age: "Participant's mother", role: "Mom of Diego, 16", quote: "My 16-year-old son already develops websites and has a financial vision I didn't have at 30. This is what school doesn't teach.", avatar: "M" },
+          { name: "Andres R.", age: "15 years old", role: "Content Creator", quote: "I used to only consume content. Now I create it, monetize it, and I'm building my personal brand.", avatar: "A" }
+        ]
+      },
+      urgency: {
+        title: "Limited Spots",
+        batch: "Batch: #2026_ALPHA",
+        slots: "Only limited spaces remaining",
+        deadline: "Registration closes: December 15",
+        cta: "SECURE MY SPOT NOW",
+        guarantee: "7-day satisfaction guarantee"
+      },
+      faq: {
+        title: "Frequently Asked Questions",
+        list: [
+          { q: "What age should participants be?", a: "The program is designed for teenagers ages 13-18. Each group adapts to the maturity level and prior experience." },
+          { q: "Do they need prior experience in tech or business?", a: "No, the program is designed to start from scratch. All they need is motivation and eagerness to learn." },
+          { q: "How does the exchange program work?", a: "Participants who demonstrate excellence and commitment can apply for the exchange program in Utah, USA, where they'll experience immersive networking and mentorship." },
+          { q: "How long is the program?", a: "The program lasts 6 months with weekly live sessions, plus 24/7 access to content and community." },
+          { q: "Can parents participate?", a: "Yes! We recommend parents join our Parents 3.0 community to support their children's process and learn alongside them." }
+        ]
+      },
+      finalCta: {
+        title: "Your Child's Future Starts Today",
+        subtitle: "Don't wait for the world to change. Prepare them to lead it.",
+        cta: "ENROLL NOW",
+        whatsapp: "Chat on WhatsApp"
+      }
+    },
+    parents30Landing: {
+      hero: {
+        badge: "Private Community for Conscious Families",
+        title: "PARENTS 3.0",
+        tagline: "A community of conscious parents",
+        description: "Learn to activate the 7 intelligences in your home with support, mentorship, guides, and exclusive content",
+        cta: "JOIN THE COMMUNITY",
+        ctaSecondary: "Learn more"
+      },
+      painPoints: {
+        title: "The Challenge of Raising Kids in the Digital Age",
+        subtitle: "You're not alone. Thousands of parents face these same challenges.",
+        points: [
+          { icon: "Users", title: "Generational Disconnect", desc: "You feel you don't understand their digital world and they don't understand your values and concerns" },
+          { icon: "Smartphone", title: "Technology vs Family", desc: "Screens seem to separate more than unite. Quality time is lost in infinite scrolling" },
+          { icon: "HelpCircle", title: "No Parenting Manual", desc: "Traditional methods don't work with this digital native generation" },
+          { icon: "Heart", title: "Constant Worry", desc: "What future awaits them? How to really prepare them for a world that changes so fast?" }
+        ]
+      },
+      solution: {
+        title: "The Solution: GENESIS 7i™",
+        subtitle: "A proven methodology for conscious families",
+        desc: "Based on integrating personal development, Christian values, and digital preparation. The 7 intelligences activate your family's full potential.",
+        cta: "Learn the Methodology"
+      },
+      benefits: {
+        title: "What You'll Get",
+        subtitle: "Everything you need to transform your home",
+        list: [
+          { icon: "Users", title: "Support Community", desc: "Connect with other conscious parents who understand your journey and share your values" },
+          { icon: "BookOpen", title: "Practical Guides", desc: "Tools applicable from day one to implement the 7 intelligences at home" },
+          { icon: "Video", title: "Live Masterclasses", desc: "Exclusive sessions with experts in digital parenting, psychology, and family development" },
+          { icon: "MessageCircle", title: "Personalized Mentorship", desc: "Direct guidance access to resolve your specific parenting questions" }
+        ]
+      },
+      tools: {
+        title: "Exclusive Tools",
+        subtitle: "Unique resources for your family transformation",
+        enneagram: {
+          icon: "Fingerprint",
+          title: "Family Enneagram",
+          desc: "Understand the unique personality of each family member. Discover how to motivate each child according to their type."
+        },
+        intelligences: {
+          icon: "Sparkles",
+          title: "7 Intelligences Framework",
+          desc: "A step-by-step system to activate each intelligence in your home: Spiritual, Mental, Physical, Emotional, Social, Financial, and Technological."
+        }
+      },
+      testimonials: {
+        title: "Transformed Families",
+        subtitle: "Real stories from parents like you",
+        list: [
+          { name: "Roberto G.", role: "Father of 2", quote: "I finally understand my teenage daughter. Thanks to Enneagram and Parents 3.0, I know exactly how to motivate her without frustrating her. It's my best parenting tool.", avatar: "R" },
+          { name: "Ana M.", role: "Mother of 3", quote: "Our family now has real conversations about the future. My kids understand my values and I understand their digital world. No more fighting.", avatar: "A" },
+          { name: "Carlos & Lucia", role: "Parents of teenager", quote: "We went from arguing about screens to building a digital business together as a family. Parents 3.0 completely changed our dynamics.", avatar: "CL" }
+        ]
+      },
+      community: {
+        title: "More Than a Program, a Family",
+        desc: "Parents 3.0 is not just another course. It's a private community where you'll find ongoing support, exclusive events, and the guidance you need to raise successful children in the digital age.",
+        features: ["24/7 Private Group", "Monthly Live Events", "Downloadable Resources", "Network of Conscious Families"]
+      },
+      finalCta: {
+        title: "Your Family Deserves the Best Tools",
+        subtitle: "You don't have to do it alone. Join a community that understands you.",
+        cta: "JOIN PARENTS 3.0",
+        whatsapp: "Ask on WhatsApp"
+      }
     }
   }
 };
