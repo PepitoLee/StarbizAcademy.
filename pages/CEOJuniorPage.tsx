@@ -22,7 +22,8 @@ import {
   School,
   Compass,
   Briefcase,
-  CheckCircle2
+  CheckCircle2,
+  BookOpen
 } from 'lucide-react';
 
 const CEOJuniorPage: React.FC = () => {
@@ -31,7 +32,12 @@ const CEOJuniorPage: React.FC = () => {
   const [expandedTrack, setExpandedTrack] = useState<string | null>(null);
 
   const landing = t.ceoJuniorLanding;
-  const targetDate = new Date('2025-01-05T00:00:00');
+
+  // Hero countdown: January 5, 2026
+  const programStartDate = new Date('2026-01-05T00:00:00');
+
+  // Urgency countdown: 24 hours from now (dynamic)
+  const urgencyTargetDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
   const whatsappLink = `https://wa.me/13854564470?text=${encodeURIComponent(
     language === 'es'
@@ -96,7 +102,7 @@ const CEOJuniorPage: React.FC = () => {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-gradient-to-r from-brand-cyan to-brand-purple rounded-full text-sm font-medium flex items-center gap-2 hover:shadow-[0_0_20px_rgba(0,240,255,0.5)] transition-shadow"
+                className="px-4 py-2 bg-brand-orange text-black rounded-full text-sm font-bold flex items-center gap-2 hover:shadow-[0_0_20px_rgba(255,107,0,0.5)] transition-shadow"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -140,9 +146,10 @@ const CEOJuniorPage: React.FC = () => {
                 transition={{ delay: 0.1 }}
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6"
               >
-                <span className="bg-gradient-to-r from-brand-cyan via-white to-brand-purple bg-clip-text text-transparent">
-                  {landing?.hero?.title} <span className="text-brand-cyan">{landing?.hero?.year}</span>
+                <span className="text-white">
+                  {landing?.hero?.title}
                 </span>
+                <span className="bg-gradient-to-r from-brand-cyan to-brand-orange bg-clip-text text-transparent"> {landing?.hero?.year}</span>
               </motion.h1>
 
               {/* Tagline */}
@@ -183,7 +190,7 @@ const CEOJuniorPage: React.FC = () => {
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group px-8 py-4 bg-gradient-to-r from-brand-cyan to-brand-purple rounded-xl font-semibold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all"
+                  className="group px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -193,15 +200,17 @@ const CEOJuniorPage: React.FC = () => {
                 </motion.a>
               </motion.div>
 
-              {/* Countdown */}
+              {/* Countdown to Program Start */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-gray-400 text-sm mb-4">{landing?.hero?.countdown}</p>
+                <p className="text-gray-400 text-sm mb-4">
+                  {language === 'es' ? 'El programa inicia en' : 'Program starts in'}
+                </p>
                 <CountdownTimer
-                  targetDate={targetDate}
+                  targetDate={programStartDate}
                   labels={{
                     days: language === 'es' ? 'Días' : 'Days',
                     hours: language === 'es' ? 'Horas' : 'Hours',
@@ -259,7 +268,7 @@ const CEOJuniorPage: React.FC = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8 }}
                 >
-                  <p className="text-brand-cyan text-2xl font-bold">12-17</p>
+                  <p className="text-brand-cyan text-2xl font-bold">10-18</p>
                   <p className="text-gray-400 text-xs">{language === 'es' ? 'años' : 'years'}</p>
                 </motion.div>
 
@@ -437,126 +446,247 @@ const CEOJuniorPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Focus Tracks Section */}
-      <section className="relative py-20 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Temario - 6 Pilares Section */}
+      <section className="relative py-20 sm:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-cyan/5 via-transparent to-brand-orange/5" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
-              <span className="bg-gradient-to-r from-brand-cyan to-brand-orange bg-clip-text text-transparent">
-                {landing?.focusTracks?.title}
-              </span>
+            <span className="inline-block px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
+              {language === 'es' ? 'Temario Completo' : 'Full Curriculum'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
+              <span className="text-white">{language === 'es' ? 'LOS 6 PILARES ÚNICOS' : 'THE 6 UNIQUE PILLARS'}</span>
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">{landing?.focusTracks?.subtitle}</p>
+            <p className="text-xl text-brand-cyan font-semibold mb-2">
+              {language === 'es' ? 'Tu Matriz de Valor en 12 Meses' : 'Your Value Matrix in 12 Months'}
+            </p>
+            <p className="text-gray-400 max-w-3xl mx-auto">
+              {language === 'es'
+                ? 'Este programa fusiona 6 áreas críticas para el éxito profesional, garantizando una formación integral.'
+                : 'This program merges 6 critical areas for professional success, ensuring comprehensive training.'}
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-            {/* AI Focus Track */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className={`relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-brand-cyan/10 to-transparent border border-brand-cyan/30 cursor-pointer transition-all ${
-                expandedTrack === 'ai' ? 'ring-2 ring-brand-cyan' : ''
-              }`}
-              onClick={() => setExpandedTrack(expandedTrack === 'ai' ? null : 'ai')}
-            >
-              <div className="relative">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-brand-cyan/20 border border-brand-cyan/30">
-                      <Cpu className="w-6 h-6 text-brand-cyan" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-display font-bold text-brand-cyan">
-                        {landing?.focusTracks?.ai?.title}
+          {/* 6 Pilares Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                number: '01',
+                icon: Brain,
+                title: language === 'es' ? '7 Habilidades/Inteligencias' : '7 Skills/Intelligences',
+                desc: language === 'es'
+                  ? 'Dominio de las 7 Inteligencias Esenciales por semana para tu crecimiento personal.'
+                  : 'Mastery of the 7 Essential Intelligences per week for your personal growth.',
+                color: 'brand-cyan',
+                gradient: 'from-brand-cyan/20 to-brand-cyan/5'
+              },
+              {
+                number: '02',
+                icon: Star,
+                title: language === 'es' ? 'Mentalidad Emprendedora' : 'Entrepreneurial Mindset',
+                desc: language === 'es'
+                  ? 'Estudio de desafíos y aciertos de hombres influyentes para forjar resiliencia y visión.'
+                  : 'Study of challenges and successes of influential men to forge resilience and vision.',
+                color: 'brand-orange',
+                gradient: 'from-brand-orange/20 to-brand-orange/5'
+              },
+              {
+                number: '03',
+                icon: BookOpen,
+                title: language === 'es' ? 'Libros de Desarrollo Personal' : 'Personal Development Books',
+                desc: language === 'es'
+                  ? 'Libros clave desglosados para aplicar sus mejores conceptos a la acción diaria.'
+                  : 'Key books broken down to apply their best concepts to daily action.',
+                color: 'brand-purple',
+                gradient: 'from-brand-purple/20 to-brand-purple/5'
+              },
+              {
+                number: '04',
+                icon: Briefcase,
+                title: language === 'es' ? 'Casos de Negocios (Harvard)' : 'Business Cases (Harvard)',
+                desc: language === 'es'
+                  ? 'Análisis semanal de empresas como ZOOM para crear modelos de negocio funcionales.'
+                  : 'Weekly analysis of companies like ZOOM to create functional business models.',
+                color: 'brand-yellow',
+                gradient: 'from-brand-yellow/20 to-brand-yellow/5'
+              },
+              {
+                number: '05',
+                icon: Globe,
+                title: language === 'es' ? 'Inglés Universitario y de Negocios' : 'University & Business English',
+                subtitle: language === 'es' ? 'EN VIVO desde Londres' : 'LIVE from London',
+                desc: language === 'es'
+                  ? 'Sesiones en vivo con un experto desde LONDRES para dominar el vocabulario académico y empresarial.'
+                  : 'Live sessions with an expert from LONDON to master academic and business vocabulary.',
+                color: 'brand-cyan',
+                gradient: 'from-brand-cyan/20 to-brand-purple/5'
+              },
+              {
+                number: '06',
+                icon: Rocket,
+                title: language === 'es' ? 'Guía Tecnológica y Consultoría' : 'Tech Guide & Consulting',
+                subtitle: language === 'es' ? 'Ganancias Reales' : 'Real Earnings',
+                desc: language === 'es'
+                  ? 'El Motor del Programa. Lanzamiento de un proyecto de consultoría real, con uso de tecnología y generación de ganancias verificables.'
+                  : 'The Engine of the Program. Launch of a real consulting project, with technology use and verifiable earnings generation.',
+                color: 'brand-orange',
+                gradient: 'from-brand-orange/20 to-brand-yellow/5',
+                featured: true
+              }
+            ].map((pilar, index) => {
+              const IconComponent = pilar.icon;
+              const isExpanded = expandedTrack === `pilar-${index}`;
+
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`group relative rounded-2xl cursor-pointer transition-all duration-300 ${
+                    pilar.featured ? 'md:col-span-2 lg:col-span-1' : ''
+                  } ${isExpanded ? `ring-2 ring-${pilar.color}` : ''}`}
+                  onClick={() => setExpandedTrack(isExpanded ? null : `pilar-${index}`)}
+                >
+                  {/* Card */}
+                  <div className={`relative h-full p-6 sm:p-8 rounded-2xl bg-gradient-to-br ${pilar.gradient} border border-white/10 hover:border-${pilar.color}/50 transition-all overflow-hidden`}>
+                    {/* Number watermark */}
+                    <span className={`absolute top-4 right-4 text-6xl font-display font-black text-${pilar.color}/10 group-hover:text-${pilar.color}/20 transition-colors`}>
+                      {pilar.number}
+                    </span>
+
+                    {/* Glow effect on hover */}
+                    <div className={`absolute inset-0 bg-${pilar.color}/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl`} />
+
+                    <div className="relative">
+                      {/* Icon */}
+                      <motion.div
+                        className={`w-14 h-14 rounded-xl bg-${pilar.color}/20 border border-${pilar.color}/40 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                        whileHover={{ rotate: 5 }}
+                      >
+                        <IconComponent className={`w-7 h-7 text-${pilar.color}`} />
+                      </motion.div>
+
+                      {/* Title */}
+                      <h3 className={`text-xl font-display font-bold text-white mb-1 group-hover:text-${pilar.color} transition-colors`}>
+                        {pilar.title}
                       </h3>
-                      <p className="text-gray-400 text-sm">{landing?.focusTracks?.ai?.subtitle}</p>
+
+                      {/* Subtitle if exists */}
+                      {pilar.subtitle && (
+                        <p className={`text-${pilar.color} text-sm font-semibold mb-2`}>
+                          {pilar.subtitle}
+                        </p>
+                      )}
+
+                      {/* Description */}
+                      <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                        {pilar.desc}
+                      </p>
+
+                      {/* Expand indicator */}
+                      <div className={`flex items-center gap-2 text-${pilar.color} text-sm font-medium`}>
+                        {isExpanded ? (
+                          <>
+                            <ChevronUp className="w-4 h-4" />
+                            <span>{language === 'es' ? 'Ver menos' : 'See less'}</span>
+                          </>
+                        ) : (
+                          <>
+                            <ChevronDown className="w-4 h-4" />
+                            <span>{language === 'es' ? 'Ver más' : 'See more'}</span>
+                          </>
+                        )}
+                      </div>
+
+                      {/* Expanded content */}
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pt-4 mt-4 border-t border-white/10">
+                              <ul className="space-y-2">
+                                {pilar.featured ? (
+                                  <>
+                                    <li className="flex items-start gap-2 text-gray-300 text-sm">
+                                      <CheckCircle2 className={`w-4 h-4 text-${pilar.color} flex-shrink-0 mt-0.5`} />
+                                      <span>{language === 'es' ? 'Proyecto real con clientes reales' : 'Real project with real clients'}</span>
+                                    </li>
+                                    <li className="flex items-start gap-2 text-gray-300 text-sm">
+                                      <CheckCircle2 className={`w-4 h-4 text-${pilar.color} flex-shrink-0 mt-0.5`} />
+                                      <span>{language === 'es' ? 'Uso de herramientas tecnológicas actuales' : 'Use of current tech tools'}</span>
+                                    </li>
+                                    <li className="flex items-start gap-2 text-gray-300 text-sm">
+                                      <CheckCircle2 className={`w-4 h-4 text-${pilar.color} flex-shrink-0 mt-0.5`} />
+                                      <span>{language === 'es' ? 'Ganancias verificables desde el programa' : 'Verifiable earnings from the program'}</span>
+                                    </li>
+                                  </>
+                                ) : (
+                                  <>
+                                    <li className="flex items-start gap-2 text-gray-300 text-sm">
+                                      <CheckCircle2 className={`w-4 h-4 text-${pilar.color} flex-shrink-0 mt-0.5`} />
+                                      <span>{language === 'es' ? 'Contenido semanal estructurado' : 'Structured weekly content'}</span>
+                                    </li>
+                                    <li className="flex items-start gap-2 text-gray-300 text-sm">
+                                      <CheckCircle2 className={`w-4 h-4 text-${pilar.color} flex-shrink-0 mt-0.5`} />
+                                      <span>{language === 'es' ? 'Ejercicios prácticos aplicables' : 'Practical applicable exercises'}</span>
+                                    </li>
+                                    <li className="flex items-start gap-2 text-gray-300 text-sm">
+                                      <CheckCircle2 className={`w-4 h-4 text-${pilar.color} flex-shrink-0 mt-0.5`} />
+                                      <span>{language === 'es' ? 'Seguimiento personalizado' : 'Personalized follow-up'}</span>
+                                    </li>
+                                  </>
+                                )}
+                              </ul>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
+
+                    {/* Featured badge */}
+                    {pilar.featured && (
+                      <div className="absolute top-4 left-4 px-3 py-1 bg-brand-orange text-black text-xs font-bold uppercase rounded-full">
+                        {language === 'es' ? 'El Motor' : 'The Engine'}
+                      </div>
+                    )}
                   </div>
-                  {expandedTrack === 'ai' ? (
-                    <ChevronUp className="w-5 h-5 text-brand-cyan" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-brand-cyan" />
-                  )}
-                </div>
-                <p className="text-gray-400 mb-4">{landing?.focusTracks?.ai?.desc}</p>
-
-                <AnimatePresence>
-                  {expandedTrack === 'ai' && (
-                    <motion.ul
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="space-y-2 overflow-hidden"
-                    >
-                      {landing?.focusTracks?.ai?.features?.map((feature: string, i: number) => (
-                        <li key={i} className="flex items-center gap-2 text-gray-300">
-                          <CheckCircle2 className="w-4 h-4 text-brand-cyan flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </motion.ul>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-
-            {/* Finance Focus Track */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className={`relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-brand-orange/10 to-transparent border border-brand-orange/30 cursor-pointer transition-all ${
-                expandedTrack === 'finance' ? 'ring-2 ring-brand-orange' : ''
-              }`}
-              onClick={() => setExpandedTrack(expandedTrack === 'finance' ? null : 'finance')}
-            >
-              <div className="relative">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-brand-orange/20 border border-brand-orange/30">
-                      <TrendingUp className="w-6 h-6 text-brand-orange" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-display font-bold text-brand-orange">
-                        {landing?.focusTracks?.finance?.title}
-                      </h3>
-                      <p className="text-gray-400 text-sm">{landing?.focusTracks?.finance?.subtitle}</p>
-                    </div>
-                  </div>
-                  {expandedTrack === 'finance' ? (
-                    <ChevronUp className="w-5 h-5 text-brand-orange" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-brand-orange" />
-                  )}
-                </div>
-                <p className="text-gray-400 mb-4">{landing?.focusTracks?.finance?.desc}</p>
-
-                <AnimatePresence>
-                  {expandedTrack === 'finance' && (
-                    <motion.ul
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="space-y-2 overflow-hidden"
-                    >
-                      {landing?.focusTracks?.finance?.features?.map((feature: string, i: number) => (
-                        <li key={i} className="flex items-center gap-2 text-gray-300">
-                          <CheckCircle2 className="w-4 h-4 text-brand-orange flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </motion.ul>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
+                </motion.div>
+              );
+            })}
           </div>
+
+          {/* CTA after temario */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <motion.a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Rocket className="w-5 h-5" />
+              {language === 'es' ? 'Quiero ser parte del programa' : 'I want to be part of the program'}
+              <ArrowRight className="w-5 h-5" />
+            </motion.a>
+          </motion.div>
         </div>
       </section>
 
@@ -789,7 +919,7 @@ const CEOJuniorPage: React.FC = () => {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-brand-cyan to-brand-purple rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all"
+                    className="group inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -854,13 +984,13 @@ const CEOJuniorPage: React.FC = () => {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-4 text-white">
                 {landing?.urgency?.title}
               </h2>
-              <p className="text-gray-300 mb-8 max-w-xl mx-auto">
-                {landing?.urgency?.deadline}
+              <p className="text-brand-orange font-semibold mb-8 max-w-xl mx-auto">
+                {language === 'es' ? 'Inscripciones abiertas limitadas' : 'Limited open enrollment'}
               </p>
 
               <div className="mb-8">
                 <CountdownTimer
-                  targetDate={targetDate}
+                  targetDate={urgencyTargetDate}
                   labels={{
                     days: language === 'es' ? 'Días' : 'Days',
                     hours: language === 'es' ? 'Horas' : 'Hours',
@@ -875,7 +1005,7 @@ const CEOJuniorPage: React.FC = () => {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-brand-cyan to-brand-purple rounded-xl font-semibold text-lg hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -956,9 +1086,9 @@ const CEOJuniorPage: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <Sparkles className="w-12 h-12 text-brand-cyan mx-auto mb-6" />
+            <Sparkles className="w-12 h-12 text-brand-orange mx-auto mb-6" />
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6">
-              <span className="bg-gradient-to-r from-brand-cyan via-white to-brand-purple bg-clip-text text-transparent">
+              <span className="text-white">
                 {landing?.finalCta?.title}
               </span>
             </h2>
@@ -971,8 +1101,8 @@ const CEOJuniorPage: React.FC = () => {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-brand-cyan via-brand-purple to-brand-cyan bg-[length:200%_100%] rounded-2xl font-bold text-xl hover:shadow-[0_0_60px_rgba(0,240,255,0.5)] transition-all"
-                whileHover={{ scale: 1.02, backgroundPosition: '100% 0' }}
+                className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-black rounded-2xl font-bold text-xl hover:shadow-[0_0_60px_rgba(255,107,0,0.5)] transition-all"
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <Rocket className="w-6 h-6" />
@@ -984,7 +1114,7 @@ const CEOJuniorPage: React.FC = () => {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-5 bg-white/5 border border-white/20 rounded-2xl font-semibold text-lg hover:bg-white/10 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-8 py-5 bg-white/10 border border-white/30 rounded-2xl font-semibold text-lg text-white hover:bg-white/20 transition-all"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

@@ -531,10 +531,10 @@ const translations = {
       faq: {
         title: "Preguntas Frecuentes",
         list: [
-          { q: "¿Qué edad deben tener los participantes?", a: "El programa está diseñado para adolescentes de 13 a 18 años. Cada grupo se adapta al nivel de madurez y experiencia previa." },
+          { q: "¿Qué edad deben tener los participantes?", a: "El programa está diseñado para jóvenes de 10 a 18 años. Cada grupo se adapta al nivel de madurez y experiencia previa." },
           { q: "¿Necesitan experiencia previa en tecnología o negocios?", a: "No, el programa está diseñado para comenzar desde cero. Lo único que necesitan es motivación y ganas de aprender." },
           { q: "¿Cómo funciona el programa de intercambio?", a: "Los participantes que demuestren excelencia y compromiso pueden aplicar al programa de intercambio en Utah, EE.UU., donde vivirán una experiencia inmersiva de networking y mentoría." },
-          { q: "¿Cuánto dura el programa?", a: "El programa tiene una duración de 6 meses con sesiones semanales en vivo, más acceso a contenido y comunidad las 24/7." },
+          { q: "¿Cuánto dura el programa?", a: "El programa tiene una duración de 3 años con sesiones semanales en vivo, más acceso a contenido y comunidad las 24/7." },
           { q: "¿Los padres pueden participar?", a: "¡Sí! Recomendamos que los padres se unan a nuestra comunidad Padres 3.0 para apoyar el proceso de sus hijos y aprender junto a ellos." }
         ]
       },
@@ -1138,10 +1138,10 @@ const translations = {
       faq: {
         title: "Frequently Asked Questions",
         list: [
-          { q: "What age should participants be?", a: "The program is designed for teenagers ages 13-18. Each group adapts to the maturity level and prior experience." },
+          { q: "What age should participants be?", a: "The program is designed for young people ages 10-18. Each group adapts to the maturity level and prior experience." },
           { q: "Do they need prior experience in tech or business?", a: "No, the program is designed to start from scratch. All they need is motivation and eagerness to learn." },
           { q: "How does the exchange program work?", a: "Participants who demonstrate excellence and commitment can apply for the exchange program in Utah, USA, where they'll experience immersive networking and mentorship." },
-          { q: "How long is the program?", a: "The program lasts 6 months with weekly live sessions, plus 24/7 access to content and community." },
+          { q: "How long is the program?", a: "The program lasts 3 years with weekly live sessions, plus 24/7 access to content and community." },
           { q: "Can parents participate?", a: "Yes! We recommend parents join our Parents 3.0 community to support their children's process and learn alongside them." }
         ]
       },
