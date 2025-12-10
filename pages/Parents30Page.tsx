@@ -41,8 +41,7 @@ const Parents30Page: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const landing = t.parents30Landing;
-  const targetDate = new Date('2025-01-05T00:00:00');
-  const programStartDate = new Date('2025-01-20T00:00:00'); // Program start date
+  const programStartDate = new Date('2026-01-05T00:00:00'); // Program starts January 5, 2026
 
   // Video controls
   const toggleVideo = () => {
@@ -296,10 +295,10 @@ const Parents30Page: React.FC = () => {
               transition={{ delay: 0.35 }}
             >
               <p className="text-brand-orange/70 text-sm font-medium mb-3 uppercase tracking-wider">
-                {language === 'es' ? 'Próxima cohorte' : 'Next cohort'}
+                {language === 'es' ? 'Inicia el 5 de Enero 2026' : 'Starts January 5, 2026'}
               </p>
               <CountdownTimer
-                targetDate={targetDate}
+                targetDate={programStartDate}
                 labels={{
                   days: language === 'es' ? 'Días' : 'Days',
                   hours: language === 'es' ? 'Hrs' : 'Hrs',
@@ -1234,7 +1233,7 @@ const Parents30Page: React.FC = () => {
             >
               <Clock className="w-5 h-5 text-brand-orange" />
               <span className="text-white font-medium">
-                {language === 'es' ? '20 de Enero, 2025' : 'January 20, 2025'}
+                {language === 'es' ? '5 de Enero, 2026' : 'January 5, 2026'}
               </span>
             </motion.div>
 
@@ -1246,8 +1245,8 @@ const Parents30Page: React.FC = () => {
               className="text-gray-400 mt-6 max-w-lg mx-auto"
             >
               {language === 'es'
-                ? 'Inscríbete ahora y asegura tu lugar en la próxima cohorte de transformación.'
-                : 'Sign up now and secure your spot in the next transformation cohort.'}
+                ? 'Inscríbete ahora y asegura tu lugar en esta transformación.'
+                : 'Sign up now and secure your spot in this transformation.'}
             </motion.p>
           </motion.div>
         </div>
@@ -1284,7 +1283,7 @@ const Parents30Page: React.FC = () => {
 
             <div className="mb-10">
               <CountdownTimer
-                targetDate={targetDate}
+                targetDate={programStartDate}
                 labels={{
                   days: language === 'es' ? 'Días' : 'Days',
                   hours: language === 'es' ? 'Hrs' : 'Hrs',
