@@ -23,15 +23,103 @@ import {
   Compass,
   Briefcase,
   CheckCircle2,
-  BookOpen
+  BookOpen,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Calendar,
+  Award,
+  Users,
+  Target,
+  Zap,
+  GraduationCap
 } from 'lucide-react';
 
 const CEOJuniorPage: React.FC = () => {
   const { t, language } = useLanguage();
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [expandedTrack, setExpandedTrack] = useState<string | null>(null);
+  const [historySlide, setHistorySlide] = useState(0);
+  const [historyVideoModal, setHistoryVideoModal] = useState<string | null>(null);
+  const [historyImageModal, setHistoryImageModal] = useState<string | null>(null);
 
   const landing = t.ceoJuniorLanding;
+
+  // Timeline data for history section
+  const historyTimeline = [
+    {
+      year: '2020',
+      title: language === 'es' ? 'Los Inicios' : 'The Beginning',
+      subtitle: 'Orellana Group',
+      description: language === 'es'
+        ? 'Comenzamos como Orellana Group, una consultora empresarial enfocada en certificaciones de Marketing Digital. Formamos a los primeros emprendedores digitales con cursos especializados.'
+        : 'We started as Orellana Group, a business consulting firm focused on Digital Marketing certifications. We trained the first digital entrepreneurs with specialized courses.',
+      icon: Award,
+      color: 'brand-cyan',
+      video: '/videos/history/Certificads.mp4',
+      images: ['/images/history/certificado.png', '/images/history/09.12.2025_18.20.45_REC.png', '/images/history/09.12.2025_18.21.35_REC.png']
+    },
+    {
+      year: '2021',
+      title: language === 'es' ? 'Crecimiento' : 'Growth',
+      subtitle: language === 'es' ? 'Expansión de comunidad' : 'Community Expansion',
+      description: language === 'es'
+        ? 'Nuestra comunidad creció significativamente. Ampliamos los cursos y comenzamos a ver el impacto real en la vida de nuestros estudiantes.'
+        : 'Our community grew significantly. We expanded courses and started seeing real impact in our students\' lives.',
+      icon: Users,
+      color: 'brand-orange',
+      video: '/videos/history/Video Corto.mp4',
+      images: []
+    },
+    {
+      year: '2022',
+      title: language === 'es' ? 'Asesoría Personal' : 'Personal Mentorship',
+      subtitle: language === 'es' ? 'Mentoría uno a uno' : 'One-on-one Mentoring',
+      description: language === 'es'
+        ? 'Implementamos el modelo de asesoría personalizada. Cada estudiante recibía atención individual para maximizar su potencial emprendedor.'
+        : 'We implemented the personalized mentorship model. Each student received individual attention to maximize their entrepreneurial potential.',
+      icon: Target,
+      color: 'brand-purple',
+      video: '/videos/history/Video De Asesoria Personaloizado.mp4',
+      images: []
+    },
+    {
+      year: '2023',
+      title: language === 'es' ? 'Transformación' : 'Transformation',
+      subtitle: language === 'es' ? 'Nuevo enfoque juvenil' : 'New Youth Focus',
+      description: language === 'es'
+        ? 'Identificamos una necesidad crucial: los jóvenes necesitaban formación empresarial temprana. Comenzamos a pivotar hacia la educación juvenil.'
+        : 'We identified a crucial need: young people needed early business training. We began pivoting towards youth education.',
+      icon: Zap,
+      color: 'brand-yellow',
+      video: '/videos/history/Cortoo.mp4',
+      images: []
+    },
+    {
+      year: '2024',
+      title: language === 'es' ? 'Nacimiento CEO Junior' : 'CEO Junior is Born',
+      subtitle: language === 'es' ? 'El programa toma forma' : 'The Program Takes Shape',
+      description: language === 'es'
+        ? 'CEO Junior nace oficialmente. Diseñamos el programa de 6 Pilares para formar a la próxima generación de líderes empresariales hispanos.'
+        : 'CEO Junior is officially born. We designed the 6 Pillars program to train the next generation of Hispanic business leaders.',
+      icon: Rocket,
+      color: 'brand-cyan',
+      video: null,
+      images: []
+    },
+    {
+      year: '2025',
+      title: language === 'es' ? 'El Presente' : 'The Present',
+      subtitle: language === 'es' ? 'Programa completo' : 'Complete Program',
+      description: language === 'es'
+        ? 'Hoy, CEO Junior es un programa integral de 3 años que combina 7 inteligencias, mentoría de élite, inglés de negocios y oportunidades reales de networking global.'
+        : 'Today, CEO Junior is a comprehensive 3-year program combining 7 intelligences, elite mentorship, business English, and real global networking opportunities.',
+      icon: GraduationCap,
+      color: 'brand-orange',
+      video: null,
+      images: []
+    }
+  ];
 
   // Hero countdown: January 5, 2026
   const programStartDate = new Date('2026-01-05T00:00:00');
@@ -44,21 +132,6 @@ const CEOJuniorPage: React.FC = () => {
       ? 'Hola, me interesa CEO Junior 2026'
       : 'Hi, I\'m interested in CEO Junior 2026'
   )}`;
-
-  // Map icons for modules
-  const moduleIcons = [Globe, Code, Brain, Rocket];
-  const moduleColors = [
-    'from-blue-500 to-cyan-500',
-    'from-cyan-500 to-brand-cyan',
-    'from-purple-500 to-pink-500',
-    'from-brand-orange to-brand-yellow'
-  ];
-  const moduleVideos = [
-    '/videos/global-connection.mp4',
-    '/videos/tech-intelligence.mp4',
-    '/videos/mental-intelligence.mp4',
-    '/videos/visionary.mp4'
-  ];
 
   // Map icons for pain points
   const painPointIcons = [School, Compass, Globe, Briefcase];
@@ -149,7 +222,7 @@ const CEOJuniorPage: React.FC = () => {
                 <span className="text-white">
                   {landing?.hero?.title}
                 </span>
-                <span className="bg-gradient-to-r from-brand-cyan to-brand-orange bg-clip-text text-transparent"> {landing?.hero?.year}</span>
+                <span className="text-brand-orange"> {landing?.hero?.year}</span>
               </motion.h1>
 
               {/* Tagline */}
@@ -306,7 +379,7 @@ const CEOJuniorPage: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
-              <span className="bg-gradient-to-r from-brand-orange to-red-500 bg-clip-text text-transparent">
+              <span className="text-brand-orange">
                 {landing?.painPoints?.title}
               </span>
             </h2>
@@ -356,7 +429,7 @@ const CEOJuniorPage: React.FC = () => {
               {landing?.solution?.title}
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6">
-              <span className="bg-gradient-to-r from-brand-cyan to-brand-purple bg-clip-text text-transparent">
+              <span className="text-white">
                 {landing?.solution?.subtitle}
               </span>
             </h2>
@@ -364,85 +437,6 @@ const CEOJuniorPage: React.FC = () => {
               {landing?.solution?.desc}
             </p>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Modules Section */}
-      <section className="relative py-20 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
-              <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                {landing?.modules?.title}
-              </span>
-            </h2>
-            <p className="text-gray-400">{landing?.modules?.subtitle}</p>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
-            {landing?.modules?.list?.map((module: any, index: number) => {
-              const IconComponent = moduleIcons[index] || Globe;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer"
-                >
-                  {/* Video background on hover */}
-                  <video
-                    src={moduleVideos[index]}
-                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-30 transition-opacity duration-500"
-                    muted
-                    loop
-                    playsInline
-                    onMouseEnter={(e) => e.currentTarget.play()}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.pause();
-                      e.currentTarget.currentTime = 0;
-                    }}
-                  />
-
-                  {/* Gradient background */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${moduleColors[index]} opacity-10 group-hover:opacity-20 transition-opacity`} />
-
-                  {/* Content */}
-                  <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between bg-space-card/50 backdrop-blur-sm border border-white/10 group-hover:border-white/20 transition-colors">
-                    {/* Number watermark */}
-                    <span className="absolute top-4 right-4 text-6xl sm:text-8xl font-display font-bold text-white/5 group-hover:text-white/10 transition-colors">
-                      0{index + 1}
-                    </span>
-
-                    <div className="relative">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${moduleColors[index]} flex items-center justify-center mb-4`}>
-                        <IconComponent className="w-6 h-6 text-white" />
-                      </div>
-                      <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-2">
-                        {module.title}
-                      </h3>
-                      <p className="text-brand-cyan text-sm mb-3">{module.subtitle}</p>
-                      <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-                        {module.desc}
-                      </p>
-                    </div>
-
-                    {/* Hover indicator */}
-                    <div className="flex items-center gap-2 text-brand-cyan opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Play className="w-4 h-4" />
-                      <span className="text-sm">{language === 'es' ? 'Ver más' : 'Learn more'}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
         </div>
       </section>
 
@@ -760,6 +754,269 @@ const CEOJuniorPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Our History Section - Carousel */}
+      <section className="relative py-20 sm:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-orange/5 to-transparent" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
+              <Calendar className="w-4 h-4" />
+              {language === 'es' ? 'Nuestra Trayectoria' : 'Our Journey'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
+              <span className="text-white">{language === 'es' ? 'NUESTRA HISTORIA' : 'OUR HISTORY'}</span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              {language === 'es'
+                ? 'De Orellana Group a CEO Junior: 5 años de evolución formando líderes'
+                : 'From Orellana Group to CEO Junior: 5 years of evolution training leaders'}
+            </p>
+          </motion.div>
+
+          {/* Carousel Container */}
+          <div className="relative">
+            {/* Navigation Arrows */}
+            <button
+              onClick={() => setHistorySlide(prev => (prev > 0 ? prev - 1 : historyTimeline.length - 1))}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 rounded-full bg-space-card/80 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-brand-orange/20 hover:border-brand-orange/50 transition-all hidden md:flex"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={() => setHistorySlide(prev => (prev < historyTimeline.length - 1 ? prev + 1 : 0))}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 rounded-full bg-space-card/80 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-brand-orange/20 hover:border-brand-orange/50 transition-all hidden md:flex"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            {/* Slides Container */}
+            <div className="overflow-hidden rounded-3xl">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={historySlide}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.4 }}
+                  className="relative"
+                >
+                  {(() => {
+                    const slide = historyTimeline[historySlide];
+                    const IconComponent = slide.icon;
+                    return (
+                      <div className="bg-space-card/60 backdrop-blur-sm border border-white/10 rounded-3xl p-6 sm:p-8 lg:p-12">
+                        <div className="flex flex-col lg:flex-row gap-8 items-center">
+                          {/* Left: Media Section */}
+                          <div className="w-full lg:w-1/2">
+                            <div className="relative aspect-video rounded-2xl overflow-hidden bg-space-dark/50 border border-white/5">
+                              {slide.video ? (
+                                <div
+                                  className="w-full h-full flex items-center justify-center cursor-pointer group"
+                                  onClick={() => setHistoryVideoModal(slide.video)}
+                                >
+                                  <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-transparent" />
+                                  <motion.div
+                                    className="relative z-10 w-20 h-20 rounded-full bg-brand-orange/90 flex items-center justify-center"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                  >
+                                    <Play className="w-8 h-8 text-white ml-1" />
+                                  </motion.div>
+                                  <p className="absolute bottom-4 left-4 text-white/80 text-sm">
+                                    {language === 'es' ? 'Click para ver video' : 'Click to watch video'}
+                                  </p>
+                                </div>
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center">
+                                  <div className={`w-24 h-24 rounded-2xl bg-${slide.color}/20 flex items-center justify-center`}>
+                                    <IconComponent className={`w-12 h-12 text-${slide.color}`} />
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Certificate Images Gallery */}
+                            {slide.images && slide.images.length > 0 && (
+                              <div className="flex gap-3 mt-4 justify-center">
+                                {slide.images.map((img, idx) => (
+                                  <motion.div
+                                    key={idx}
+                                    className="w-20 h-14 rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-brand-orange transition-all"
+                                    whileHover={{ scale: 1.05 }}
+                                    onClick={() => setHistoryImageModal(img)}
+                                  >
+                                    <img src={img} alt={`Certificate ${idx + 1}`} className="w-full h-full object-cover" />
+                                  </motion.div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Right: Content Section */}
+                          <div className="w-full lg:w-1/2 text-center lg:text-left">
+                            {/* Year Badge */}
+                            <motion.div
+                              initial={{ scale: 0.8, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              className="inline-block mb-4"
+                            >
+                              <span className={`text-6xl sm:text-7xl lg:text-8xl font-display font-black text-${slide.color}`}>
+                                {slide.year}
+                              </span>
+                            </motion.div>
+
+                            <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-2">
+                              {slide.title}
+                            </h3>
+                            <p className={`text-${slide.color} font-medium mb-4`}>
+                              {slide.subtitle}
+                            </p>
+                            <p className="text-gray-400 text-lg leading-relaxed mb-6">
+                              {slide.description}
+                            </p>
+
+                            {/* Action Buttons */}
+                            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                              {slide.video && (
+                                <motion.button
+                                  onClick={() => setHistoryVideoModal(slide.video)}
+                                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-orange text-black rounded-xl font-semibold hover:shadow-[0_0_20px_rgba(255,107,0,0.4)] transition-all"
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                                >
+                                  <Play className="w-4 h-4" />
+                                  {language === 'es' ? 'Ver Video' : 'Watch Video'}
+                                </motion.button>
+                              )}
+                              {slide.images && slide.images.length > 0 && (
+                                <motion.button
+                                  onClick={() => setHistoryImageModal(slide.images[0])}
+                                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 text-white rounded-xl font-semibold border border-white/20 hover:bg-white/20 transition-all"
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                                >
+                                  <Award className="w-4 h-4" />
+                                  {language === 'es' ? 'Ver Certificados' : 'View Certificates'}
+                                </motion.button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Dot Indicators */}
+            <div className="flex justify-center gap-2 mt-8">
+              {historyTimeline.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setHistorySlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === historySlide
+                      ? 'bg-brand-orange w-8'
+                      : 'bg-white/20 hover:bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Mobile Navigation */}
+            <div className="flex justify-center gap-4 mt-6 md:hidden">
+              <button
+                onClick={() => setHistorySlide(prev => (prev > 0 ? prev - 1 : historyTimeline.length - 1))}
+                className="w-12 h-12 rounded-full bg-space-card/80 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() => setHistorySlide(prev => (prev < historyTimeline.length - 1 ? prev + 1 : 0))}
+                className="w-12 h-12 rounded-full bg-space-card/80 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Video Modal */}
+        <AnimatePresence>
+          {historyVideoModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
+              onClick={() => setHistoryVideoModal(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.9 }}
+                className="relative w-full max-w-4xl"
+                onClick={e => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setHistoryVideoModal(null)}
+                  className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <video
+                  src={historyVideoModal}
+                  controls
+                  autoPlay
+                  className="w-full rounded-xl"
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Image Modal */}
+        <AnimatePresence>
+          {historyImageModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
+              onClick={() => setHistoryImageModal(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.9 }}
+                className="relative max-w-4xl max-h-[90vh]"
+                onClick={e => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setHistoryImageModal(null)}
+                  className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <img
+                  src={historyImageModal}
+                  alt="Certificate"
+                  className="max-w-full max-h-[85vh] rounded-xl object-contain"
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </section>
+
       {/* Testimonials Section */}
       <section className="relative py-20 sm:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -770,7 +1027,7 @@ const CEOJuniorPage: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
-              <span className="bg-gradient-to-r from-brand-cyan to-white bg-clip-text text-transparent">
+              <span className="text-white">
                 {landing?.testimonials?.title}
               </span>
             </h2>
@@ -826,7 +1083,7 @@ const CEOJuniorPage: React.FC = () => {
               {language === 'es' ? 'Inversión Accesible' : 'Affordable Investment'}
             </span>
             <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
-              <span className="bg-gradient-to-r from-brand-cyan to-brand-purple bg-clip-text text-transparent">
+              <span className="text-white">
                 {language === 'es' ? 'Únete a la Comunidad' : 'Join the Community'}
               </span>
             </h2>
@@ -861,7 +1118,7 @@ const CEOJuniorPage: React.FC = () => {
                   <div className="flex items-baseline justify-center lg:justify-start gap-2 mb-4">
                     <span className="text-gray-400 text-2xl">{language === 'es' ? 'Solo' : 'Only'}</span>
                     <motion.span
-                      className="text-6xl sm:text-7xl md:text-8xl font-display font-black bg-gradient-to-r from-brand-cyan via-white to-brand-purple bg-clip-text text-transparent"
+                      className="text-6xl sm:text-7xl md:text-8xl font-display font-black text-brand-orange"
                       animate={{ scale: [1, 1.02, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     >
@@ -1029,7 +1286,7 @@ const CEOJuniorPage: React.FC = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
-              <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              <span className="text-white">
                 {landing?.faq?.title}
               </span>
             </h2>
