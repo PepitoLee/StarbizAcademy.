@@ -26,7 +26,15 @@ import {
   Zap,
   Home,
   Play,
-  Globe
+  Globe,
+  Target,
+  Lightbulb,
+  GraduationCap,
+  Clock,
+  Award,
+  TrendingUp,
+  Puzzle,
+  Unlock
 } from 'lucide-react';
 
 const Parents30Page: React.FC = () => {
@@ -377,6 +385,390 @@ const Parents30Page: React.FC = () => {
             <ChevronDown className="w-6 h-6 text-brand-orange/50" />
           </div>
         </motion.div>
+      </section>
+
+      {/* BIENVENIDA EMOCIONAL - Historia de Jimy */}
+      <section className="relative py-24 sm:py-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-brand-orange/5 to-[#050505]" />
+
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
+              <Heart className="w-4 h-4" />
+              {language === 'es' ? 'Bienvenida Emocional' : 'Emotional Welcome'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
+              <span className="text-white">{language === 'es' ? '"Si tú cambias, todo cambia."' : '"If you change, everything changes."'}</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative bg-space-card/40 backdrop-blur-sm border border-brand-orange/20 rounded-3xl p-8 sm:p-12"
+          >
+            <Quote className="absolute top-6 left-6 w-12 h-12 text-brand-orange/20" />
+
+            <div className="relative space-y-6 text-lg text-gray-300 leading-relaxed">
+              <p>
+                {language === 'es'
+                  ? 'Soy Jimy Henry Orellana, fundador de Padres 3.0.'
+                  : 'I\'m Jimy Henry Orellana, founder of Parents 3.0.'}
+              </p>
+              <p>
+                {language === 'es'
+                  ? 'Durante años creí que mis hijos debían cambiar para que nuestro hogar mejorara. Les pedía más disciplina, más orden, más responsabilidad… pero la distancia emocional crecía, y no entendía por qué.'
+                  : 'For years I believed my children had to change for our home to improve. I asked them for more discipline, more order, more responsibility... but the emotional distance grew, and I didn\'t understand why.'}
+              </p>
+              <p className="text-white font-semibold text-xl">
+                {language === 'es'
+                  ? 'Hasta que un día descubrí algo que transformó mi vida: Ellos no eran el problema. El cambio debía comenzar en mí.'
+                  : 'Until one day I discovered something that transformed my life: They weren\'t the problem. The change had to start with me.'}
+              </p>
+              <p>
+                {language === 'es'
+                  ? 'Ese fue el inicio de mi transformación. Empecé a estudiar profundamente Psicología Positiva, Neurociencia, PNL, Coaching y Eneagrama de la Personalidad.'
+                  : 'That was the beginning of my transformation. I began studying deeply Positive Psychology, Neuroscience, NLP, Coaching, and the Enneagram of Personality.'}
+              </p>
+            </div>
+
+            <div className="mt-8 flex items-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-orange to-amber-500 flex items-center justify-center text-white font-bold text-xl">
+                JO
+              </div>
+              <div>
+                <p className="text-white font-bold">Jimy Henry Orellana</p>
+                <p className="text-brand-orange">{language === 'es' ? 'Fundador de Padres 3.0' : 'Founder of Parents 3.0'}</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 5 HERRAMIENTAS MODERNAS */}
+      <section className="relative py-24 sm:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[#050505]" />
+        <div className="absolute top-0 left-0 w-1/3 h-full bg-gradient-to-r from-brand-orange/10 to-transparent" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
+              <Puzzle className="w-4 h-4" />
+              {language === 'es' ? 'Metodología Científica' : 'Scientific Methodology'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
+              <span className="text-white">{language === 'es' ? '5 HERRAMIENTAS MODERNAS' : '5 MODERN TOOLS'}</span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              {language === 'es'
+                ? 'Herramientas que combinan ciencia, espiritualidad y desarrollo personal. No necesitas conocimientos previos, solo disposición para transformarte.'
+                : 'Tools that combine science, spirituality, and personal development. No prior knowledge needed, just willingness to transform.'}
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Fingerprint,
+                title: language === 'es' ? 'Eneagrama de la Personalidad' : 'Enneagram of Personality',
+                desc: language === 'es'
+                  ? 'Para comprender profundamente la personalidad, motivaciones y necesidades emocionales de tu hijo… y las tuyas.'
+                  : 'To deeply understand the personality, motivations, and emotional needs of your child... and yours.',
+                color: 'from-brand-orange to-red-500'
+              },
+              {
+                icon: Brain,
+                title: language === 'es' ? 'Programación Neurolingüística (PNL)' : 'Neuro-Linguistic Programming (NLP)',
+                desc: language === 'es'
+                  ? 'Para cambiar patrones, mejorar tu comunicación y transformar reacciones automáticas que dañan la conexión.'
+                  : 'To change patterns, improve your communication, and transform automatic reactions that damage connection.',
+                color: 'from-amber-500 to-brand-orange'
+              },
+              {
+                icon: Target,
+                title: language === 'es' ? 'Coaching para Padres' : 'Parenting Coaching',
+                desc: language === 'es'
+                  ? 'Para convertirte en guía, no en juez. Para dirigir desde la pregunta y la conciencia, no desde el enojo.'
+                  : 'To become a guide, not a judge. To lead from questions and awareness, not from anger.',
+                color: 'from-yellow-500 to-amber-500'
+              },
+              {
+                icon: Lightbulb,
+                title: language === 'es' ? 'Neurociencia Aplicada' : 'Applied Neuroscience',
+                desc: language === 'es'
+                  ? 'Para entender cómo funciona el cerebro adolescente y dejar de tomarte sus reacciones como un ataque personal.'
+                  : 'To understand how the adolescent brain works and stop taking their reactions as a personal attack.',
+                color: 'from-brand-orange to-amber-400'
+              },
+              {
+                icon: Star,
+                title: language === 'es' ? 'Psicología Positiva' : 'Positive Psychology',
+                desc: language === 'es'
+                  ? 'Para aumentar autoestima, resiliencia y motivación en tus hijos… y en ti.'
+                  : 'To increase self-esteem, resilience, and motivation in your children... and in yourself.',
+                color: 'from-red-500 to-brand-orange'
+              }
+            ].map((tool, index) => {
+              const IconComponent = tool.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group relative p-6 sm:p-8 rounded-2xl bg-space-card/50 backdrop-blur-sm border border-white/10 hover:border-brand-orange/50 transition-all"
+                >
+                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center mb-5`}>
+                    <IconComponent className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{tool.title}</h3>
+                  <p className="text-gray-400 leading-relaxed">{tool.desc}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Por qué funcionan */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <div className="inline-block p-8 rounded-2xl bg-gradient-to-br from-brand-orange/10 to-transparent border border-brand-orange/20">
+              <h3 className="text-2xl font-bold text-white mb-4">
+                {language === 'es' ? '¿Por qué funcionan estas herramientas?' : 'Why do these tools work?'}
+              </h3>
+              <p className="text-gray-300 max-w-2xl mx-auto mb-6">
+                {language === 'es'
+                  ? 'Porque trabajan donde nace el comportamiento humano: pensamientos, emociones, hábitos, comunicación e identidad.'
+                  : 'Because they work where human behavior is born: thoughts, emotions, habits, communication, and identity.'}
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                {[
+                  language === 'es' ? 'Primero cambias tú' : 'First you change',
+                  language === 'es' ? 'Luego cambian tus palabras' : 'Then your words change',
+                  language === 'es' ? 'Luego cambia la conexión' : 'Then the connection changes',
+                  language === 'es' ? 'Luego cambian tus hijos' : 'Then your children change'
+                ].map((step, i) => (
+                  <div key={i} className="flex items-center gap-2 px-4 py-2 bg-brand-orange/10 rounded-full">
+                    <span className="w-6 h-6 rounded-full bg-brand-orange text-black text-sm font-bold flex items-center justify-center">{i + 1}</span>
+                    <span className="text-white text-sm font-medium">{step}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* RETO 60 DÍAS - Mapa de Transformación */}
+      <section className="relative py-24 sm:py-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-brand-orange/5 to-[#050505]" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
+              <Clock className="w-4 h-4" />
+              {language === 'es' ? 'Tu Mapa de Transformación' : 'Your Transformation Map'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
+              <span className="text-white">{language === 'es' ? 'RETO PADRES 3.0: ' : 'PARENTS 3.0 CHALLENGE: '}</span>
+              <span className="text-brand-orange">60 {language === 'es' ? 'DÍAS' : 'DAYS'}</span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              {language === 'es'
+                ? 'El reto está dividido en 2 grandes etapas, cada una diseñada para transformarte desde adentro.'
+                : 'The challenge is divided into 2 major stages, each designed to transform you from within.'}
+            </p>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* ETAPA 1 */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative p-8 rounded-3xl bg-gradient-to-br from-brand-orange/20 to-transparent border border-brand-orange/30"
+            >
+              <div className="absolute -top-4 -left-4 w-16 h-16 rounded-2xl bg-brand-orange flex items-center justify-center">
+                <span className="text-2xl font-black text-black">1</span>
+              </div>
+
+              <div className="ml-8">
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  {language === 'es' ? 'ETAPA 1 – LAS 5 HERRAMIENTAS MODERNAS' : 'STAGE 1 – THE 5 MODERN TOOLS'}
+                </h3>
+                <p className="text-brand-orange mb-6">{language === 'es' ? 'Semanas 1 a 5' : 'Weeks 1 to 5'}</p>
+
+                <div className="space-y-4">
+                  {[
+                    { week: 1, title: language === 'es' ? 'Eneagrama de la Personalidad' : 'Enneagram of Personality' },
+                    { week: 2, title: language === 'es' ? 'Programación Neurolingüística (PNL)' : 'Neuro-Linguistic Programming (NLP)' },
+                    { week: 3, title: language === 'es' ? 'Coaching para Padres' : 'Parenting Coaching' },
+                    { week: 4, title: language === 'es' ? 'Neurociencia Aplicada' : 'Applied Neuroscience' },
+                    { week: 5, title: language === 'es' ? 'Psicología Positiva' : 'Positive Psychology' }
+                  ].map((item) => (
+                    <div key={item.week} className="flex items-center gap-4 p-3 rounded-xl bg-white/5">
+                      <span className="w-10 h-10 rounded-full bg-brand-orange/20 border border-brand-orange/50 flex items-center justify-center text-brand-orange font-bold">
+                        {item.week}
+                      </span>
+                      <span className="text-white font-medium">{item.title}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-6 text-gray-400 italic">
+                  {language === 'es'
+                    ? 'Aquí aprenderás TODO lo que necesitas para transformarte como padre.'
+                    : 'Here you\'ll learn EVERYTHING you need to transform as a parent.'}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* ETAPA 2 */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative p-8 rounded-3xl bg-gradient-to-br from-amber-500/20 to-transparent border border-amber-500/30"
+            >
+              <div className="absolute -top-4 -left-4 w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center">
+                <span className="text-2xl font-black text-black">2</span>
+              </div>
+
+              <div className="ml-8">
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  {language === 'es' ? 'ETAPA 2 – LOS 5 DESAFÍOS DE LA ADOLESCENCIA' : 'STAGE 2 – THE 5 CHALLENGES OF ADOLESCENCE'}
+                </h3>
+                <p className="text-amber-500 mb-6">{language === 'es' ? 'Semanas 6 a 10' : 'Weeks 6 to 10'}</p>
+
+                <div className="space-y-4">
+                  {[
+                    { week: 6, title: language === 'es' ? 'Cambios emocionales y conductuales' : 'Emotional and behavioral changes' },
+                    { week: 7, title: language === 'es' ? 'Problemas de comunicación' : 'Communication problems' },
+                    { week: 8, title: language === 'es' ? 'Toma de decisiones' : 'Decision making' },
+                    { week: 9, title: language === 'es' ? 'Rendimiento académico' : 'Academic performance' },
+                    { week: 10, title: language === 'es' ? 'Relaciones y amistades' : 'Relationships and friendships' }
+                  ].map((item) => (
+                    <div key={item.week} className="flex items-center gap-4 p-3 rounded-xl bg-white/5">
+                      <span className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-500 font-bold">
+                        {item.week}
+                      </span>
+                      <span className="text-white font-medium">{item.title}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-6 text-gray-400 italic">
+                  {language === 'es'
+                    ? 'Aquí transformarás tu relación con tus hijos.'
+                    : 'Here you\'ll transform your relationship with your children.'}
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* LOGROS EN 60 DÍAS */}
+      <section className="relative py-24 sm:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[#050505]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-orange/10 via-transparent to-brand-orange/10" />
+
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
+              <Award className="w-4 h-4" />
+              {language === 'es' ? 'Resultados Garantizados' : 'Guaranteed Results'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
+              <span className="text-white">{language === 'es' ? '¿Qué podrás lograr en ' : 'What can you achieve in '}</span>
+              <span className="text-brand-orange">60 {language === 'es' ? 'días' : 'days'}</span>
+              <span className="text-white">?</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { icon: MessageCircle, text: language === 'es' ? 'Mejorar la comunicación con tus hijos' : 'Improve communication with your children' },
+              { icon: Shield, text: language === 'es' ? 'Disminuir conflictos' : 'Reduce conflicts' },
+              { icon: TrendingUp, text: language === 'es' ? 'Fortalecer su autoestima' : 'Strengthen their self-esteem' },
+              { icon: Heart, text: language === 'es' ? 'Poner límites desde el amor' : 'Set limits from love' },
+              { icon: Fingerprint, text: language === 'es' ? 'Entender su personalidad' : 'Understand their personality' },
+              { icon: Unlock, text: language === 'es' ? 'Recuperar la conexión emocional' : 'Recover emotional connection' },
+              { icon: Home, text: language === 'es' ? 'Tener más paz en casa' : 'Have more peace at home' },
+              { icon: Star, text: language === 'es' ? 'Ser un líder emocional y espiritual' : 'Be an emotional and spiritual leader' }
+            ].map((item, index) => {
+              const IconComponent = item.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  className="flex items-center gap-3 p-4 rounded-xl bg-space-card/50 border border-brand-orange/20 hover:border-brand-orange/50 transition-all"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-brand-orange/20 flex items-center justify-center flex-shrink-0">
+                    <IconComponent className="w-5 h-5 text-brand-orange" />
+                  </div>
+                  <p className="text-white font-medium text-sm">{item.text}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Frase final */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <p className="text-2xl sm:text-3xl font-display font-bold text-white mb-4">
+              {language === 'es' ? '"Si tú cambias, ellos cambian."' : '"If you change, they change."'}
+            </p>
+            <p className="text-xl text-brand-orange">
+              {language === 'es' ? 'Y este programa te guiará paso a paso.' : 'And this program will guide you step by step.'}
+            </p>
+
+            <motion.a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 mt-8 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Sparkles className="w-5 h-5" />
+              {language === 'es' ? 'Quiero Transformarme' : 'I Want to Transform'}
+              <ArrowRight className="w-5 h-5" />
+            </motion.a>
+          </motion.div>
+        </div>
       </section>
 
       {/* Pain Points Section - Orange theme */}
