@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import CountdownTimer from '../components/landing/CountdownTimer';
@@ -6,43 +6,62 @@ import Starfield from '../components/Starfield';
 import {
   Heart,
   Users,
-  BookOpen,
-  Video,
   MessageCircle,
-  ChevronDown,
-  ChevronUp,
   Sparkles,
   ArrowRight,
   Brain,
-  Compass,
   Smartphone,
-  HelpCircle,
   Fingerprint,
   CheckCircle2,
-  Quote,
-  Hexagon,
   Star,
   Shield,
   Zap,
-  Home,
-  Play,
   Globe,
   Target,
   Lightbulb,
-  GraduationCap,
   Clock,
-  Award,
   TrendingUp,
   Puzzle,
-  Unlock
+  Unlock,
+  Home,
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Maximize,
+  History
 } from 'lucide-react';
 
 const Parents30Page: React.FC = () => {
   const { t, language, toggleLanguage } = useLanguage();
-  const [expandedTool, setExpandedTool] = useState<string | null>(null);
+  const [activeStage, setActiveStage] = useState<1 | 2>(1);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const landing = t.parents30Landing;
   const targetDate = new Date('2025-01-05T00:00:00');
+  const programStartDate = new Date('2025-01-20T00:00:00'); // Program start date
+
+  // Video controls
+  const toggleVideo = () => {
+    if (videoRef.current) {
+      if (isVideoPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsVideoPlaying(!isVideoPlaying);
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   const whatsappLink = `https://wa.me/13854564470?text=${encodeURIComponent(
     language === 'es'
@@ -50,74 +69,114 @@ const Parents30Page: React.FC = () => {
       : 'Hi, I\'m interested in Parents 3.0'
   )}`;
 
-  // Map icons for pain points
-  const painPointIcons = [Users, Smartphone, HelpCircle, Heart];
-
-  // Map icons for benefits
-  const benefitIcons = [Users, BookOpen, Video, MessageCircle];
-  const benefitColors = [
-    'from-brand-orange to-amber-500',
-    'from-amber-500 to-yellow-400',
-    'from-yellow-400 to-brand-orange',
-    'from-brand-orange to-red-500'
+  // 7 Intelligences
+  const intelligences = [
+    { name: language === 'es' ? 'Espiritual' : 'Spiritual', icon: Star },
+    { name: language === 'es' ? 'Mental' : 'Mental', icon: Brain },
+    { name: language === 'es' ? 'Física' : 'Physical', icon: Zap },
+    { name: language === 'es' ? 'Emocional' : 'Emotional', icon: Heart },
+    { name: language === 'es' ? 'Social' : 'Social', icon: Users },
+    { name: language === 'es' ? 'Financiera' : 'Financial', icon: Shield },
+    { name: language === 'es' ? 'Tecnológica' : 'Technological', icon: Smartphone }
   ];
 
-  // 7 Intelligences for the diagram
-  const intelligences = [
-    { name: language === 'es' ? 'Espiritual' : 'Spiritual', color: '#FF6B00', icon: Star },
-    { name: language === 'es' ? 'Mental' : 'Mental', color: '#FF8C00', icon: Brain },
-    { name: language === 'es' ? 'Física' : 'Physical', color: '#FFA500', icon: Zap },
-    { name: language === 'es' ? 'Emocional' : 'Emotional', color: '#FFB347', icon: Heart },
-    { name: language === 'es' ? 'Social' : 'Social', color: '#FF7F50', icon: Users },
-    { name: language === 'es' ? 'Financiera' : 'Financial', color: '#FF6347', icon: Shield },
-    { name: language === 'es' ? 'Tecnológica' : 'Technological', color: '#FF4500', icon: Smartphone }
+  // 5 Tools consolidated
+  const tools = [
+    {
+      icon: Fingerprint,
+      name: language === 'es' ? 'Eneagrama' : 'Enneagram',
+      brief: language === 'es' ? 'Comprende personalidades' : 'Understand personalities'
+    },
+    {
+      icon: Brain,
+      name: 'PNL',
+      brief: language === 'es' ? 'Transforma patrones' : 'Transform patterns'
+    },
+    {
+      icon: Target,
+      name: 'Coaching',
+      brief: language === 'es' ? 'Guía consciente' : 'Conscious guidance'
+    },
+    {
+      icon: Lightbulb,
+      name: language === 'es' ? 'Neurociencia' : 'Neuroscience',
+      brief: language === 'es' ? 'Entiende el cerebro' : 'Understand the brain'
+    },
+    {
+      icon: Star,
+      name: language === 'es' ? 'Psicología Positiva' : 'Positive Psychology',
+      brief: language === 'es' ? 'Cultiva fortalezas' : 'Cultivate strengths'
+    }
+  ];
+
+  // Stage 1 & 2 weeks
+  const stage1Weeks = [
+    language === 'es' ? 'Eneagrama' : 'Enneagram',
+    'PNL',
+    'Coaching',
+    language === 'es' ? 'Neurociencia' : 'Neuroscience',
+    language === 'es' ? 'Psicología Positiva' : 'Positive Psychology'
+  ];
+
+  const stage2Weeks = [
+    language === 'es' ? 'Cambios emocionales' : 'Emotional changes',
+    language === 'es' ? 'Comunicación' : 'Communication',
+    language === 'es' ? 'Toma de decisiones' : 'Decision making',
+    language === 'es' ? 'Rendimiento académico' : 'Academic performance',
+    language === 'es' ? 'Relaciones' : 'Relationships'
+  ];
+
+  // Results - condensed
+  const results = [
+    { icon: MessageCircle, text: language === 'es' ? 'Mejor comunicación' : 'Better communication' },
+    { icon: Shield, text: language === 'es' ? 'Menos conflictos' : 'Less conflicts' },
+    { icon: TrendingUp, text: language === 'es' ? 'Mayor autoestima' : 'Higher self-esteem' },
+    { icon: Heart, text: language === 'es' ? 'Límites con amor' : 'Limits with love' },
+    { icon: Unlock, text: language === 'es' ? 'Conexión emocional' : 'Emotional connection' },
+    { icon: Home, text: language === 'es' ? 'Paz en casa' : 'Peace at home' }
   ];
 
   return (
     <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
       <Starfield />
 
-      {/* Warm floating particles - Orange theme */}
+      {/* Subtle ambient particles */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full"
             style={{
-              width: Math.random() * 6 + 2,
-              height: Math.random() * 6 + 2,
-              background: `radial-gradient(circle, rgba(255,107,0,${0.3 + Math.random() * 0.3}) 0%, transparent 70%)`,
+              width: Math.random() * 4 + 2,
+              height: Math.random() * 4 + 2,
+              background: `radial-gradient(circle, rgba(255,107,0,${0.2 + Math.random() * 0.2}) 0%, transparent 70%)`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              opacity: [0.3, 0.7, 0.3],
-              scale: [1, 1.3, 1],
+              y: [0, -20, 0],
+              opacity: [0.2, 0.5, 0.2],
             }}
             transition={{
-              duration: 5 + Math.random() * 4,
+              duration: 6 + Math.random() * 4,
               repeat: Infinity,
               delay: Math.random() * 3,
-              ease: "easeInOut"
             }}
           />
         ))}
       </div>
 
-      {/* Navbar - Orange theme */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050505]/90 backdrop-blur-md border-b border-brand-orange/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Minimal Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             <a href="/" className="flex items-center gap-2">
-              <img src="/images/logo.png" alt="Starbiz" className="h-8 w-auto" />
+              <img src="/images/logo.png" alt="Starbiz" className="h-7 w-auto" />
             </a>
             <div className="flex items-center gap-3">
-              {/* Language Toggle */}
               <motion.button
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 border border-white/20 rounded-full text-white text-sm font-medium hover:bg-white/20 transition-all"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-white/60 text-sm font-medium hover:text-white transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -129,247 +188,126 @@ const Parents30Page: React.FC = () => {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2.5 bg-brand-orange text-black rounded-lg text-sm font-bold uppercase tracking-wider flex items-center gap-2 hover:shadow-[0_0_30px_rgba(255,107,0,0.5)] transition-all"
+                className="px-5 py-2 bg-brand-orange text-black rounded-full text-sm font-bold flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Sparkles className="w-4 h-4" />
-                {landing?.hero?.cta || 'Unirme'}
+                {language === 'es' ? 'Inscribirme' : 'Join Now'}
               </motion.a>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* HERO SECTION - Impactful Orange Theme */}
-      <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
-        {/* Background effects */}
+      {/* HERO - Clean Editorial Style */}
+      <section className="relative min-h-screen flex items-center pt-16">
+        {/* Elegant gradient background */}
         <div className="absolute inset-0">
-          {/* Large orange glow - top left */}
-          <div className="absolute top-0 -left-1/4 w-[800px] h-[800px] bg-brand-orange/20 rounded-full blur-[150px]" />
-          {/* Secondary glow - bottom right */}
-          <div className="absolute -bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-amber-500/15 rounded-full blur-[120px]" />
-          {/* Accent glow - center */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-orange/10 rounded-full blur-[100px]" />
-          {/* Diagonal stripe like main page */}
-          <div className="absolute top-0 left-0 w-1/2 h-full bg-brand-orange/5 -skew-x-12" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-orange/10 via-transparent to-transparent" />
+          <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-tl from-amber-500/5 to-transparent" />
         </div>
 
-        {/* Animated grid pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `linear-gradient(rgba(255,107,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,0,0.3) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px'
-        }} />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left content */}
-            <div className="text-center lg:text-left">
-              {/* Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-brand-orange/10 border border-brand-orange/40 mb-8"
-              >
-                <motion.div
-                  animate={{
-                    scale: [1, 1.3, 1],
-                    rotate: [0, 10, -10, 0]
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <Sparkles className="w-5 h-5 text-brand-orange" />
-                </motion.div>
-                <span className="text-brand-orange text-sm font-bold uppercase tracking-wider">{landing?.hero?.badge}</span>
-              </motion.div>
-
-              {/* Title - Big and impactful */}
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black mb-6 leading-[0.9]"
-              >
-                <span className="text-white">PADRES</span>
-                <br />
-                <span className="relative">
-                  <span className="bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange bg-clip-text text-transparent">
-                    3.0
-                  </span>
-                  {/* Glow effect behind text */}
-                  <span className="absolute inset-0 bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange bg-clip-text text-transparent blur-2xl opacity-50">
-                    3.0
-                  </span>
-                </span>
-              </motion.h1>
-
-              {/* Tagline */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-xl sm:text-2xl text-white/90 mb-4 max-w-xl mx-auto lg:mx-0 font-medium"
-              >
-                {landing?.hero?.tagline}
-              </motion.p>
-
-              {/* Description */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25 }}
-                className="text-gray-400 text-lg mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
-              >
-                {landing?.hero?.description}
-              </motion.p>
-
-              {/* Feature pills */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-3 justify-center lg:justify-start mb-10"
-              >
-                {['7 Inteligencias', 'Eneagrama', 'Comunidad', 'Mentoría'].map((feature, i) => (
-                  <span
-                    key={i}
-                    className="px-4 py-2 bg-white/5 border border-brand-orange/30 rounded-full text-sm text-white/80 backdrop-blur-sm"
-                  >
-                    {feature}
-                  </span>
-                ))}
-              </motion.div>
-
-              {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
-              >
-                <motion.a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg uppercase tracking-wider flex items-center justify-center gap-3 overflow-hidden"
-                  whileHover={{ scale: 1.02, boxShadow: '0 0 50px rgba(255,107,0,0.5)' }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span className="relative z-10 flex items-center gap-3">
-                    <Sparkles className="w-5 h-5" />
-                    {landing?.hero?.cta}
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-brand-orange translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                </motion.a>
-
-                <motion.a
-                  href="#benefits"
-                  className="px-8 py-4 bg-white/5 border border-white/20 rounded-xl font-semibold text-lg flex items-center justify-center gap-2 hover:bg-white/10 hover:border-brand-orange/30 transition-all"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Play className="w-5 h-5 text-brand-orange" />
-                  {language === 'es' ? 'Conocer más' : 'Learn more'}
-                </motion.a>
-              </motion.div>
-
-              {/* Countdown */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <p className="text-brand-orange/80 text-sm font-medium mb-4 uppercase tracking-wider">
-                  {language === 'es' ? 'Próxima cohorte inicia en' : 'Next cohort starts in'}
-                </p>
-                <CountdownTimer
-                  targetDate={targetDate}
-                  labels={{
-                    days: language === 'es' ? 'Días' : 'Days',
-                    hours: language === 'es' ? 'Horas' : 'Hours',
-                    minutes: language === 'es' ? 'Min' : 'Min',
-                    seconds: language === 'es' ? 'Seg' : 'Sec'
-                  }}
-                  variant="warm"
-                />
-              </motion.div>
-            </div>
-
-            {/* Right visual - Impactful family image section */}
+        <div className="relative z-10 max-w-6xl mx-auto px-6 py-20">
+          <div className="max-w-3xl">
+            {/* Elegant badge */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, x: 50 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="relative hidden lg:block"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 mb-8"
             >
-              <div className="relative w-full max-w-lg mx-auto">
-                {/* Main image container with 3D effect */}
-                <motion.div
-                  className="relative aspect-square rounded-3xl overflow-hidden"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  {/* Glow effect */}
-                  <div className="absolute -inset-4 bg-brand-orange/30 blur-3xl rounded-full" />
+              <Heart className="w-4 h-4 text-brand-orange" />
+              <span className="text-brand-orange/90 text-sm font-medium tracking-wide">
+                {language === 'es' ? 'Transformación Familiar' : 'Family Transformation'}
+              </span>
+            </motion.div>
 
-                  {/* Image */}
-                  <div className="relative w-full h-full bg-gradient-to-br from-brand-orange/20 via-amber-500/10 to-transparent rounded-3xl border border-brand-orange/30 overflow-hidden">
-                    <img
-                      src="/images/parents-community.png"
-                      alt="Comunidad Padres 3.0"
-                      className="w-full h-full object-cover"
-                    />
-                    {/* Overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60" />
-                  </div>
+            {/* Main title - Editorial typography */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl sm:text-6xl lg:text-7xl font-display font-black mb-6 leading-[0.95]"
+            >
+              <span className="text-white">PADRES</span>
+              <br />
+              <span className="bg-gradient-to-r from-brand-orange to-amber-400 bg-clip-text text-transparent">
+                3.0
+              </span>
+            </motion.h1>
 
-                  {/* Floating elements around image */}
-                  <motion.div
-                    className="absolute -top-4 -right-4 w-20 h-20 bg-brand-orange/20 rounded-full blur-xl"
-                    animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  />
-                  <motion.div
-                    className="absolute -bottom-6 -left-6 w-24 h-24 bg-amber-500/20 rounded-full blur-xl"
-                    animate={{ scale: [1.2, 1, 1.2], opacity: [0.6, 0.4, 0.6] }}
-                    transition={{ duration: 4, repeat: Infinity }}
-                  />
-                </motion.div>
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl sm:text-2xl text-white/80 mb-4 font-medium"
+            >
+              {landing?.hero?.tagline}
+            </motion.p>
 
-                {/* Floating stat cards */}
-                <motion.div
-                  className="absolute -top-4 -left-4 px-5 py-3 bg-[#0a0a0a]/90 backdrop-blur-sm rounded-2xl border border-brand-orange/30 shadow-lg shadow-brand-orange/20"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.8 }}
-                >
-                  <p className="text-brand-orange text-3xl font-black">7</p>
-                  <p className="text-gray-400 text-xs uppercase tracking-wider">{language === 'es' ? 'Inteligencias' : 'Intelligences'}</p>
-                </motion.div>
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="text-gray-400 text-lg mb-10 max-w-xl leading-relaxed"
+            >
+              {language === 'es'
+                ? 'Un programa de 60 días que te transforma desde adentro para mejorar la conexión con tus hijos.'
+                : 'A 60-day program that transforms you from within to improve connection with your children.'}
+            </motion.p>
 
-                <motion.div
-                  className="absolute -bottom-4 -right-4 px-5 py-3 bg-[#0a0a0a]/90 backdrop-blur-sm rounded-2xl border border-amber-500/30 shadow-lg shadow-amber-500/20"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.9 }}
-                >
-                  <p className="text-amber-400 text-3xl font-black">∞</p>
-                  <p className="text-gray-400 text-xs uppercase tracking-wider">{language === 'es' ? 'Potencial' : 'Potential'}</p>
-                </motion.div>
+            {/* CTA Group */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-4 mb-12"
+            >
+              <motion.a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg flex items-center justify-center gap-3"
+                whileHover={{ scale: 1.02, boxShadow: '0 20px 40px -10px rgba(255,107,0,0.4)' }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Sparkles className="w-5 h-5" />
+                {landing?.hero?.cta}
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </motion.a>
 
-                <motion.div
-                  className="absolute top-1/2 -right-8 px-4 py-2 bg-brand-orange text-black rounded-xl"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1 }}
-                >
-                  <div className="flex items-center gap-2">
-                    <Home className="w-4 h-4" />
-                    <span className="font-bold text-sm">{language === 'es' ? 'Familias' : 'Families'}</span>
-                  </div>
-                </motion.div>
-              </div>
+              <motion.a
+                href="#method"
+                className="px-8 py-4 border border-white/20 rounded-xl font-medium text-lg flex items-center justify-center gap-2 hover:bg-white/5 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Play className="w-5 h-5 text-brand-orange" />
+                {language === 'es' ? 'Ver metodología' : 'See methodology'}
+              </motion.a>
+            </motion.div>
+
+            {/* Countdown */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+            >
+              <p className="text-brand-orange/70 text-sm font-medium mb-3 uppercase tracking-wider">
+                {language === 'es' ? 'Próxima cohorte' : 'Next cohort'}
+              </p>
+              <CountdownTimer
+                targetDate={targetDate}
+                labels={{
+                  days: language === 'es' ? 'Días' : 'Days',
+                  hours: language === 'es' ? 'Hrs' : 'Hrs',
+                  minutes: 'Min',
+                  seconds: 'Seg'
+                }}
+                variant="warm"
+              />
             </motion.div>
           </div>
         </div>
@@ -377,774 +315,748 @@ const Parents30Page: React.FC = () => {
         {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 12, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-brand-orange/50 text-xs uppercase tracking-widest">{language === 'es' ? 'Descubre más' : 'Discover more'}</span>
-            <ChevronDown className="w-6 h-6 text-brand-orange/50" />
+          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+            <motion.div
+              className="w-1 h-2 bg-brand-orange rounded-full"
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
           </div>
         </motion.div>
       </section>
 
-      {/* BIENVENIDA EMOCIONAL - Historia de Jimy */}
-      <section className="relative py-24 sm:py-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-brand-orange/5 to-[#050505]" />
-
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* NUESTRA HISTORIA - Premium Design with Animated SVGs */}
+      <section className="relative py-32 overflow-hidden">
+        {/* Gradient Mesh Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[#050505]" />
+          {/* Animated gradient orbs */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
-              <Heart className="w-4 h-4" />
-              {language === 'es' ? 'Bienvenida Emocional' : 'Emotional Welcome'}
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
-              <span className="text-white">{language === 'es' ? '"Si tú cambias, todo cambia."' : '"If you change, everything changes."'}</span>
-            </h2>
-          </motion.div>
+            className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(255,107,0,0.15) 0%, rgba(255,107,0,0.05) 40%, transparent 70%)',
+            }}
+            animate={{
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(245,158,11,0.12) 0%, rgba(245,158,11,0.04) 40%, transparent 70%)',
+            }}
+            animate={{
+              x: [0, -40, 0],
+              y: [0, -20, 0],
+              scale: [1, 1.15, 1],
+            }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          />
+          <motion.div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(251,146,60,0.1) 0%, transparent 60%)',
+            }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
 
+        <div className="relative max-w-6xl mx-auto px-6">
+          {/* Header with Animated Icon */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative bg-space-card/40 backdrop-blur-sm border border-brand-orange/20 rounded-3xl p-8 sm:p-12"
-          >
-            <Quote className="absolute top-6 left-6 w-12 h-12 text-brand-orange/20" />
-
-            <div className="relative space-y-6 text-lg text-gray-300 leading-relaxed">
-              <p>
-                {language === 'es'
-                  ? 'Soy Jimy Henry Orellana, fundador de Padres 3.0.'
-                  : 'I\'m Jimy Henry Orellana, founder of Parents 3.0.'}
-              </p>
-              <p>
-                {language === 'es'
-                  ? 'Durante años creí que mis hijos debían cambiar para que nuestro hogar mejorara. Les pedía más disciplina, más orden, más responsabilidad… pero la distancia emocional crecía, y no entendía por qué.'
-                  : 'For years I believed my children had to change for our home to improve. I asked them for more discipline, more order, more responsibility... but the emotional distance grew, and I didn\'t understand why.'}
-              </p>
-              <p className="text-white font-semibold text-xl">
-                {language === 'es'
-                  ? 'Hasta que un día descubrí algo que transformó mi vida: Ellos no eran el problema. El cambio debía comenzar en mí.'
-                  : 'Until one day I discovered something that transformed my life: They weren\'t the problem. The change had to start with me.'}
-              </p>
-              <p>
-                {language === 'es'
-                  ? 'Ese fue el inicio de mi transformación. Empecé a estudiar profundamente Psicología Positiva, Neurociencia, PNL, Coaching y Eneagrama de la Personalidad.'
-                  : 'That was the beginning of my transformation. I began studying deeply Positive Psychology, Neuroscience, NLP, Coaching, and the Enneagram of Personality.'}
-              </p>
-            </div>
-
-            <div className="mt-8 flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-orange to-amber-500 flex items-center justify-center text-white font-bold text-xl">
-                JO
-              </div>
-              <div>
-                <p className="text-white font-bold">Jimy Henry Orellana</p>
-                <p className="text-brand-orange">{language === 'es' ? 'Fundador de Padres 3.0' : 'Founder of Parents 3.0'}</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 5 HERRAMIENTAS MODERNAS */}
-      <section className="relative py-24 sm:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[#050505]" />
-        <div className="absolute top-0 left-0 w-1/3 h-full bg-gradient-to-r from-brand-orange/10 to-transparent" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
-              <Puzzle className="w-4 h-4" />
-              {language === 'es' ? 'Metodología Científica' : 'Scientific Methodology'}
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
-              <span className="text-white">{language === 'es' ? '5 HERRAMIENTAS MODERNAS' : '5 MODERN TOOLS'}</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              {language === 'es'
-                ? 'Herramientas que combinan ciencia, espiritualidad y desarrollo personal. No necesitas conocimientos previos, solo disposición para transformarte.'
-                : 'Tools that combine science, spirituality, and personal development. No prior knowledge needed, just willingness to transform.'}
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: Fingerprint,
-                title: language === 'es' ? 'Eneagrama de la Personalidad' : 'Enneagram of Personality',
-                desc: language === 'es'
-                  ? 'Para comprender profundamente la personalidad, motivaciones y necesidades emocionales de tu hijo… y las tuyas.'
-                  : 'To deeply understand the personality, motivations, and emotional needs of your child... and yours.',
-                color: 'from-brand-orange to-red-500'
-              },
-              {
-                icon: Brain,
-                title: language === 'es' ? 'Programación Neurolingüística (PNL)' : 'Neuro-Linguistic Programming (NLP)',
-                desc: language === 'es'
-                  ? 'Para cambiar patrones, mejorar tu comunicación y transformar reacciones automáticas que dañan la conexión.'
-                  : 'To change patterns, improve your communication, and transform automatic reactions that damage connection.',
-                color: 'from-amber-500 to-brand-orange'
-              },
-              {
-                icon: Target,
-                title: language === 'es' ? 'Coaching para Padres' : 'Parenting Coaching',
-                desc: language === 'es'
-                  ? 'Para convertirte en guía, no en juez. Para dirigir desde la pregunta y la conciencia, no desde el enojo.'
-                  : 'To become a guide, not a judge. To lead from questions and awareness, not from anger.',
-                color: 'from-yellow-500 to-amber-500'
-              },
-              {
-                icon: Lightbulb,
-                title: language === 'es' ? 'Neurociencia Aplicada' : 'Applied Neuroscience',
-                desc: language === 'es'
-                  ? 'Para entender cómo funciona el cerebro adolescente y dejar de tomarte sus reacciones como un ataque personal.'
-                  : 'To understand how the adolescent brain works and stop taking their reactions as a personal attack.',
-                color: 'from-brand-orange to-amber-400'
-              },
-              {
-                icon: Star,
-                title: language === 'es' ? 'Psicología Positiva' : 'Positive Psychology',
-                desc: language === 'es'
-                  ? 'Para aumentar autoestima, resiliencia y motivación en tus hijos… y en ti.'
-                  : 'To increase self-esteem, resilience, and motivation in your children... and in yourself.',
-                color: 'from-red-500 to-brand-orange'
-              }
-            ].map((tool, index) => {
-              const IconComponent = tool.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group relative p-6 sm:p-8 rounded-2xl bg-space-card/50 backdrop-blur-sm border border-white/10 hover:border-brand-orange/50 transition-all"
-                >
-                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center mb-5`}>
-                    <IconComponent className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-3">{tool.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{tool.desc}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Por qué funcionan */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-16 text-center"
-          >
-            <div className="inline-block p-8 rounded-2xl bg-gradient-to-br from-brand-orange/10 to-transparent border border-brand-orange/20">
-              <h3 className="text-2xl font-bold text-white mb-4">
-                {language === 'es' ? '¿Por qué funcionan estas herramientas?' : 'Why do these tools work?'}
-              </h3>
-              <p className="text-gray-300 max-w-2xl mx-auto mb-6">
-                {language === 'es'
-                  ? 'Porque trabajan donde nace el comportamiento humano: pensamientos, emociones, hábitos, comunicación e identidad.'
-                  : 'Because they work where human behavior is born: thoughts, emotions, habits, communication, and identity.'}
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                {[
-                  language === 'es' ? 'Primero cambias tú' : 'First you change',
-                  language === 'es' ? 'Luego cambian tus palabras' : 'Then your words change',
-                  language === 'es' ? 'Luego cambia la conexión' : 'Then the connection changes',
-                  language === 'es' ? 'Luego cambian tus hijos' : 'Then your children change'
-                ].map((step, i) => (
-                  <div key={i} className="flex items-center gap-2 px-4 py-2 bg-brand-orange/10 rounded-full">
-                    <span className="w-6 h-6 rounded-full bg-brand-orange text-black text-sm font-bold flex items-center justify-center">{i + 1}</span>
-                    <span className="text-white text-sm font-medium">{step}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* RETO 60 DÍAS - Mapa de Transformación */}
-      <section className="relative py-24 sm:py-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-brand-orange/5 to-[#050505]" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
-              <Clock className="w-4 h-4" />
-              {language === 'es' ? 'Tu Mapa de Transformación' : 'Your Transformation Map'}
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
-              <span className="text-white">{language === 'es' ? 'RETO PADRES 3.0: ' : 'PARENTS 3.0 CHALLENGE: '}</span>
-              <span className="text-brand-orange">60 {language === 'es' ? 'DÍAS' : 'DAYS'}</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              {language === 'es'
-                ? 'El reto está dividido en 2 grandes etapas, cada una diseñada para transformarte desde adentro.'
-                : 'The challenge is divided into 2 major stages, each designed to transform you from within.'}
-            </p>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* ETAPA 1 */}
+            {/* Animated SVG Icon */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="inline-flex items-center justify-center w-20 h-20 mb-8 relative"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
               viewport={{ once: true }}
-              className="relative p-8 rounded-3xl bg-gradient-to-br from-brand-orange/20 to-transparent border border-brand-orange/30"
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
-              <div className="absolute -top-4 -left-4 w-16 h-16 rounded-2xl bg-brand-orange flex items-center justify-center">
-                <span className="text-2xl font-black text-black">1</span>
-              </div>
-
-              <div className="ml-8">
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  {language === 'es' ? 'ETAPA 1 – LAS 5 HERRAMIENTAS MODERNAS' : 'STAGE 1 – THE 5 MODERN TOOLS'}
-                </h3>
-                <p className="text-brand-orange mb-6">{language === 'es' ? 'Semanas 1 a 5' : 'Weeks 1 to 5'}</p>
-
-                <div className="space-y-4">
-                  {[
-                    { week: 1, title: language === 'es' ? 'Eneagrama de la Personalidad' : 'Enneagram of Personality' },
-                    { week: 2, title: language === 'es' ? 'Programación Neurolingüística (PNL)' : 'Neuro-Linguistic Programming (NLP)' },
-                    { week: 3, title: language === 'es' ? 'Coaching para Padres' : 'Parenting Coaching' },
-                    { week: 4, title: language === 'es' ? 'Neurociencia Aplicada' : 'Applied Neuroscience' },
-                    { week: 5, title: language === 'es' ? 'Psicología Positiva' : 'Positive Psychology' }
-                  ].map((item) => (
-                    <div key={item.week} className="flex items-center gap-4 p-3 rounded-xl bg-white/5">
-                      <span className="w-10 h-10 rounded-full bg-brand-orange/20 border border-brand-orange/50 flex items-center justify-center text-brand-orange font-bold">
-                        {item.week}
-                      </span>
-                      <span className="text-white font-medium">{item.title}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <p className="mt-6 text-gray-400 italic">
-                  {language === 'es'
-                    ? 'Aquí aprenderás TODO lo que necesitas para transformarte como padre.'
-                    : 'Here you\'ll learn EVERYTHING you need to transform as a parent.'}
-                </p>
-              </div>
+              {/* Glowing ring */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,107,0,0.3) 0%, rgba(245,158,11,0.1) 100%)',
+                }}
+                animate={{
+                  boxShadow: [
+                    '0 0 20px rgba(255,107,0,0.3), inset 0 0 20px rgba(255,107,0,0.1)',
+                    '0 0 40px rgba(255,107,0,0.5), inset 0 0 30px rgba(255,107,0,0.2)',
+                    '0 0 20px rgba(255,107,0,0.3), inset 0 0 20px rgba(255,107,0,0.1)',
+                  ],
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+              {/* Custom SVG Icon - Book with Heart */}
+              <svg
+                viewBox="0 0 48 48"
+                className="w-10 h-10 relative z-10"
+                fill="none"
+              >
+                <motion.path
+                  d="M8 12C8 9.79086 9.79086 8 12 8H36C38.2091 8 40 9.79086 40 12V36C40 38.2091 38.2091 40 36 40H12C9.79086 40 8 38.2091 8 36V12Z"
+                  stroke="url(#bookGradient)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                />
+                <motion.path
+                  d="M24 8V40"
+                  stroke="url(#bookGradient)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                />
+                <motion.path
+                  d="M24 22C24 22 26 19 29 19C32 19 34 21.5 34 24C34 28 24 32 24 32C24 32 14 28 14 24C14 21.5 16 19 19 19C22 19 24 22 24 22Z"
+                  fill="url(#heartGradient)"
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 1 }}
+                />
+                <defs>
+                  <linearGradient id="bookGradient" x1="8" y1="8" x2="40" y2="40">
+                    <stop stopColor="#FF6B00" />
+                    <stop offset="1" stopColor="#F59E0B" />
+                  </linearGradient>
+                  <linearGradient id="heartGradient" x1="14" y1="19" x2="34" y2="32">
+                    <stop stopColor="#FF6B00" />
+                    <stop offset="1" stopColor="#FB923C" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </motion.div>
 
-            {/* ETAPA 2 */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative p-8 rounded-3xl bg-gradient-to-br from-amber-500/20 to-transparent border border-amber-500/30"
+              transition={{ delay: 0.2 }}
+              className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange text-sm font-semibold tracking-[0.2em] uppercase mb-4"
             >
-              <div className="absolute -top-4 -left-4 w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center">
-                <span className="text-2xl font-black text-black">2</span>
-              </div>
+              {language === 'es' ? 'Nuestra Historia' : 'Our Story'}
+            </motion.span>
 
-              <div className="ml-8">
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  {language === 'es' ? 'ETAPA 2 – LOS 5 DESAFÍOS DE LA ADOLESCENCIA' : 'STAGE 2 – THE 5 CHALLENGES OF ADOLESCENCE'}
-                </h3>
-                <p className="text-amber-500 mb-6">{language === 'es' ? 'Semanas 6 a 10' : 'Weeks 6 to 10'}</p>
-
-                <div className="space-y-4">
-                  {[
-                    { week: 6, title: language === 'es' ? 'Cambios emocionales y conductuales' : 'Emotional and behavioral changes' },
-                    { week: 7, title: language === 'es' ? 'Problemas de comunicación' : 'Communication problems' },
-                    { week: 8, title: language === 'es' ? 'Toma de decisiones' : 'Decision making' },
-                    { week: 9, title: language === 'es' ? 'Rendimiento académico' : 'Academic performance' },
-                    { week: 10, title: language === 'es' ? 'Relaciones y amistades' : 'Relationships and friendships' }
-                  ].map((item) => (
-                    <div key={item.week} className="flex items-center gap-4 p-3 rounded-xl bg-white/5">
-                      <span className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-500 font-bold">
-                        {item.week}
-                      </span>
-                      <span className="text-white font-medium">{item.title}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <p className="mt-6 text-gray-400 italic">
-                  {language === 'es'
-                    ? 'Aquí transformarás tu relación con tus hijos.'
-                    : 'Here you\'ll transform your relationship with your children.'}
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* LOGROS EN 60 DÍAS */}
-      <section className="relative py-24 sm:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[#050505]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-orange/10 via-transparent to-brand-orange/10" />
-
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
-              <Award className="w-4 h-4" />
-              {language === 'es' ? 'Resultados Garantizados' : 'Guaranteed Results'}
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
-              <span className="text-white">{language === 'es' ? '¿Qué podrás lograr en ' : 'What can you achieve in '}</span>
-              <span className="text-brand-orange">60 {language === 'es' ? 'días' : 'days'}</span>
-              <span className="text-white">?</span>
-            </h2>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { icon: MessageCircle, text: language === 'es' ? 'Mejorar la comunicación con tus hijos' : 'Improve communication with your children' },
-              { icon: Shield, text: language === 'es' ? 'Disminuir conflictos' : 'Reduce conflicts' },
-              { icon: TrendingUp, text: language === 'es' ? 'Fortalecer su autoestima' : 'Strengthen their self-esteem' },
-              { icon: Heart, text: language === 'es' ? 'Poner límites desde el amor' : 'Set limits from love' },
-              { icon: Fingerprint, text: language === 'es' ? 'Entender su personalidad' : 'Understand their personality' },
-              { icon: Unlock, text: language === 'es' ? 'Recuperar la conexión emocional' : 'Recover emotional connection' },
-              { icon: Home, text: language === 'es' ? 'Tener más paz en casa' : 'Have more peace at home' },
-              { icon: Star, text: language === 'es' ? 'Ser un líder emocional y espiritual' : 'Be an emotional and spiritual leader' }
-            ].map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex items-center gap-3 p-4 rounded-xl bg-space-card/50 border border-brand-orange/20 hover:border-brand-orange/50 transition-all"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-brand-orange/20 flex items-center justify-center flex-shrink-0">
-                    <IconComponent className="w-5 h-5 text-brand-orange" />
-                  </div>
-                  <p className="text-white font-medium text-sm">{item.text}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Frase final */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-16 text-center"
-          >
-            <p className="text-2xl sm:text-3xl font-display font-bold text-white mb-4">
-              {language === 'es' ? '"Si tú cambias, ellos cambian."' : '"If you change, they change."'}
-            </p>
-            <p className="text-xl text-brand-orange">
-              {language === 'es' ? 'Y este programa te guiará paso a paso.' : 'And this program will guide you step by step.'}
-            </p>
-
-            <motion.a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 mt-8 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="text-4xl sm:text-5xl font-display font-black mb-6"
             >
-              <Sparkles className="w-5 h-5" />
-              {language === 'es' ? 'Quiero Transformarme' : 'I Want to Transform'}
-              <ArrowRight className="w-5 h-5" />
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Pain Points Section - Orange theme */}
-      <section className="relative py-24 sm:py-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-brand-orange/5 to-[#050505]" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
-              {language === 'es' ? 'El Desafío' : 'The Challenge'}
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-display font-black mb-4">
-              <span className="bg-gradient-to-r from-brand-orange to-amber-400 bg-clip-text text-transparent">
-                {landing?.painPoints?.title}
+              <span className="text-white">{language === 'es' ? 'De un sueño ' : 'From a dream '}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400">
+                {language === 'es' ? 'a un movimiento' : 'to a movement'}
               </span>
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">{landing?.painPoints?.subtitle}</p>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed"
+            >
+              {language === 'es'
+                ? 'Lo que comenzó hace 7 años como una búsqueda personal, hoy es Padres 3.0: nuestra versión más completa y poderosa.'
+                : 'What started 7 years ago as a personal journey is now Parents 3.0: our most complete and powerful version.'}
+            </motion.p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 gap-6">
-            {landing?.painPoints?.points?.map((point: any, index: number) => {
-              const IconComponent = painPointIcons[index] || Users;
+          {/* Video Player - Premium Design */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative mb-16 group"
+          >
+            {/* Glow effect behind video */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-brand-orange/20 via-amber-500/10 to-brand-orange/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
+
+            <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black border border-white/10">
+              {/* Gradient overlay on video */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none z-10" />
+
+              <video
+                ref={videoRef}
+                className="w-full h-full object-cover"
+                src="/videos/padres-historia.mp4"
+                muted={isMuted}
+                loop
+                playsInline
+                onPlay={() => setIsVideoPlaying(true)}
+                onPause={() => setIsVideoPlaying(false)}
+              />
+
+              {/* Animated Play Button */}
+              {!isVideoPlaying && (
+                <div
+                  className="absolute inset-0 flex items-center justify-center cursor-pointer z-20"
+                  onClick={toggleVideo}
+                >
+                  <motion.div
+                    className="relative"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {/* Pulsing rings */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-brand-orange/30"
+                      animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-brand-orange/20"
+                      animate={{ scale: [1, 1.8, 1], opacity: [0.3, 0, 0.3] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                    />
+                    {/* Main button */}
+                    <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-brand-orange to-amber-500 flex items-center justify-center shadow-2xl shadow-brand-orange/30">
+                      <svg viewBox="0 0 24 24" className="w-10 h-10 text-black ml-1" fill="currentColor">
+                        <path d="M8 5.14v14l11-7-11-7z" />
+                      </svg>
+                    </div>
+                  </motion.div>
+                </div>
+              )}
+
+              {/* Premium Controls */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: isVideoPlaying ? 1 : 0, y: isVideoPlaying ? 0 : 20 }}
+                className="absolute bottom-0 left-0 right-0 p-6 z-20"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-3">
+                    <motion.button
+                      onClick={toggleVideo}
+                      className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Pause className="w-5 h-5 text-white" />
+                    </motion.button>
+                    <motion.button
+                      onClick={toggleMute}
+                      className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {isMuted ? <VolumeX className="w-5 h-5 text-white" /> : <Volume2 className="w-5 h-5 text-white" />}
+                    </motion.button>
+                  </div>
+                  <motion.button
+                    onClick={() => setShowVideoModal(true)}
+                    className="w-12 h-12 rounded-full bg-gradient-to-r from-brand-orange/80 to-amber-500/80 backdrop-blur-md flex items-center justify-center hover:from-brand-orange hover:to-amber-500 transition-all"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Maximize className="w-5 h-5 text-white" />
+                  </motion.button>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Founder Quote - Elegant Design */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative mb-16"
+          >
+            <div className="relative p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/10 overflow-hidden">
+              {/* Decorative gradient blur */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl" />
+
+              <div className="relative flex flex-col md:flex-row items-center gap-8">
+                {/* Avatar with animated ring */}
+                <div className="relative flex-shrink-0">
+                  <motion.div
+                    className="absolute -inset-2 rounded-full bg-gradient-to-r from-brand-orange to-amber-500"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    style={{ opacity: 0.3 }}
+                  />
+                  <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-brand-orange via-orange-500 to-amber-500 flex items-center justify-center text-white font-bold text-2xl shadow-xl shadow-brand-orange/30">
+                    JO
+                  </div>
+                </div>
+
+                {/* Quote content */}
+                <div className="flex-1 text-center md:text-left">
+                  {/* SVG Quote marks */}
+                  <svg className="w-10 h-10 text-brand-orange/30 mb-4 hidden md:block" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
+                  </svg>
+                  <p className="text-xl sm:text-2xl text-white/90 font-light leading-relaxed mb-4">
+                    {language === 'es'
+                      ? 'Durante años creí que mis hijos debían cambiar. Hasta que descubrí que el cambio debía comenzar en mí. Eso transformó todo.'
+                      : 'For years I believed my children had to change. Until I discovered the change had to start with me. That transformed everything.'}
+                  </p>
+                  <div>
+                    <p className="text-white font-semibold text-lg">Jimy Henry Orellana</p>
+                    <p className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400 font-medium">
+                      {language === 'es' ? 'Fundador de Padres 3.0' : 'Founder of Parents 3.0'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Stats - Premium Cards with Animated Icons */}
+          <div className="grid grid-cols-3 gap-4 sm:gap-6">
+            {[
+              {
+                value: '500+',
+                label: language === 'es' ? 'Familias transformadas' : 'Families transformed',
+                icon: (
+                  <svg viewBox="0 0 32 32" className="w-8 h-8">
+                    <motion.path
+                      d="M16 4C16 4 12 8 12 12C12 14.2091 13.7909 16 16 16C18.2091 16 20 14.2091 20 12C20 8 16 4 16 4Z"
+                      fill="url(#stat1)"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ type: "spring", stiffness: 200 }}
+                    />
+                    <motion.path
+                      d="M8 28C8 22.4772 11.5817 18 16 18C20.4183 18 24 22.4772 24 28"
+                      stroke="url(#stat1)"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      fill="none"
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                    />
+                    <defs>
+                      <linearGradient id="stat1" x1="8" y1="4" x2="24" y2="28">
+                        <stop stopColor="#FF6B00" />
+                        <stop offset="1" stopColor="#F59E0B" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                )
+              },
+              {
+                value: '7',
+                label: language === 'es' ? 'Años de experiencia' : 'Years of experience',
+                icon: (
+                  <svg viewBox="0 0 32 32" className="w-8 h-8">
+                    <motion.circle
+                      cx="16"
+                      cy="16"
+                      r="12"
+                      stroke="url(#stat2)"
+                      strokeWidth="2.5"
+                      fill="none"
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5 }}
+                    />
+                    <motion.path
+                      d="M16 8V16L20 20"
+                      stroke="url(#stat2)"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="none"
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.8 }}
+                    />
+                    <defs>
+                      <linearGradient id="stat2" x1="4" y1="4" x2="28" y2="28">
+                        <stop stopColor="#FF6B00" />
+                        <stop offset="1" stopColor="#F59E0B" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                )
+              },
+              {
+                value: '3.0',
+                label: language === 'es' ? 'Versión actual' : 'Current version',
+                icon: (
+                  <svg viewBox="0 0 32 32" className="w-8 h-8">
+                    <motion.path
+                      d="M16 4L20 12L28 13L22 19L24 28L16 24L8 28L10 19L4 13L12 12L16 4Z"
+                      fill="url(#stat3)"
+                      initial={{ scale: 0, rotate: -180 }}
+                      whileInView={{ scale: 1, rotate: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                    />
+                    <defs>
+                      <linearGradient id="stat3" x1="4" y1="4" x2="28" y2="28">
+                        <stop stopColor="#FF6B00" />
+                        <stop offset="1" stopColor="#F59E0B" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                )
+              }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative p-6 rounded-2xl bg-gradient-to-br from-white/[0.04] to-transparent border border-white/10 hover:border-brand-orange/30 transition-all duration-300 overflow-hidden"
+              >
+                {/* Hover glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                <div className="relative text-center">
+                  <motion.div
+                    className="flex justify-center mb-4"
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                  >
+                    {stat.icon}
+                  </motion.div>
+                  <div className="text-3xl sm:text-4xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400 mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-gray-400 text-xs sm:text-sm">{stat.label}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {showVideoModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setShowVideoModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full max-w-5xl aspect-video"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Glow behind modal */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-brand-orange/20 to-amber-500/20 rounded-3xl blur-2xl" />
+              <video
+                className="relative w-full h-full rounded-2xl shadow-2xl"
+                src="/videos/padres-historia.mp4"
+                controls
+                autoPlay
+              />
+              <motion.button
+                onClick={() => setShowVideoModal(false)}
+                className="absolute -top-14 right-0 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 hover:text-white hover:bg-white/20 transition-all text-sm flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {language === 'es' ? 'Cerrar' : 'Close'}
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* METHODOLOGY - Clean Grid */}
+      <section id="method" className="relative py-24 bg-gradient-to-b from-transparent via-brand-orange/5 to-transparent">
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-sm font-medium mb-6">
+              <Puzzle className="w-4 h-4" />
+              {language === 'es' ? 'Metodología' : 'Methodology'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
+              {language === 'es' ? '5 Herramientas Científicas' : '5 Scientific Tools'}
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              {language === 'es'
+                ? 'Combinamos ciencia y desarrollo personal. No necesitas conocimientos previos.'
+                : 'We combine science and personal development. No prior knowledge needed.'}
+            </p>
+          </motion.div>
+
+          {/* Tools Grid - Compact */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-16">
+            {tools.map((tool, index) => {
+              const IconComponent = tool.icon;
               return (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-brand-orange/5 to-transparent border border-brand-orange/20 hover:border-brand-orange/40 transition-all hover:shadow-lg hover:shadow-brand-orange/10"
+                  transition={{ delay: index * 0.05 }}
+                  className="group p-5 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-brand-orange/30 transition-all text-center"
                 >
-                  <div className="relative flex items-start gap-4">
-                    <motion.div
-                      className="p-4 rounded-xl bg-brand-orange/10 border border-brand-orange/30 group-hover:bg-brand-orange/20 transition-colors"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                    >
-                      <IconComponent className="w-6 h-6 text-brand-orange" />
-                    </motion.div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-2">{point.title}</h3>
-                      <p className="text-gray-400 leading-relaxed">{point.desc}</p>
-                    </div>
+                  <div className="w-12 h-12 rounded-xl bg-brand-orange/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-orange/20 transition-colors">
+                    <IconComponent className="w-6 h-6 text-brand-orange" />
                   </div>
+                  <h3 className="text-white font-semibold text-sm mb-1">{tool.name}</h3>
+                  <p className="text-gray-500 text-xs">{tool.brief}</p>
                 </motion.div>
               );
             })}
           </div>
-        </div>
-      </section>
 
-      {/* Solution Section - GÉNESIS 7i Preview */}
-      <section className="relative py-24 sm:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[#050505]" />
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-orange/5 skew-x-12" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* 7 Intelligences - Horizontal Strip */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="relative p-6 rounded-2xl bg-gradient-to-r from-brand-orange/10 via-brand-orange/5 to-brand-orange/10 border border-brand-orange/20"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
-              {landing?.solution?.title}
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <div className="flex-shrink-0 text-center sm:text-left">
+                <h3 className="text-lg font-bold text-white mb-1">
+                  {language === 'es' ? 'Modelo GÉNESIS 7i' : 'GENESIS 7i Model'}
+                </h3>
+                <p className="text-brand-orange text-sm">
+                  {language === 'es' ? '7 Dimensiones del Ser' : '7 Dimensions of Being'}
+                </p>
+              </div>
+              <div className="flex-1 flex flex-wrap justify-center sm:justify-end gap-2">
+                {intelligences.map((intel, i) => {
+                  const IconComp = intel.icon;
+                  return (
+                    <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 rounded-full">
+                      <IconComp className="w-3.5 h-3.5 text-brand-orange" />
+                      <span className="text-white/80 text-xs font-medium">{intel.name}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 60-DAY CHALLENGE - Interactive Tabs */}
+      <section className="relative py-24">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-sm font-medium mb-6">
+              <Clock className="w-4 h-4" />
+              {language === 'es' ? 'Tu Transformación' : 'Your Transformation'}
             </span>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black mb-6">
-              <span className="bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange bg-clip-text text-transparent">
-                {landing?.solution?.subtitle}
-              </span>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
+              <span className="text-white">{language === 'es' ? 'Reto ' : 'Challenge '}</span>
+              <span className="text-brand-orange">60 {language === 'es' ? 'Días' : 'Days'}</span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              {landing?.solution?.desc}
+          </motion.div>
+
+          {/* Stage Toggle */}
+          <div className="flex justify-center gap-2 mb-10">
+            <button
+              onClick={() => setActiveStage(1)}
+              className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                activeStage === 1
+                  ? 'bg-brand-orange text-black'
+                  : 'bg-white/5 text-white/60 hover:text-white'
+              }`}
+            >
+              {language === 'es' ? 'Etapa 1: Herramientas' : 'Stage 1: Tools'}
+            </button>
+            <button
+              onClick={() => setActiveStage(2)}
+              className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                activeStage === 2
+                  ? 'bg-amber-500 text-black'
+                  : 'bg-white/5 text-white/60 hover:text-white'
+              }`}
+            >
+              {language === 'es' ? 'Etapa 2: Desafíos' : 'Stage 2: Challenges'}
+            </button>
+          </div>
+
+          {/* Stage Content */}
+          <motion.div
+            key={activeStage}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={`relative p-8 rounded-3xl border ${
+              activeStage === 1
+                ? 'bg-gradient-to-br from-brand-orange/10 to-transparent border-brand-orange/20'
+                : 'bg-gradient-to-br from-amber-500/10 to-transparent border-amber-500/20'
+            }`}
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-black ${
+                activeStage === 1 ? 'bg-brand-orange text-black' : 'bg-amber-500 text-black'
+              }`}>
+                {activeStage}
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white">
+                  {activeStage === 1
+                    ? (language === 'es' ? 'Las 5 Herramientas Modernas' : 'The 5 Modern Tools')
+                    : (language === 'es' ? 'Los 5 Desafíos de la Adolescencia' : 'The 5 Challenges of Adolescence')
+                  }
+                </h3>
+                <p className={activeStage === 1 ? 'text-brand-orange' : 'text-amber-500'}>
+                  {language === 'es' ? `Semanas ${activeStage === 1 ? '1-5' : '6-10'}` : `Weeks ${activeStage === 1 ? '1-5' : '6-10'}`}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-5 gap-3">
+              {(activeStage === 1 ? stage1Weeks : stage2Weeks).map((week, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-3 p-3 rounded-xl bg-white/5"
+                >
+                  <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${
+                    activeStage === 1
+                      ? 'bg-brand-orange/20 text-brand-orange border border-brand-orange/30'
+                      : 'bg-amber-500/20 text-amber-500 border border-amber-500/30'
+                  }`}>
+                    {activeStage === 1 ? i + 1 : i + 6}
+                  </span>
+                  <span className="text-white/90 text-sm font-medium">{week}</span>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-6 text-gray-400 text-center italic">
+              {activeStage === 1
+                ? (language === 'es' ? 'Aprenderás TODO lo que necesitas para transformarte.' : 'You\'ll learn EVERYTHING you need to transform.')
+                : (language === 'es' ? 'Transformarás tu relación con tus hijos.' : 'You\'ll transform your relationship with your children.')
+              }
             </p>
           </motion.div>
+        </div>
+      </section>
 
-          {/* 7 Intelligences Diagram - Orange themed */}
+      {/* RESULTS - Compact Grid */}
+      <section className="relative py-24 bg-gradient-to-b from-transparent via-brand-orange/5 to-transparent">
+        <div className="max-w-4xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative max-w-lg mx-auto aspect-square"
+            className="text-center mb-12"
           >
-            {/* Central glow */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-32 h-32 bg-brand-orange/30 rounded-full blur-3xl" />
-            </div>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
+              <span className="text-white">{language === 'es' ? 'Resultados en ' : 'Results in '}</span>
+              <span className="text-brand-orange">60 {language === 'es' ? 'días' : 'days'}</span>
+            </h2>
+          </motion.div>
 
-            {/* Central circle */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div
-                className="w-28 h-28 rounded-full bg-gradient-to-br from-brand-orange/30 to-amber-500/20 border-2 border-brand-orange/50 flex items-center justify-center backdrop-blur-sm"
-                animate={{
-                  boxShadow: [
-                    '0 0 30px rgba(255,107,0,0.4)',
-                    '0 0 50px rgba(255,107,0,0.6)',
-                    '0 0 30px rgba(255,107,0,0.4)',
-                  ],
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                <Brain className="w-12 h-12 text-brand-orange" />
-              </motion.div>
-            </div>
-
-            {/* Intelligence nodes */}
-            {intelligences.map((intel, index) => {
-              const angle = (index * 360 / 7 - 90) * (Math.PI / 180);
-              const radius = 42;
-              const x = 50 + Math.cos(angle) * radius;
-              const y = 50 + Math.sin(angle) * radius;
-              const IconComp = intel.icon;
-
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {results.map((result, i) => {
+              const IconComponent = result.icon;
               return (
                 <motion.div
-                  key={index}
-                  className="absolute transform -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: `${x}%`, top: `${y}%` }}
-                  initial={{ opacity: 0, scale: 0 }}
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/10"
                 >
-                  <motion.div
-                    className="relative"
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: index * 0.2,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center backdrop-blur-sm border-2 transition-all hover:scale-110"
-                      style={{
-                        backgroundColor: `${intel.color}20`,
-                        borderColor: `${intel.color}60`,
-                        boxShadow: `0 0 20px ${intel.color}30`
-                      }}
-                    >
-                      <IconComp
-                        className="w-7 h-7"
-                        style={{ color: intel.color }}
-                      />
-                    </div>
-                    <p
-                      className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-xs font-bold whitespace-nowrap uppercase tracking-wider"
-                      style={{ color: intel.color }}
-                    >
-                      {intel.name}
-                    </p>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-
-            {/* Connecting lines */}
-            <svg className="absolute inset-0 w-full h-full" style={{ zIndex: -1 }}>
-              <defs>
-                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="rgba(255,107,0,0.4)" />
-                  <stop offset="100%" stopColor="rgba(255,165,0,0.2)" />
-                </linearGradient>
-              </defs>
-              {intelligences.map((_, index) => {
-                const angle1 = (index * 360 / 7 - 90) * (Math.PI / 180);
-                const angle2 = ((index + 1) * 360 / 7 - 90) * (Math.PI / 180);
-                const x1 = 50 + Math.cos(angle1) * 35;
-                const y1 = 50 + Math.sin(angle1) * 35;
-                const x2 = 50 + Math.cos(angle2) * 35;
-                const y2 = 50 + Math.sin(angle2) * 35;
-
-                return (
-                  <motion.line
-                    key={index}
-                    x1={`${x1}%`}
-                    y1={`${y1}%`}
-                    x2={`${x2}%`}
-                    y2={`${y2}%`}
-                    stroke="url(#lineGradient)"
-                    strokeWidth="2"
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                  />
-                );
-              })}
-            </svg>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Benefits Section - Orange theme */}
-      <section id="benefits" className="relative py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
-              {language === 'es' ? 'Beneficios' : 'Benefits'}
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-display font-black mb-4">
-              <span className="bg-gradient-to-r from-brand-orange to-amber-400 bg-clip-text text-transparent">
-                {landing?.benefits?.title}
-              </span>
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">{landing?.benefits?.subtitle}</p>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
-            {landing?.benefits?.list?.map((benefit: any, index: number) => {
-              const IconComponent = benefitIcons[index] || Users;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group relative p-8 rounded-2xl bg-[#0a0a0a] border border-white/10 hover:border-brand-orange/40 transition-all hover:shadow-xl hover:shadow-brand-orange/10"
-                >
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${benefitColors[index]} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform shadow-lg`}>
-                    <IconComponent className="w-8 h-8 text-white" />
+                  <div className="w-10 h-10 rounded-lg bg-brand-orange/10 flex items-center justify-center flex-shrink-0">
+                    <IconComponent className="w-5 h-5 text-brand-orange" />
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-white mb-3">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-400 leading-relaxed text-lg">
-                    {benefit.desc}
-                  </p>
+                  <span className="text-white/90 text-sm font-medium">{result.text}</span>
                 </motion.div>
               );
             })}
           </div>
+
+          {/* Quote */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center text-xl sm:text-2xl font-display text-white/80 mt-12"
+          >
+            {language === 'es' ? '"Si tú cambias, ellos cambian."' : '"If you change, they change."'}
+          </motion.p>
         </div>
       </section>
 
-      {/* Tools Section - Orange theme */}
-      <section className="relative py-24 sm:py-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-brand-orange/5 to-[#050505]" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* TESTIMONIALS - Minimal */}
+      <section className="relative py-24">
+        <div className="max-w-5xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
-              {language === 'es' ? 'Herramientas' : 'Tools'}
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-display font-black mb-4">
-              <span className="bg-gradient-to-r from-brand-orange to-amber-400 bg-clip-text text-transparent">
-                {landing?.tools?.title}
-              </span>
+            <h2 className="text-3xl font-display font-bold text-white">
+              {language === 'es' ? 'Historias de Transformación' : 'Transformation Stories'}
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">{landing?.tools?.subtitle}</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-            {/* Enneagram Tool */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className={`relative p-8 rounded-2xl bg-gradient-to-br from-brand-orange/10 to-transparent border-2 border-brand-orange/30 cursor-pointer transition-all hover:shadow-xl hover:shadow-brand-orange/20 ${
-                expandedTool === 'enneagram' ? 'ring-2 ring-brand-orange' : ''
-              }`}
-              onClick={() => setExpandedTool(expandedTool === 'enneagram' ? null : 'enneagram')}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <div className="p-4 rounded-xl bg-brand-orange/20 border border-brand-orange/40">
-                    <Fingerprint className="w-8 h-8 text-brand-orange" />
-                  </div>
-                  <h3 className="text-2xl font-display font-bold text-brand-orange">
-                    {landing?.tools?.enneagram?.title}
-                  </h3>
-                </div>
-                {expandedTool === 'enneagram' ? (
-                  <ChevronUp className="w-6 h-6 text-brand-orange" />
-                ) : (
-                  <ChevronDown className="w-6 h-6 text-brand-orange" />
-                )}
-              </div>
-              <p className="text-gray-400 text-lg leading-relaxed">{landing?.tools?.enneagram?.desc}</p>
-            </motion.div>
-
-            {/* 7 Intelligences Tool */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className={`relative p-8 rounded-2xl bg-gradient-to-br from-amber-500/10 to-transparent border-2 border-amber-500/30 cursor-pointer transition-all hover:shadow-xl hover:shadow-amber-500/20 ${
-                expandedTool === 'intelligences' ? 'ring-2 ring-amber-500' : ''
-              }`}
-              onClick={() => setExpandedTool(expandedTool === 'intelligences' ? null : 'intelligences')}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <div className="p-4 rounded-xl bg-amber-500/20 border border-amber-500/40">
-                    <Sparkles className="w-8 h-8 text-amber-400" />
-                  </div>
-                  <h3 className="text-2xl font-display font-bold text-amber-400">
-                    {landing?.tools?.intelligences?.title}
-                  </h3>
-                </div>
-                {expandedTool === 'intelligences' ? (
-                  <ChevronUp className="w-6 h-6 text-amber-400" />
-                ) : (
-                  <ChevronDown className="w-6 h-6 text-amber-400" />
-                )}
-              </div>
-              <p className="text-gray-400 text-lg leading-relaxed">{landing?.tools?.intelligences?.desc}</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section - Orange theme */}
-      <section className="relative py-24 sm:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[#050505]" />
-        <div className="absolute top-0 left-0 w-1/3 h-full bg-brand-orange/5 -skew-x-12" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-sm font-bold uppercase tracking-wider mb-6">
-              {language === 'es' ? 'Testimonios' : 'Testimonials'}
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-display font-black mb-4">
-              <span className="bg-gradient-to-r from-brand-orange to-amber-400 bg-clip-text text-transparent">
-                {landing?.testimonials?.title}
-              </span>
-            </h2>
-            <p className="text-gray-400 text-lg">{landing?.testimonials?.subtitle}</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {landing?.testimonials?.list?.map((testimonial: any, index: number) => (
+          <div className="grid md:grid-cols-3 gap-6">
+            {landing?.testimonials?.list?.slice(0, 3).map((testimonial: any, index: number) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="relative p-8 rounded-2xl bg-[#0a0a0a] border border-white/10 hover:border-brand-orange/30 transition-all"
+                className="relative p-6 rounded-2xl bg-white/[0.02] border border-white/10"
               >
-                {/* Decorative quote */}
-                <Quote className="absolute top-4 right-4 w-10 h-10 text-brand-orange/20" />
-
-                <div className="relative">
-                  <p className="text-gray-300 mb-6 italic leading-relaxed text-lg">
-                    "{testimonial.quote}"
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-brand-orange to-amber-500 flex items-center justify-center shadow-lg shadow-brand-orange/30">
-                      <span className="text-white font-bold text-lg">{testimonial.avatar}</span>
-                    </div>
-                    <div>
-                      <p className="text-white font-bold text-lg">{testimonial.name}</p>
-                      <p className="text-brand-orange text-sm">{testimonial.role}</p>
-                    </div>
+                <p className="text-gray-300 mb-6 italic leading-relaxed">
+                  "{testimonial.quote}"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-orange to-amber-500 flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">{testimonial.avatar}</span>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium text-sm">{testimonial.name}</p>
+                    <p className="text-brand-orange text-xs">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -1153,163 +1065,284 @@ const Parents30Page: React.FC = () => {
         </div>
       </section>
 
-      {/* Community Section - Orange theme */}
-      <section className="relative py-24 sm:py-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-orange/10 via-[#050505] to-[#050505]" />
-
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="relative p-10 sm:p-14 rounded-3xl bg-[#0a0a0a] border-2 border-brand-orange/40"
-          >
-            {/* Warm glow animation */}
-            <motion.div
-              className="absolute inset-0 rounded-3xl"
-              animate={{
-                boxShadow: [
-                  '0 0 30px rgba(255,107,0,0.2)',
-                  '0 0 60px rgba(255,107,0,0.4)',
-                  '0 0 30px rgba(255,107,0,0.2)',
-                ],
-              }}
-              transition={{ duration: 3, repeat: Infinity }}
-            />
-
-            <div className="relative">
-              <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
-              >
-                <Users className="w-20 h-20 text-brand-orange mx-auto mb-8" />
-              </motion.div>
-
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-black mb-6 text-white">
-                {landing?.community?.title}
-              </h2>
-              <p className="text-gray-300 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
-                {landing?.community?.desc}
-              </p>
-
-              {/* Features */}
-              <div className="flex flex-wrap justify-center gap-3 mb-10">
-                {landing?.community?.features?.map((feature: string, i: number) => (
-                  <span key={i} className="px-5 py-2.5 bg-brand-orange/10 border border-brand-orange/40 rounded-full text-brand-orange font-medium">
-                    {feature}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mb-10">
-                <CountdownTimer
-                  targetDate={targetDate}
-                  labels={{
-                    days: language === 'es' ? 'Días' : 'Days',
-                    hours: language === 'es' ? 'Horas' : 'Hours',
-                    minutes: language === 'es' ? 'Min' : 'Min',
-                    seconds: language === 'es' ? 'Seg' : 'Sec'
-                  }}
-                  variant="warm"
-                />
-              </div>
-
-              <motion.a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-10 py-5 bg-brand-orange text-black rounded-xl font-bold text-xl uppercase tracking-wider hover:shadow-[0_0_50px_rgba(255,107,0,0.5)] transition-all"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <MessageCircle className="w-6 h-6" />
-                {landing?.hero?.cta}
-              </motion.a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Final CTA Section - Orange theme */}
-      <section className="relative py-24 sm:py-32">
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-orange/20 via-[#050505] to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange" />
-
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* WHAT'S INCLUDED - Benefits */}
+      <section className="relative py-24 bg-gradient-to-b from-transparent via-brand-orange/5 to-transparent">
+        <div className="max-w-4xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="text-center mb-12"
           >
+            <h2 className="text-3xl font-display font-bold text-white mb-4">
+              {language === 'es' ? '¿Qué incluye?' : 'What\'s included?'}
+            </h2>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {landing?.benefits?.list?.map((benefit: any, index: number) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-start gap-4 p-5 rounded-xl bg-white/[0.02] border border-white/10"
+              >
+                <CheckCircle2 className="w-6 h-6 text-brand-orange flex-shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="text-white font-semibold mb-1">{benefit.title}</h3>
+                  <p className="text-gray-400 text-sm">{benefit.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROGRAM START COUNTDOWN - Premium Section */}
+      <section className="relative py-24 overflow-hidden">
+        {/* Background effects */}
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 60%)',
+            }}
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+
+        <div className="relative max-w-4xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            {/* Animated icon */}
             <motion.div
-              animate={{ scale: [1, 1.15, 1], rotate: [0, 5, -5, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="inline-flex items-center justify-center w-20 h-20 mb-8 relative"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
-              <Sparkles className="w-16 h-16 text-brand-orange mx-auto mb-8" />
+              {/* Pulsing background */}
+              <motion.div
+                className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-orange/30 to-amber-500/20"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 0.8, 0.5],
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              {/* Rotating ring */}
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-dashed border-brand-orange/40"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              />
+              {/* Icon */}
+              <svg viewBox="0 0 48 48" className="w-10 h-10 relative z-10" fill="none">
+                <motion.circle
+                  cx="24"
+                  cy="24"
+                  r="18"
+                  stroke="url(#calendarGradient)"
+                  strokeWidth="2.5"
+                  fill="none"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.5 }}
+                />
+                <motion.path
+                  d="M24 14V24L30 28"
+                  stroke="url(#calendarGradient)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                />
+                <motion.circle
+                  cx="24"
+                  cy="24"
+                  r="3"
+                  fill="url(#calendarGradient)"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 1.2 }}
+                />
+                <defs>
+                  <linearGradient id="calendarGradient" x1="6" y1="6" x2="42" y2="42">
+                    <stop stopColor="#FF6B00" />
+                    <stop offset="1" stopColor="#F59E0B" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </motion.div>
 
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black mb-6">
-              <span className="bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange bg-clip-text text-transparent">
-                {landing?.finalCta?.title}
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange text-sm font-semibold tracking-[0.2em] uppercase mb-4"
+            >
+              {language === 'es' ? '¡Próximamente!' : 'Coming Soon!'}
+            </motion.span>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black mb-6">
+              <span className="text-white">{language === 'es' ? 'El programa ' : 'The program '}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400">
+                {language === 'es' ? 'inicia en' : 'starts in'}
               </span>
             </h2>
-            <p className="text-xl text-gray-300 mb-10 max-w-xl mx-auto leading-relaxed">
-              {landing?.finalCta?.subtitle}
+
+            {/* Premium Countdown */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="mb-10"
+            >
+              <CountdownTimer
+                targetDate={programStartDate}
+                labels={{
+                  days: language === 'es' ? 'Días' : 'Days',
+                  hours: language === 'es' ? 'Horas' : 'Hours',
+                  minutes: 'Min',
+                  seconds: 'Seg'
+                }}
+                variant="warm"
+              />
+            </motion.div>
+
+            {/* Date display */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-brand-orange/10 to-amber-500/10 border border-brand-orange/20"
+            >
+              <Clock className="w-5 h-5 text-brand-orange" />
+              <span className="text-white font-medium">
+                {language === 'es' ? '20 de Enero, 2025' : 'January 20, 2025'}
+              </span>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="text-gray-400 mt-6 max-w-lg mx-auto"
+            >
+              {language === 'es'
+                ? 'Inscríbete ahora y asegura tu lugar en la próxima cohorte de transformación.'
+                : 'Sign up now and secure your spot in the next transformation cohort.'}
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* FINAL CTA - Clean and Focused */}
+      <section className="relative py-32">
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-orange/20 via-transparent to-transparent" />
+
+        <div className="relative max-w-3xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              <Sparkles className="w-12 h-12 text-brand-orange mx-auto mb-8" />
+            </motion.div>
+
+            <h2 className="text-4xl sm:text-5xl font-display font-black mb-6">
+              <span className="bg-gradient-to-r from-brand-orange to-amber-400 bg-clip-text text-transparent">
+                {language === 'es' ? '¿Listo para transformarte?' : 'Ready to transform?'}
+              </span>
+            </h2>
+
+            <p className="text-xl text-gray-300 mb-10 max-w-xl mx-auto">
+              {language === 'es'
+                ? 'Únete a cientos de padres que ya están viviendo una nueva relación con sus hijos.'
+                : 'Join hundreds of parents already living a new relationship with their children.'}
             </p>
+
+            <div className="mb-10">
+              <CountdownTimer
+                targetDate={targetDate}
+                labels={{
+                  days: language === 'es' ? 'Días' : 'Days',
+                  hours: language === 'es' ? 'Hrs' : 'Hrs',
+                  minutes: 'Min',
+                  seconds: 'Seg'
+                }}
+                variant="warm"
+              />
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center justify-center gap-3 px-12 py-6 bg-brand-orange text-black rounded-2xl font-black text-xl uppercase tracking-wider overflow-hidden"
-                whileHover={{ scale: 1.02, boxShadow: '0 0 60px rgba(255,107,0,0.6)' }}
+                className="group px-10 py-5 bg-brand-orange text-black rounded-xl font-bold text-lg flex items-center justify-center gap-3"
+                whileHover={{ scale: 1.02, boxShadow: '0 25px 50px -10px rgba(255,107,0,0.5)' }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="relative z-10 flex items-center gap-3">
-                  <Sparkles className="w-6 h-6" />
-                  {landing?.finalCta?.cta}
-                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-brand-orange translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <Sparkles className="w-5 h-5" />
+                {landing?.finalCta?.cta}
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </motion.a>
 
               <motion.a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 px-10 py-6 bg-white/5 border-2 border-white/20 rounded-2xl font-bold text-xl hover:bg-white/10 hover:border-brand-orange/40 transition-all"
+                className="px-10 py-5 border border-white/20 rounded-xl font-semibold text-lg flex items-center justify-center gap-3 hover:bg-white/5 transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <MessageCircle className="w-6 h-6 text-green-400" />
-                {landing?.finalCta?.whatsapp}
+                <MessageCircle className="w-5 h-5 text-green-400" />
+                WhatsApp
               </motion.a>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer - Orange theme */}
-      <footer className="relative py-12 border-t border-brand-orange/20 bg-[#050505]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* FOOTER - Minimal */}
+      <footer className="relative py-8 border-t border-white/5">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <a href="/" className="flex items-center gap-2">
-              <img src="/images/logo.png" alt="Starbiz Academy" className="h-8 w-auto" />
+              <img src="/images/logo.png" alt="Starbiz" className="h-6 w-auto opacity-60" />
             </a>
             <p className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} Starbiz Academy. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+              © {new Date().getFullYear()} Starbiz Academy
             </p>
-            <div className="flex items-center gap-4">
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-brand-orange/10 hover:bg-brand-orange/20 border border-brand-orange/30 transition-colors"
-              >
-                <MessageCircle className="w-5 h-5 text-brand-orange" />
-              </a>
-            </div>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full hover:bg-white/5 transition-colors"
+            >
+              <MessageCircle className="w-5 h-5 text-gray-500 hover:text-brand-orange transition-colors" />
+            </a>
           </div>
         </div>
       </footer>
