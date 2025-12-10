@@ -25,11 +25,12 @@ import {
   Shield,
   Zap,
   Home,
-  Play
+  Play,
+  Globe
 } from 'lucide-react';
 
 const Parents30Page: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t, language, toggleLanguage } = useLanguage();
   const [expandedTool, setExpandedTool] = useState<string | null>(null);
 
   const landing = t.parents30Landing;
@@ -67,6 +68,17 @@ const Parents30Page: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
       <Starfield />
+
+      {/* Language Toggle Button */}
+      <motion.button
+        onClick={toggleLanguage}
+        className="fixed top-4 right-4 z-50 flex items-center gap-2 px-4 py-2 bg-space-card/80 backdrop-blur-sm border border-white/10 rounded-full text-white hover:bg-brand-orange/20 hover:border-brand-orange/50 transition-all"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Globe className="w-4 h-4" />
+        <span className="text-sm font-medium">{language === 'es' ? 'EN' : 'ES'}</span>
+      </motion.button>
 
       {/* Warm floating particles - Orange theme */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
