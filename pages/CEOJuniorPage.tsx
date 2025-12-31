@@ -133,6 +133,8 @@ const CEOJuniorPage: React.FC = () => {
       : 'Hi, I\'m interested in CEO Junior 2026'
   )}`;
 
+  const skoolLink = 'https://www.skool.com/ceo-junior-7407/about?ref=c27bdd081ade4257aa88f0a4628d27f0';
+
   // Map icons for pain points
   const painPointIcons = [School, Compass, Globe, Briefcase];
 
@@ -281,6 +283,26 @@ const CEOJuniorPage: React.FC = () => {
                   <Rocket className="w-5 h-5" />
                   {landing?.hero?.cta}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </motion.a>
+
+                {/* Skool Community Button */}
+                <motion.a
+                  href={skoolLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group px-8 py-4 bg-gradient-to-r from-brand-cyan to-brand-purple text-white rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all relative overflow-hidden"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {/* Animated shine effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    animate={{ x: ['-100%', '200%'] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  />
+                  <Users className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">{language === 'es' ? 'Únete a la Comunidad' : 'Join Community'}</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
                 </motion.a>
               </motion.div>
 
@@ -1183,21 +1205,41 @@ const CEOJuniorPage: React.FC = () => {
                     </div>
                   </motion.div>
 
-                  <motion.a
-                    href={whatsappLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <MessageCircle className="w-5 h-5" />
-                    {language === 'es' ? 'Inscribirme Ahora' : 'Sign Up Now'}
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </motion.a>
+                  <div className="flex flex-col gap-3">
+                    <motion.a
+                      href={skoolLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-brand-cyan to-brand-purple text-white rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all relative overflow-hidden"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                        animate={{ x: ['-100%', '200%'] }}
+                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                      />
+                      <Users className="w-5 h-5 relative z-10" />
+                      <span className="relative z-10">{language === 'es' ? 'Unirme en Skool' : 'Join on Skool'}</span>
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                    </motion.a>
+
+                    <motion.a
+                      href={whatsappLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      {language === 'es' ? 'Inscribirme Ahora' : 'Sign Up Now'}
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </motion.a>
+                  </div>
 
                   <p className="text-gray-500 text-sm mt-4">
-                    {language === 'es' ? 'Pago seguro por WhatsApp' : 'Secure payment via WhatsApp'}
+                    {language === 'es' ? 'Únete a nuestra comunidad exclusiva' : 'Join our exclusive community'}
                   </p>
                 </div>
               </div>
@@ -1364,7 +1406,7 @@ const CEOJuniorPage: React.FC = () => {
               {landing?.finalCta?.subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
               <motion.a
                 href={whatsappLink}
                 target="_blank"
@@ -1376,6 +1418,25 @@ const CEOJuniorPage: React.FC = () => {
                 <Rocket className="w-6 h-6" />
                 {landing?.finalCta?.cta}
                 <ArrowRight className="w-6 h-6" />
+              </motion.a>
+
+              {/* Skool Community Button */}
+              <motion.a
+                href={skoolLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-brand-cyan to-brand-purple text-white rounded-2xl font-bold text-xl hover:shadow-[0_0_60px_rgba(0,240,255,0.4)] transition-all relative overflow-hidden"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                />
+                <Users className="w-6 h-6 relative z-10" />
+                <span className="relative z-10">{language === 'es' ? 'Comunidad Skool' : 'Skool Community'}</span>
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform relative z-10" />
               </motion.a>
 
               <motion.a
