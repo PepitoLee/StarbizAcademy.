@@ -177,7 +177,7 @@ const CEOJuniorPage: React.FC = () => {
     }
   };
 
-  // Show controls on hover
+  // Show controls on hover/touch
   const handleVideoMouseEnter = () => {
     if (isVideoPlaying) {
       setShowVideoControls(true);
@@ -187,6 +187,28 @@ const CEOJuniorPage: React.FC = () => {
       controlsTimeoutRef.current = setTimeout(() => {
         setShowVideoControls(false);
       }, 3000);
+    }
+  };
+
+  // Handle tap on video container (for mobile)
+  const handleVideoTap = (e: React.MouseEvent | React.TouchEvent) => {
+    // Prevent if clicking on controls
+    const target = e.target as HTMLElement;
+    if (target.closest('button')) return;
+
+    if (isVideoPlaying) {
+      // Toggle controls visibility on tap
+      if (showVideoControls) {
+        setShowVideoControls(false);
+        if (controlsTimeoutRef.current) {
+          clearTimeout(controlsTimeoutRef.current);
+        }
+      } else {
+        setShowVideoControls(true);
+        controlsTimeoutRef.current = setTimeout(() => {
+          setShowVideoControls(false);
+        }, 3000);
+      }
     }
   };
 
@@ -320,12 +342,30 @@ const CEOJuniorPage: React.FC = () => {
                 ))}
               </motion.div>
 
-              {/* CTA */}
+              {/* VIDEO - MOBILE ONLY (appears here instead of CTAs) */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
+                className="lg:hidden mb-8 relative"
+              >
+                <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black shadow-[0_0_40px_rgba(0,240,255,0.2)] border border-brand-cyan/30">
+                  <video
+                    className="w-full h-full object-cover"
+                    src="/videos/ceo-junior-hero.mp4"
+                    poster="/images/ceo-junior-poster.jpg"
+                    controls
+                    playsInline
+                  />
+                </div>
+              </motion.div>
+
+              {/* CTA - DESKTOP ONLY */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10"
+                className="hidden lg:flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10"
               >
                 <motion.a
                   href={whatsappLink}
@@ -381,6 +421,47 @@ const CEOJuniorPage: React.FC = () => {
                   variant="tech"
                 />
               </motion.div>
+
+              {/* CTA - MOBILE ONLY (appears after countdown) */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="lg:hidden flex flex-col sm:flex-row gap-4 justify-center mt-8"
+              >
+                <motion.a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Rocket className="w-5 h-5" />
+                  {landing?.hero?.cta}
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </motion.a>
+
+                {/* Skool Community Button */}
+                <motion.a
+                  href={skoolLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group px-8 py-4 bg-gradient-to-r from-brand-cyan to-brand-purple text-white rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all relative overflow-hidden"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {/* Animated shine effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    animate={{ x: ['-100%', '200%'] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  />
+                  <Users className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">{language === 'es' ? 'Únete a la Comunidad' : 'Join Community'}</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                </motion.a>
+              </motion.div>
             </div>
 
             {/* Right visual - Creative Video Player */}
@@ -388,7 +469,7 @@ const CEOJuniorPage: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="relative"
+              className="hidden lg:block relative"
             >
               {/* Animated orbital rings */}
               <motion.div
@@ -480,17 +561,25 @@ const CEOJuniorPage: React.FC = () => {
                   </motion.div>
                 )}
 
+                {/* Tap overlay to show/hide controls (mobile) */}
+                {isVideoPlaying && (
+                  <div
+                    className="absolute inset-0 z-20"
+                    onClick={handleVideoTap}
+                  />
+                )}
+
                 {/* Video controls */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{
                     opacity: showVideoControls ? 1 : 0,
-                    y: showVideoControls ? 0 : 20
+                    y: showVideoControls ? 0 : 20,
+                    pointerEvents: showVideoControls ? 'auto' : 'none'
                   }}
                   transition={{ duration: 0.3 }}
-                  className="absolute bottom-0 left-0 right-0 p-4 z-20 pointer-events-none"
+                  className="absolute bottom-0 left-0 right-0 p-4 z-30"
                 >
-                  <div className="pointer-events-auto">
                   {/* Progress bar */}
                   <div className="w-full h-1 bg-white/20 rounded-full mb-3 overflow-hidden cursor-pointer">
                     <motion.div
@@ -503,48 +592,44 @@ const CEOJuniorPage: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     {/* Left controls */}
-                    <div className="flex items-center gap-3">
-                      <motion.button
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <button
+                        type="button"
                         onClick={toggleHeroVideo}
-                        className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        className="w-12 h-12 sm:w-10 sm:h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center hover:bg-white/30 active:bg-white/40 transition-all active:scale-90 touch-manipulation"
                       >
                         {isVideoPlaying ? (
-                          <Pause className="w-5 h-5 text-white" />
+                          <Pause className="w-6 h-6 sm:w-5 sm:h-5 text-white" />
                         ) : (
-                          <Play className="w-5 h-5 text-white" fill="currentColor" />
+                          <Play className="w-6 h-6 sm:w-5 sm:h-5 text-white" fill="currentColor" />
                         )}
-                      </motion.button>
+                      </button>
 
-                      <motion.button
+                      <button
+                        type="button"
                         onClick={toggleHeroVideoMute}
-                        className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        className="w-12 h-12 sm:w-10 sm:h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center hover:bg-white/30 active:bg-white/40 transition-all active:scale-90 touch-manipulation"
                       >
                         {isVideoMuted ? (
-                          <VolumeX className="w-5 h-5 text-white" />
+                          <VolumeX className="w-6 h-6 sm:w-5 sm:h-5 text-white" />
                         ) : (
-                          <Volume2 className="w-5 h-5 text-white" />
+                          <Volume2 className="w-6 h-6 sm:w-5 sm:h-5 text-white" />
                         )}
-                      </motion.button>
+                      </button>
 
-                      {/* Time display */}
-                      <span className="text-white/70 text-sm font-mono">
+                      {/* Time display - hidden on mobile */}
+                      <span className="hidden sm:block text-white/70 text-sm font-mono">
                         {language === 'es' ? 'Video oficial' : 'Official video'}
                       </span>
                     </div>
 
                     {/* Right controls */}
-                    <motion.button
-                      className="w-10 h-10 rounded-full bg-gradient-to-r from-brand-cyan/80 to-brand-purple/80 backdrop-blur-md flex items-center justify-center hover:from-brand-cyan hover:to-brand-purple transition-all"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                    <button
+                      type="button"
+                      className="w-12 h-12 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-brand-cyan/80 to-brand-purple/80 backdrop-blur-md flex items-center justify-center hover:from-brand-cyan hover:to-brand-purple active:opacity-80 transition-all active:scale-90 touch-manipulation"
                     >
-                      <Maximize className="w-5 h-5 text-white" />
-                    </motion.button>
-                  </div>
+                      <Maximize className="w-6 h-6 sm:w-5 sm:h-5 text-white" />
+                    </button>
                   </div>
                 </motion.div>
 
@@ -569,7 +654,7 @@ const CEOJuniorPage: React.FC = () => {
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
                 />
-              </div>
+              </motion.div>
 
               {/* Floating stats */}
               <motion.div
