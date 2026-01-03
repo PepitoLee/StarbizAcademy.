@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import CountdownTimer from '../components/landing/CountdownTimer';
@@ -16,6 +16,10 @@ import {
   Plane,
   MessageCircle,
   Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Maximize,
   Star,
   Sparkles,
   ArrowRight,
@@ -42,6 +46,11 @@ const CEOJuniorPage: React.FC = () => {
   const [historySlide, setHistorySlide] = useState(0);
   const [historyVideoModal, setHistoryVideoModal] = useState<string | null>(null);
   const [historyImageModal, setHistoryImageModal] = useState<string | null>(null);
+
+  // Hero video controls
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   const landing = t.ceoJuniorLanding;
 
@@ -134,6 +143,25 @@ const CEOJuniorPage: React.FC = () => {
   )}`;
 
   const skoolLink = 'https://www.skool.com/ceo-junior-7407/about?ref=c27bdd081ade4257aa88f0a4628d27f0';
+
+  // Hero video controls
+  const toggleHeroVideo = () => {
+    if (heroVideoRef.current) {
+      if (isVideoPlaying) {
+        heroVideoRef.current.pause();
+      } else {
+        heroVideoRef.current.play();
+      }
+      setIsVideoPlaying(!isVideoPlaying);
+    }
+  };
+
+  const toggleHeroVideoMute = () => {
+    if (heroVideoRef.current) {
+      heroVideoRef.current.muted = !isVideoMuted;
+      setIsVideoMuted(!isVideoMuted);
+    }
+  };
 
   // Map icons for pain points
   const painPointIcons = [School, Compass, Globe, Briefcase];
@@ -328,66 +356,196 @@ const CEOJuniorPage: React.FC = () => {
               </motion.div>
             </div>
 
-            {/* Right visual */}
+            {/* Right visual - Creative Video Player */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="relative hidden lg:block"
+              className="relative"
             >
-              <div className="relative w-full aspect-square max-w-lg mx-auto">
-                {/* Orbital rings */}
-                <motion.div
-                  className="absolute inset-0 border-2 border-brand-cyan/20 rounded-full"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                />
-                <motion.div
-                  className="absolute inset-8 border-2 border-brand-purple/20 rounded-full"
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                />
-                <motion.div
-                  className="absolute inset-16 border-2 border-brand-orange/20 rounded-full"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              {/* Animated orbital rings */}
+              <motion.div
+                className="absolute -inset-8 border-2 border-brand-cyan/30 rounded-full"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.div
+                className="absolute -inset-4 border-2 border-brand-purple/30 rounded-full"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              />
+
+              {/* Video container */}
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black shadow-[0_0_60px_rgba(0,240,255,0.2)] border border-brand-cyan/30">
+                {/* Gradient overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 pointer-events-none z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/10 to-brand-purple/10 pointer-events-none z-10" />
+
+                {/* Video element */}
+                <video
+                  ref={heroVideoRef}
+                  className="w-full h-full object-cover"
+                  src="/videos/ceo-junior-hero.mp4"
+                  muted={isVideoMuted}
+                  loop
+                  playsInline
+                  onPlay={() => setIsVideoPlaying(true)}
+                  onPause={() => setIsVideoPlaying(false)}
                 />
 
-                {/* Central element */}
-                <div className="absolute inset-0 flex items-center justify-center">
+                {/* Play button overlay */}
+                {!isVideoPlaying && (
                   <motion.div
-                    className="relative"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute inset-0 flex items-center justify-center cursor-pointer z-20"
+                    onClick={toggleHeroVideo}
                   >
-                    <div className="absolute inset-0 bg-brand-cyan/30 blur-3xl rounded-full scale-150" />
-                    <div className="relative w-32 h-32 flex items-center justify-center bg-gradient-to-br from-brand-cyan/20 to-brand-purple/20 rounded-3xl border border-brand-cyan/30 backdrop-blur-sm">
-                      <Rocket className="w-16 h-16 text-brand-cyan" />
-                    </div>
+                    {/* Pulsing rings */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      animate={{ scale: [1, 1.5, 1], opacity: [0.6, 0, 0.6] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <div className="w-32 h-32 rounded-full bg-brand-cyan/30" />
+                    </motion.div>
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      animate={{ scale: [1, 1.8, 1], opacity: [0.4, 0, 0.4] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                    >
+                      <div className="w-24 h-24 rounded-full bg-brand-purple/30" />
+                    </motion.div>
+
+                    {/* Main play button */}
+                    <motion.div
+                      className="relative w-20 h-20 rounded-full bg-gradient-to-br from-brand-cyan to-brand-purple flex items-center justify-center shadow-[0_0_40px_rgba(0,240,255,0.5)]"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Play className="w-10 h-10 text-white ml-1" fill="currentColor" />
+                    </motion.div>
+
+                    {/* Floating "Ver video" text */}
+                    <motion.div
+                      className="absolute bottom-8 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-black/50 backdrop-blur-sm border border-white/20"
+                      animate={{ y: [0, 5, 0], opacity: [0.7, 1, 0.7] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <span className="text-white text-sm font-medium">
+                        {language === 'es' ? 'Ver video' : 'Watch video'}
+                      </span>
+                    </motion.div>
                   </motion.div>
-                </div>
+                )}
 
-                {/* Corner stats */}
+                {/* Video controls */}
                 <motion.div
-                  className="absolute top-0 right-0 px-4 py-2 bg-space-card/80 backdrop-blur-sm rounded-xl border border-brand-cyan/20"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.8 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: isVideoPlaying ? 1 : 0, y: isVideoPlaying ? 0 : 20 }}
+                  className="absolute bottom-0 left-0 right-0 p-4 z-20"
                 >
-                  <p className="text-brand-cyan text-2xl font-bold">10-18</p>
-                  <p className="text-gray-400 text-xs">{language === 'es' ? 'años' : 'years'}</p>
+                  {/* Progress bar */}
+                  <div className="w-full h-1 bg-white/20 rounded-full mb-3 overflow-hidden cursor-pointer">
+                    <motion.div
+                      className="h-full bg-gradient-to-r from-brand-cyan to-brand-purple rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    {/* Left controls */}
+                    <div className="flex items-center gap-3">
+                      <motion.button
+                        onClick={toggleHeroVideo}
+                        className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {isVideoPlaying ? (
+                          <Pause className="w-5 h-5 text-white" />
+                        ) : (
+                          <Play className="w-5 h-5 text-white" fill="currentColor" />
+                        )}
+                      </motion.button>
+
+                      <motion.button
+                        onClick={toggleHeroVideoMute}
+                        className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {isVideoMuted ? (
+                          <VolumeX className="w-5 h-5 text-white" />
+                        ) : (
+                          <Volume2 className="w-5 h-5 text-white" />
+                        )}
+                      </motion.button>
+
+                      {/* Time display */}
+                      <span className="text-white/70 text-sm font-mono">
+                        {language === 'es' ? 'Video oficial' : 'Official video'}
+                      </span>
+                    </div>
+
+                    {/* Right controls */}
+                    <motion.button
+                      className="w-10 h-10 rounded-full bg-gradient-to-r from-brand-cyan/80 to-brand-purple/80 backdrop-blur-md flex items-center justify-center hover:from-brand-cyan hover:to-brand-purple transition-all"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Maximize className="w-5 h-5 text-white" />
+                    </motion.button>
+                  </div>
                 </motion.div>
 
+                {/* Corner decorations */}
                 <motion.div
-                  className="absolute bottom-0 left-0 px-4 py-2 bg-space-card/80 backdrop-blur-sm rounded-xl border border-brand-purple/20"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.9 }}
-                >
-                  <p className="text-brand-purple text-2xl font-bold">4</p>
-                  <p className="text-gray-400 text-xs">{language === 'es' ? 'módulos' : 'modules'}</p>
-                </motion.div>
+                  className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-brand-cyan/50 rounded-tl-xl"
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+                <motion.div
+                  className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-brand-purple/50 rounded-tr-xl"
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+                />
+                <motion.div
+                  className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-brand-orange/50 rounded-bl-xl"
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: 2 }}
+                />
+                <motion.div
+                  className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-brand-cyan/50 rounded-br-xl"
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                />
               </div>
+
+              {/* Floating stats */}
+              <motion.div
+                className="absolute -top-6 -right-6 px-4 py-3 bg-space-card/90 backdrop-blur-sm rounded-xl border border-brand-cyan/30 shadow-[0_0_30px_rgba(0,240,255,0.3)]"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+              >
+                <div className="flex items-center gap-2">
+                  <Users className="w-5 h-5 text-brand-cyan" />
+                  <span className="text-white font-bold">500+</span>
+                </div>
+                <p className="text-gray-400 text-xs">{language === 'es' ? 'Estudiantes' : 'Students'}</p>
+              </motion.div>
+
+              <motion.div
+                className="absolute -bottom-4 -left-6 px-4 py-3 bg-space-card/90 backdrop-blur-sm rounded-xl border border-brand-purple/30 shadow-[0_0_30px_rgba(112,0,255,0.3)]"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+              >
+                <div className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-brand-purple" />
+                  <span className="text-white font-bold">4.9</span>
+                </div>
+                <p className="text-gray-400 text-xs">{language === 'es' ? 'Rating' : 'Rating'}</p>
+              </motion.div>
             </motion.div>
           </div>
         </div>
