@@ -49,8 +49,10 @@ const CEOJuniorPage: React.FC = () => {
 
   // Hero video controls
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [isVideoMuted, setIsVideoMuted] = useState(true);
+  const [isVideoMuted, setIsVideoMuted] = useState(false);
+  const [showVideoControls, setShowVideoControls] = useState(true);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const landing = t.ceoJuniorLanding;
 
@@ -149,10 +151,22 @@ const CEOJuniorPage: React.FC = () => {
     if (heroVideoRef.current) {
       if (isVideoPlaying) {
         heroVideoRef.current.pause();
+        setIsVideoPlaying(false);
+        setShowVideoControls(true);
+        if (controlsTimeoutRef.current) {
+          clearTimeout(controlsTimeoutRef.current);
+        }
       } else {
         heroVideoRef.current.play();
+        setIsVideoPlaying(true);
+        setIsVideoMuted(false);
+        heroVideoRef.current.muted = false;
+
+        // Hide controls after 3 seconds
+        controlsTimeoutRef.current = setTimeout(() => {
+          setShowVideoControls(false);
+        }, 3000);
       }
-      setIsVideoPlaying(!isVideoPlaying);
     }
   };
 
@@ -160,6 +174,19 @@ const CEOJuniorPage: React.FC = () => {
     if (heroVideoRef.current) {
       heroVideoRef.current.muted = !isVideoMuted;
       setIsVideoMuted(!isVideoMuted);
+    }
+  };
+
+  // Show controls on hover
+  const handleVideoMouseEnter = () => {
+    if (isVideoPlaying) {
+      setShowVideoControls(true);
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+      controlsTimeoutRef.current = setTimeout(() => {
+        setShowVideoControls(false);
+      }, 3000);
     }
   };
 
@@ -376,7 +403,17 @@ const CEOJuniorPage: React.FC = () => {
               />
 
               {/* Video container */}
-              <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black shadow-[0_0_60px_rgba(0,240,255,0.2)] border border-brand-cyan/30">
+              <motion.div
+                className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black shadow-[0_0_60px_rgba(0,240,255,0.2)] border border-brand-cyan/30"
+                onMouseEnter={handleVideoMouseEnter}
+                onMouseLeave={() => {
+                  if (isVideoPlaying) {
+                    setShowVideoControls(false);
+                  }
+                }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
                 {/* Gradient overlays */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 pointer-events-none z-10" />
                 <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/10 to-brand-purple/10 pointer-events-none z-10" />
@@ -386,11 +423,17 @@ const CEOJuniorPage: React.FC = () => {
                   ref={heroVideoRef}
                   className="w-full h-full object-cover"
                   src="/videos/ceo-junior-hero.mp4"
-                  muted={isVideoMuted}
                   loop
                   playsInline
-                  onPlay={() => setIsVideoPlaying(true)}
-                  onPause={() => setIsVideoPlaying(false)}
+                  onPlay={() => {
+                    setIsVideoPlaying(true);
+                    setIsVideoMuted(false);
+                  }}
+                  onPause={() => {
+                    setIsVideoPlaying(false);
+                    setShowVideoControls(true);
+                  }}
+                  onMouseEnter={handleVideoMouseEnter}
                 />
 
                 {/* Play button overlay */}
@@ -440,9 +483,14 @@ const CEOJuniorPage: React.FC = () => {
                 {/* Video controls */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: isVideoPlaying ? 1 : 0, y: isVideoPlaying ? 0 : 20 }}
-                  className="absolute bottom-0 left-0 right-0 p-4 z-20"
+                  animate={{
+                    opacity: showVideoControls ? 1 : 0,
+                    y: showVideoControls ? 0 : 20
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute bottom-0 left-0 right-0 p-4 z-20 pointer-events-none"
                 >
+                  <div className="pointer-events-auto">
                   {/* Progress bar */}
                   <div className="w-full h-1 bg-white/20 rounded-full mb-3 overflow-hidden cursor-pointer">
                     <motion.div
@@ -496,6 +544,7 @@ const CEOJuniorPage: React.FC = () => {
                     >
                       <Maximize className="w-5 h-5 text-white" />
                     </motion.button>
+                  </div>
                   </div>
                 </motion.div>
 
