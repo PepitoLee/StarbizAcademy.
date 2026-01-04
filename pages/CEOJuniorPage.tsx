@@ -1661,7 +1661,7 @@ const CEOJuniorPage: React.FC = () => {
                 whileTap={{ scale: 0.98 }}
               >
                 <MessageCircle className="w-5 h-5 text-green-400" />
-                {landing?.finalCta?.whatsapp}
+                {language === 'es' ? 'Hablar con un asesor' : 'Talk to an advisor'}
               </motion.a>
             </div>
           </motion.div>
