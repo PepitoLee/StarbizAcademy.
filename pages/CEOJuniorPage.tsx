@@ -262,15 +262,15 @@ const CEOJuniorPage: React.FC = () => {
               </motion.button>
 
               <motion.a
-                href={whatsappLink}
+                href={communityLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2 bg-brand-orange text-black rounded-full text-sm font-bold flex items-center gap-2 hover:shadow-[0_0_20px_rgba(255,107,0,0.5)] transition-shadow"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <MessageCircle className="w-4 h-4" />
-                {landing?.hero?.cta || 'Reservar'}
+                <Rocket className="w-4 h-4" />
+                {language === 'es' ? 'Únete ahora' : 'Join now'}
               </motion.a>
             </div>
           </div>
@@ -365,10 +365,10 @@ const CEOJuniorPage: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="hidden lg:flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10"
+                className="hidden lg:flex justify-center lg:justify-start mb-10"
               >
                 <motion.a
-                  href={whatsappLink}
+                  href={communityLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
@@ -376,28 +376,8 @@ const CEOJuniorPage: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                 >
                   <Rocket className="w-5 h-5" />
-                  {landing?.hero?.cta}
+                  {language === 'es' ? 'Únete ahora' : 'Join now'}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </motion.a>
-
-                {/* Community Button */}
-                <motion.a
-                  href={communityLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group px-8 py-4 bg-gradient-to-r from-brand-cyan to-brand-purple text-white rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all relative overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {/* Animated shine effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                    animate={{ x: ['-100%', '200%'] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                  />
-                  <Users className="w-5 h-5 relative z-10" />
-                  <span className="relative z-10">{language === 'es' ? 'Únete a la Comunidad' : 'Join Community'}</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
                 </motion.a>
               </motion.div>
 
@@ -427,10 +407,10 @@ const CEOJuniorPage: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="lg:hidden flex flex-col sm:flex-row gap-4 justify-center mt-8"
+                className="lg:hidden flex justify-center mt-8"
               >
                 <motion.a
-                  href={whatsappLink}
+                  href={communityLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
@@ -438,28 +418,8 @@ const CEOJuniorPage: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                 >
                   <Rocket className="w-5 h-5" />
-                  {landing?.hero?.cta}
+                  {language === 'es' ? 'Únete ahora' : 'Join now'}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </motion.a>
-
-                {/* Community Button */}
-                <motion.a
-                  href={communityLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group px-8 py-4 bg-gradient-to-r from-brand-cyan to-brand-purple text-white rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all relative overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {/* Animated shine effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                    animate={{ x: ['-100%', '200%'] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                  />
-                  <Users className="w-5 h-5 relative z-10" />
-                  <span className="relative z-10">{language === 'es' ? 'Únete a la Comunidad' : 'Join Community'}</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
                 </motion.a>
               </motion.div>
             </div>
@@ -994,7 +954,7 @@ const CEOJuniorPage: React.FC = () => {
             className="text-center mt-12"
           >
             <motion.a
-              href={whatsappLink}
+              href={communityLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
@@ -1002,7 +962,7 @@ const CEOJuniorPage: React.FC = () => {
               whileTap={{ scale: 0.98 }}
             >
               <Rocket className="w-5 h-5" />
-              {language === 'es' ? 'Quiero ser parte del programa' : 'I want to be part of the program'}
+              {language === 'es' ? 'Únete ahora' : 'Join now'}
               <ArrowRight className="w-5 h-5" />
             </motion.a>
           </motion.div>
@@ -1409,7 +1369,7 @@ const CEOJuniorPage: React.FC = () => {
             </span>
             <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
               <span className="text-white">
-                {language === 'es' ? 'Únete a la Comunidad' : 'Join the Community'}
+                {language === 'es' ? 'Transforma tu Futuro' : 'Transform Your Future'}
               </span>
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
@@ -1497,41 +1457,21 @@ const CEOJuniorPage: React.FC = () => {
                     </div>
                   </motion.div>
 
-                  <div className="flex flex-col gap-3">
-                    <motion.a
-                      href={communityLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-brand-cyan to-brand-purple text-white rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all relative overflow-hidden"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                        animate={{ x: ['-100%', '200%'] }}
-                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                      />
-                      <Users className="w-5 h-5 relative z-10" />
-                      <span className="relative z-10">{language === 'es' ? 'Registrarme' : 'Register'}</span>
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
-                    </motion.a>
-
-                    <motion.a
-                      href={whatsappLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <MessageCircle className="w-5 h-5" />
-                      {language === 'es' ? 'Inscribirme Ahora' : 'Sign Up Now'}
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </motion.a>
-                  </div>
+                  <motion.a
+                    href={communityLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Rocket className="w-5 h-5" />
+                    {language === 'es' ? 'Únete ahora' : 'Join now'}
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </motion.a>
 
                   <p className="text-gray-500 text-sm mt-4">
-                    {language === 'es' ? 'Únete a nuestra comunidad exclusiva' : 'Join our exclusive community'}
+                    {language === 'es' ? 'Comienza tu transformación hoy' : 'Start your transformation today'}
                   </p>
                 </div>
               </div>
@@ -1604,15 +1544,15 @@ const CEOJuniorPage: React.FC = () => {
               </div>
 
               <motion.a
-                href={whatsappLink}
+                href={communityLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange text-black rounded-xl font-bold text-lg hover:shadow-[0_0_40px_rgba(255,107,0,0.5)] transition-all"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <MessageCircle className="w-5 h-5" />
-                {landing?.urgency?.cta}
+                <Rocket className="w-5 h-5" />
+                {language === 'es' ? 'Únete ahora' : 'Join now'}
               </motion.a>
 
               <p className="text-gray-500 text-sm mt-4">{landing?.urgency?.guarantee}</p>
@@ -1698,9 +1638,9 @@ const CEOJuniorPage: React.FC = () => {
               {landing?.finalCta?.subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
-                href={whatsappLink}
+                href={communityLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-black rounded-2xl font-bold text-xl hover:shadow-[0_0_60px_rgba(255,107,0,0.5)] transition-all"
@@ -1708,27 +1648,8 @@ const CEOJuniorPage: React.FC = () => {
                 whileTap={{ scale: 0.98 }}
               >
                 <Rocket className="w-6 h-6" />
-                {landing?.finalCta?.cta}
+                {language === 'es' ? 'Únete ahora' : 'Join now'}
                 <ArrowRight className="w-6 h-6" />
-              </motion.a>
-
-              {/* Community Button */}
-              <motion.a
-                href={communityLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-brand-cyan to-brand-purple text-white rounded-2xl font-bold text-xl hover:shadow-[0_0_60px_rgba(0,240,255,0.4)] transition-all relative overflow-hidden"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  animate={{ x: ['-100%', '200%'] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                />
-                <Users className="w-6 h-6 relative z-10" />
-                <span className="relative z-10">{language === 'es' ? 'Únete a StarEduca' : 'Join StarEduca'}</span>
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform relative z-10" />
               </motion.a>
 
               <motion.a
